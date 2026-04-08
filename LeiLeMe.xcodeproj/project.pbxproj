@@ -19,6 +19,8 @@
 		AA000013 /* ReactionTimeResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA100013 /* ReactionTimeResult.swift */; };
 		AA000014 /* SubjectiveAssessment.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA100014 /* SubjectiveAssessment.swift */; };
 		AA000015 /* BaselineEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA100015 /* BaselineEngine.swift */; };
+		AA000016 /* ReactionTimeEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA100016 /* ReactionTimeEngine.swift */; };
+		AA000017 /* ReactionTimeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA100017 /* ReactionTimeView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,6 +39,8 @@
 		AA100013 /* ReactionTimeResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReactionTimeResult.swift; sourceTree = "<group>"; };
 		AA100014 /* SubjectiveAssessment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubjectiveAssessment.swift; sourceTree = "<group>"; };
 		AA100015 /* BaselineEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaselineEngine.swift; sourceTree = "<group>"; };
+		AA100016 /* ReactionTimeEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReactionTimeEngine.swift; sourceTree = "<group>"; };
+		AA100017 /* ReactionTimeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReactionTimeView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,6 +83,7 @@
 				AA100003 /* AssessmentTab.swift */,
 				AA100004 /* HistoryTab.swift */,
 				AA100005 /* SettingsTab.swift */,
+				AA100017 /* ReactionTimeView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -99,6 +104,7 @@
 			isa = PBXGroup;
 			children = (
 				AA100015 /* BaselineEngine.swift */,
+				AA100016 /* ReactionTimeEngine.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -191,6 +197,8 @@
 				AA000013 /* ReactionTimeResult.swift in Sources */,
 				AA000014 /* SubjectiveAssessment.swift in Sources */,
 				AA000015 /* BaselineEngine.swift in Sources */,
+				AA000016 /* ReactionTimeEngine.swift in Sources */,
+				AA000017 /* ReactionTimeView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
