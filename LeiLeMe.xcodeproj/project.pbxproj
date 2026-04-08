@@ -27,6 +27,7 @@
 		AA000021 /* SubjectiveAssessmentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA100021 /* SubjectiveAssessmentView.swift */; };
 		AA000022 /* ResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA100022 /* ResultView.swift */; };
 		AA000023 /* DimensionRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA100023 /* DimensionRow.swift */; };
+		AA000024 /* AssessmentFlowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA100024 /* AssessmentFlowView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -53,6 +54,7 @@
 		AA100021 /* SubjectiveAssessmentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubjectiveAssessmentView.swift; sourceTree = "<group>"; };
 		AA100022 /* ResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultView.swift; sourceTree = "<group>"; };
 		AA100023 /* DimensionRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DimensionRow.swift; sourceTree = "<group>"; };
+		AA100024 /* AssessmentFlowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssessmentFlowView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -139,6 +141,7 @@
 			isa = PBXGroup;
 			children = (
 				AA100021 /* SubjectiveAssessmentView.swift */,
+				AA100024 /* AssessmentFlowView.swift */,
 			);
 			path = Assessment;
 			sourceTree = "<group>";
@@ -231,6 +234,7 @@
 				AA000021 /* SubjectiveAssessmentView.swift in Sources */,
 				AA000022 /* ResultView.swift in Sources */,
 				AA000023 /* DimensionRow.swift in Sources */,
+				AA000024 /* AssessmentFlowView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
