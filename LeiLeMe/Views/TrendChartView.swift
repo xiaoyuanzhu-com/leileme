@@ -28,6 +28,11 @@ struct TrendChartView: View {
             .sorted { $0.date < $1.date }
     }
 
+    /// True when we have fewer than 7 days of data total (baseline still building)
+    private var isBaselineBuilding: Bool {
+        assessments.count < 7
+    }
+
     var body: some View {
         VStack(spacing: 12) {
             Picker("Time Range", selection: $selectedRange) {
@@ -44,6 +49,18 @@ struct TrendChartView: View {
                     .foregroundStyle(.secondary)
                     .frame(height: 100)
             } else {
+                // Early data notice when baseline is still building
+                if isBaselineBuilding {
+                    HStack(spacing: 6) {
+                        Image(systemName: "info.circle")
+                            .font(.caption)
+                        Text("Collecting data \u{2014} baseline comparisons unlock after 7 days")
+                            .font(.caption)
+                    }
+                    .foregroundStyle(.secondary)
+                    .padding(.horizontal)
+                }
+
                 VStack(spacing: 16) {
                     chartSection(
                         title: "Tap Frequency",
@@ -120,7 +137,7 @@ struct TrendChartView: View {
                         y: .value(title, point.value)
                     )
                     .foregroundStyle(color)
-                    .symbolSize(20)
+                    .symbolSize(dataPoints.count < 4 ? 40 : 20)
                 }
                 .chartXAxis {
                     AxisMarks(values: .stride(by: .day, count: selectedRange == .sevenDays ? 1 : 5)) { _ in
@@ -136,6 +153,14 @@ struct TrendChartView: View {
                 }
                 .frame(height: 120)
                 .padding(.horizontal)
+
+                // Show point count hint for sparse data
+                if dataPoints.count < 3 {
+                    Text("\(dataPoints.count) data point\(dataPoints.count == 1 ? "" : "s") so far")
+                        .font(.caption2)
+                        .foregroundStyle(.tertiary)
+                        .padding(.horizontal)
+                }
             }
         }
     }

@@ -4,8 +4,21 @@ struct ResultView: View {
     let assessment: DailyAssessment
     let baseline: BaselineEngine.BaselineSnapshot
 
+    @State private var showBaselineInfo = false
+
+    private var isBaselineBuilding: Bool {
+        baseline.dayCount > 0 && baseline.dayCount < 7
+    }
+
     var body: some View {
         List {
+            // Baseline progress banner during bootstrap period
+            if isBaselineBuilding {
+                Section {
+                    BaselineProgressCard(dayCount: baseline.dayCount, showInfo: $showBaselineInfo)
+                }
+            }
+
             // HealthKit section
             Section {
                 DimensionRow(
@@ -128,6 +141,9 @@ struct ResultView: View {
         }
         .navigationTitle("Results")
         .navigationBarTitleDisplayMode(.large)
+        .sheet(isPresented: $showBaselineInfo) {
+            BaselineInfoSheet()
+        }
     }
 
     // MARK: - Computed
@@ -135,6 +151,119 @@ struct ResultView: View {
     private var tapFrequencyToday: Double? {
         guard let tap = assessment.tapTestResult else { return nil }
         return (tap.round1Frequency + tap.round2Frequency) / 2.0
+    }
+}
+
+// MARK: - Baseline Progress Card
+
+private struct BaselineProgressCard: View {
+    let dayCount: Int
+    @Binding var showInfo: Bool
+
+    private var progress: Double {
+        Double(dayCount) / 7.0
+    }
+
+    private var encouragingMessage: String {
+        switch dayCount {
+        case 1: return "Great start! Your personal baseline is forming."
+        case 2: return "Nice consistency! Keep the daily check-ins going."
+        case 3: return "Almost halfway there. Patterns are emerging!"
+        case 4: return "Over the halfway mark. Your data is getting richer."
+        case 5: return "Strong streak! Two more days to a full baseline."
+        case 6: return "Tomorrow your baseline will be complete!"
+        default: return "Your personal baseline is forming."
+        }
+    }
+
+    var body: some View {
+        HStack(spacing: 16) {
+            // Circular progress ring
+            ZStack {
+                Circle()
+                    .stroke(Color(.systemGray5), lineWidth: 5)
+                Circle()
+                    .trim(from: 0, to: progress)
+                    .stroke(Color.accentColor, style: StrokeStyle(lineWidth: 5, lineCap: .round))
+                    .rotationEffect(.degrees(-90))
+                    .animation(.easeInOut(duration: 0.5), value: dayCount)
+                Text("\(dayCount)/7")
+                    .font(.caption.weight(.bold).monospacedDigit())
+                    .foregroundStyle(Color.accentColor)
+            }
+            .frame(width: 48, height: 48)
+
+            VStack(alignment: .leading, spacing: 4) {
+                Text("Day \(dayCount) of 7")
+                    .font(.subheadline.weight(.semibold))
+                Text(encouragingMessage)
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+            }
+
+            Spacer()
+
+            Button {
+                showInfo = true
+            } label: {
+                Image(systemName: "info.circle")
+                    .foregroundStyle(.secondary)
+            }
+            .buttonStyle(.plain)
+        }
+        .padding(.vertical, 4)
+    }
+}
+
+// MARK: - Baseline Info Sheet
+
+private struct BaselineInfoSheet: View {
+    @Environment(\.dismiss) private var dismiss
+
+    var body: some View {
+        NavigationStack {
+            ScrollView {
+                VStack(alignment: .leading, spacing: 20) {
+                    Text("What is a Baseline?")
+                        .font(.title2.bold())
+
+                    Text("Your personal baseline is a 7-day rolling average of all your metrics \u{2014} HRV, resting heart rate, tap speed, reaction time, and subjective ratings.")
+                        .font(.body)
+
+                    Label {
+                        Text("We need 7 days of data to establish reliable averages. Until then, you\u{2019}ll see your raw values without comparisons.")
+                    } icon: {
+                        Image(systemName: "calendar.badge.clock")
+                            .foregroundStyle(Color.accentColor)
+                    }
+                    .font(.body)
+
+                    Label {
+                        Text("Once established, your baseline updates daily. Each result is compared against your recent trend so you can spot changes.")
+                    } icon: {
+                        Image(systemName: "chart.line.uptrend.xyaxis")
+                            .foregroundStyle(Color.accentColor)
+                    }
+                    .font(.body)
+
+                    Label {
+                        Text("Consistency matters \u{2014} try to assess at roughly the same time each day for the most reliable comparisons.")
+                    } icon: {
+                        Image(systemName: "clock.badge.checkmark")
+                            .foregroundStyle(Color.accentColor)
+                    }
+                    .font(.body)
+                }
+                .padding()
+            }
+            .navigationTitle("About Baselines")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .confirmationAction) {
+                    Button("Done") { dismiss() }
+                }
+            }
+        }
     }
 }
 
@@ -181,7 +310,7 @@ struct ResultView: View {
                 sleepQualityBaseline: 3.5,
                 sorenessBaseline: 3.2,
                 energyBaseline: 3.8,
-                dayCount: 7
+                dayCount: 3
             )
         )
     }

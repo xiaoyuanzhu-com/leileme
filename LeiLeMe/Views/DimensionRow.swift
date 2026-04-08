@@ -14,10 +14,14 @@ struct DimensionRow: View {
         return String(format: formatString, value)
     }
 
+    private var isBaselineBuilding: Bool {
+        baselineValue == nil && baselineDayCount > 0 && baselineDayCount < 7
+    }
+
     private var formattedBaseline: String {
         guard let value = baselineValue else {
-            if baselineDayCount > 0 && baselineDayCount < 7 {
-                return "Building (\(baselineDayCount)/7 days)"
+            if isBaselineBuilding {
+                return ""  // handled by the building indicator
             }
             return "\u{2014}"
         }
@@ -69,9 +73,19 @@ struct DimensionRow: View {
                 Text(title)
                     .font(.subheadline.weight(.semibold))
                 Spacer()
-                Image(systemName: comparisonIcon)
-                    .foregroundStyle(comparisonColor)
-                    .imageScale(.small)
+                if isBaselineBuilding {
+                    // Show a subtle building indicator instead of comparison arrow
+                    HStack(spacing: 4) {
+                        baselineDots
+                        Text("building")
+                            .font(.caption2)
+                            .foregroundStyle(.secondary)
+                    }
+                } else {
+                    Image(systemName: comparisonIcon)
+                        .foregroundStyle(comparisonColor)
+                        .imageScale(.small)
+                }
             }
 
             HStack(spacing: 16) {
@@ -95,14 +109,18 @@ struct DimensionRow: View {
                     Text("Baseline")
                         .font(.caption2)
                         .foregroundStyle(.secondary)
-                    HStack(alignment: .firstTextBaseline, spacing: 2) {
-                        Text(formattedBaseline)
-                            .font(.subheadline.monospacedDigit())
-                            .foregroundStyle(.secondary)
-                        if baselineValue != nil {
-                            Text(unit)
-                                .font(.caption2)
-                                .foregroundStyle(.tertiary)
+                    if isBaselineBuilding {
+                        BaselineBuildingLabel(dayCount: baselineDayCount)
+                    } else {
+                        HStack(alignment: .firstTextBaseline, spacing: 2) {
+                            Text(formattedBaseline)
+                                .font(.subheadline.monospacedDigit())
+                                .foregroundStyle(.secondary)
+                            if baselineValue != nil {
+                                Text(unit)
+                                    .font(.caption2)
+                                    .foregroundStyle(.tertiary)
+                            }
                         }
                     }
                 }
@@ -134,8 +152,43 @@ struct DimensionRow: View {
         .padding(.vertical, 4)
     }
 
+    // MARK: - Baseline Building Dots
+
+    /// Seven small dots showing how many days are filled
+    private var baselineDots: some View {
+        HStack(spacing: 2) {
+            ForEach(0..<7, id: \.self) { index in
+                Circle()
+                    .fill(index < baselineDayCount ? Color.accentColor : Color(.systemGray4))
+                    .frame(width: 4, height: 4)
+            }
+        }
+    }
+
     private enum Comparison {
         case better, worse, neutral
+    }
+}
+
+// MARK: - Baseline Building Label
+
+private struct BaselineBuildingLabel: View {
+    let dayCount: Int
+
+    var body: some View {
+        HStack(spacing: 4) {
+            // Mini progress dots
+            HStack(spacing: 2) {
+                ForEach(0..<7, id: \.self) { index in
+                    RoundedRectangle(cornerRadius: 1.5)
+                        .fill(index < dayCount ? Color.accentColor : Color(.systemGray5))
+                        .frame(width: 6, height: 3)
+                }
+            }
+            Text("\(dayCount)/7")
+                .font(.caption2.monospacedDigit())
+                .foregroundStyle(.secondary)
+        }
     }
 }
 

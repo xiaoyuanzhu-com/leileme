@@ -11,30 +11,52 @@ struct AssessmentTab: View {
         return assessments.first { calendar.isDateInToday($0.date) }
     }
 
+    private var isFirstTime: Bool {
+        assessments.isEmpty
+    }
+
     var body: some View {
         NavigationStack {
             VStack(spacing: 24) {
                 Spacer()
 
                 // Hero icon
-                Image(systemName: "heart.text.clipboard")
+                Image(systemName: isFirstTime ? "figure.wave" : "heart.text.clipboard")
                     .font(.system(size: 64))
                     .foregroundStyle(Color.accentColor)
 
-                Text("Daily Assessment")
-                    .font(.largeTitle.bold())
+                if isFirstTime {
+                    // First-time welcome message
+                    Text("Welcome!")
+                        .font(.largeTitle.bold())
 
-                Text("A ~90 second check-in covering\nhealth data, motor tests, and how you feel.")
-                    .font(.body)
-                    .foregroundStyle(.secondary)
-                    .multilineTextAlignment(.center)
-                    .padding(.horizontal, 32)
+                    Text("Start your first assessment to begin building your personal baseline. It takes about 90 seconds and covers health data, motor tests, and how you feel.")
+                        .font(.body)
+                        .foregroundStyle(.secondary)
+                        .multilineTextAlignment(.center)
+                        .padding(.horizontal, 32)
+
+                    Text("After 7 days of assessments, you\u{2019}ll unlock personalized comparisons against your own trends.")
+                        .font(.callout)
+                        .foregroundStyle(.tertiary)
+                        .multilineTextAlignment(.center)
+                        .padding(.horizontal, 32)
+                } else {
+                    Text("Daily Assessment")
+                        .font(.largeTitle.bold())
+
+                    Text("A ~90 second check-in covering\nhealth data, motor tests, and how you feel.")
+                        .font(.body)
+                        .foregroundStyle(.secondary)
+                        .multilineTextAlignment(.center)
+                        .padding(.horizontal, 32)
+                }
 
                 // Start button
                 Button {
                     showAssessmentFlow = true
                 } label: {
-                    Text(todayAssessment != nil ? "Redo Assessment" : "Start Assessment")
+                    Text(buttonLabel)
                         .font(.title2.bold())
                         .frame(maxWidth: .infinity)
                         .padding(.vertical, 16)
@@ -60,11 +82,21 @@ struct AssessmentTab: View {
         }
     }
 
+    private var buttonLabel: String {
+        if isFirstTime {
+            return "Begin First Assessment"
+        } else if todayAssessment != nil {
+            return "Redo Assessment"
+        } else {
+            return "Start Assessment"
+        }
+    }
+
     // MARK: - Today Summary
 
     private func todaySummary(_ assessment: DailyAssessment) -> some View {
         VStack(spacing: 12) {
-            Text("Today's Results")
+            Text("Today\u{2019}s Results")
                 .font(.headline)
 
             HStack(spacing: 16) {
