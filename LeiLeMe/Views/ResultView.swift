@@ -11,6 +11,10 @@ struct ResultView: View {
         baseline.dayCount > 0 && baseline.dayCount < 7
     }
 
+    private var recoveryResult: RecoveryScoreEngine.Result {
+        RecoveryScoreEngine.evaluate(assessment: assessment, baseline: baseline)
+    }
+
     var body: some View {
         ZStack {
             Color.surfaceBackground
@@ -31,6 +35,15 @@ struct ResultView: View {
                             .opacity(appearAnimation ? 1.0 : 0)
                     }
                     .padding(.top, AppSpacing.lg)
+
+                    // Recovery recommendation card
+                    RecoveryRecommendationCard(
+                        result: recoveryResult,
+                        baselineDayCount: baseline.dayCount
+                    )
+                    .padding(.horizontal, AppSpacing.md)
+                    .opacity(appearAnimation ? 1.0 : 0)
+                    .offset(y: appearAnimation ? 0 : 20)
 
                     // Baseline progress banner during bootstrap period
                     if isBaselineBuilding {

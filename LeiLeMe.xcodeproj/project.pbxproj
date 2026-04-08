@@ -19,6 +19,8 @@
 		AA000013 /* ReactionTimeResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA100013 /* ReactionTimeResult.swift */; };
 		AA000014 /* SubjectiveAssessment.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA100014 /* SubjectiveAssessment.swift */; };
 		AA000015 /* BaselineEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA100015 /* BaselineEngine.swift */; };
+		AA000030 /* RecoveryScoreEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA100030 /* RecoveryScoreEngine.swift */; };
+		AA000031 /* RecoveryRecommendationCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA100031 /* RecoveryRecommendationCard.swift */; };
 		AA000016 /* HealthKitService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA100016 /* HealthKitService.swift */; };
 		AA000017 /* TapTestEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA100017 /* TapTestEngine.swift */; };
 		AA000018 /* TapTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA100018 /* TapTestView.swift */; };
@@ -50,6 +52,8 @@
 		AA100013 /* ReactionTimeResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReactionTimeResult.swift; sourceTree = "<group>"; };
 		AA100014 /* SubjectiveAssessment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubjectiveAssessment.swift; sourceTree = "<group>"; };
 		AA100015 /* BaselineEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaselineEngine.swift; sourceTree = "<group>"; };
+		AA100030 /* RecoveryScoreEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecoveryScoreEngine.swift; sourceTree = "<group>"; };
+		AA100031 /* RecoveryRecommendationCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecoveryRecommendationCard.swift; sourceTree = "<group>"; };
 		AA100016 /* HealthKitService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitService.swift; sourceTree = "<group>"; };
 		AA100017 /* TapTestEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapTestEngine.swift; sourceTree = "<group>"; };
 		AA100018 /* TapTestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapTestView.swift; sourceTree = "<group>"; };
@@ -114,6 +118,7 @@
 				AA100020 /* ReactionTimeView.swift */,
 				AA100022 /* ResultView.swift */,
 				AA100023 /* DimensionRow.swift */,
+				AA100031 /* RecoveryRecommendationCard.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -134,6 +139,7 @@
 			isa = PBXGroup;
 			children = (
 				AA100015 /* BaselineEngine.swift */,
+				AA100030 /* RecoveryScoreEngine.swift */,
 				AA100016 /* HealthKitService.swift */,
 				AA100017 /* TapTestEngine.swift */,
 				AA100019 /* ReactionTimeEngine.swift */,
@@ -247,6 +253,8 @@
 				AA000013 /* ReactionTimeResult.swift in Sources */,
 				AA000014 /* SubjectiveAssessment.swift in Sources */,
 				AA000015 /* BaselineEngine.swift in Sources */,
+				AA000030 /* RecoveryScoreEngine.swift in Sources */,
+				AA000031 /* RecoveryRecommendationCard.swift in Sources */,
 				AA000016 /* HealthKitService.swift in Sources */,
 				AA000017 /* TapTestEngine.swift in Sources */,
 				AA000018 /* TapTestView.swift in Sources */,
