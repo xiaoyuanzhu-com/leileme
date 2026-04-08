@@ -26,9 +26,6 @@ final class AssessmentFlowManager {
 
     var phaseIndex: Int { currentPhase.rawValue }
 
-    /// Total number of interactive phases (excluding results).
-    static let interactivePhaseCount = Phase.allCases.count
-
     func advance() {
         guard let next = Phase(rawValue: currentPhase.rawValue + 1) else { return }
         currentPhase = next
@@ -225,6 +222,7 @@ struct AssessmentFlowView: View {
 
     private func fetchHealthData() async {
         do {
+            try await healthKitService.requestAuthorization()
             let reading = try await healthKitService.fetchCurrentReading()
             flowManager.healthKitReading = reading
         } catch {
@@ -241,6 +239,20 @@ struct AssessmentFlowView: View {
     // MARK: - Completion
 
     private func completeAssessment() {
+        // Remove any existing assessment for today to prevent duplicates on redo
+        let calendar = Calendar.current
+        let startOfDay = calendar.startOfDay(for: Date())
+        let endOfDay = calendar.date(byAdding: .day, value: 1, to: startOfDay)!
+        let todayPredicate = #Predicate<DailyAssessment> { assessment in
+            assessment.date >= startOfDay && assessment.date < endOfDay
+        }
+        let todayDescriptor = FetchDescriptor<DailyAssessment>(predicate: todayPredicate)
+        if let existing = try? modelContext.fetch(todayDescriptor) {
+            for old in existing {
+                modelContext.delete(old)
+            }
+        }
+
         let assessment = DailyAssessment(date: Date())
         assessment.healthKitData = flowManager.healthKitReading
         assessment.tapTestResult = flowManager.tapTestResult

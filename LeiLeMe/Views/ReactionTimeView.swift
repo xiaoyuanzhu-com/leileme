@@ -5,6 +5,16 @@ struct ReactionTimeView: View {
     @State private var engine = ReactionTimeEngine()
     var onComplete: ((ReactionTimeResult) -> Void)?
 
+    /// Whether the user is actively in a test (not ready and not complete).
+    private var isInActiveTest: Bool {
+        switch engine.state {
+        case .ready, .complete:
+            return false
+        default:
+            return true
+        }
+    }
+
     var body: some View {
         ZStack {
             backgroundColor
@@ -38,7 +48,7 @@ struct ReactionTimeView: View {
             .allowsHitTesting(false) // let taps pass through to background
         }
         .navigationBarBackButtonHidden(engine.state != .ready)
-        .statusBarHidden(engine.state != .ready && engine.state != .complete(engine.computeResult()))
+        .statusBarHidden(isInActiveTest)
     }
 
     // MARK: - Background Color

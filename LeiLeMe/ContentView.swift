@@ -1,4 +1,5 @@
 import SwiftUI
+import SwiftData
 
 struct ContentView: View {
     var body: some View {
@@ -24,4 +25,6 @@ struct ContentView: View {
 
 #Preview {
     ContentView()
+        .environment(HealthKitService())
+        .modelContainer(for: DailyAssessment.self, inMemory: true)
 }

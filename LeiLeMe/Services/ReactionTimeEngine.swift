@@ -132,6 +132,15 @@ class ReactionTimeEngine {
 
     func computeResult() -> ReactionTimeResult {
         let times = reactionTimes
+        guard !times.isEmpty else {
+            return ReactionTimeResult(
+                reactionTimesMs: [],
+                averageMs: 0,
+                standardDeviationMs: 0,
+                fastestMs: 0,
+                slowestMs: 0
+            )
+        }
         let avg = times.reduce(0, +) / Double(times.count)
         let fastest = times.min() ?? 0
         let slowest = times.max() ?? 0
