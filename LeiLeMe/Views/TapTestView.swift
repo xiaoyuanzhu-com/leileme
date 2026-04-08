@@ -3,6 +3,7 @@ import SwiftUI
 struct TapTestView: View {
     @State private var engine = TapTestEngine()
     @State private var showTapFlash = false
+    @State private var tapScale: CGFloat = 1.0
     var onComplete: ((TapTestResult) -> Void)?
 
     var body: some View {
@@ -30,13 +31,13 @@ struct TapTestView: View {
 
     private var backgroundColor: Color {
         if showTapFlash {
-            return Color.blue.opacity(0.3)
+            return Color.wellnessTeal.opacity(0.15)
         }
         switch engine.state {
         case .ready, .complete:
-            return Color(.systemBackground)
+            return Color.surfaceBackground
         case .round1, .round2:
-            return Color(.systemBackground)
+            return Color.surfaceBackground
         case .rest:
             return Color(.secondarySystemBackground)
         }
@@ -45,12 +46,17 @@ struct TapTestView: View {
     // MARK: - Ready
 
     private var readyView: some View {
-        VStack(spacing: 32) {
+        VStack(spacing: AppSpacing.xl) {
             Spacer()
 
-            Image(systemName: "hand.tap.fill")
-                .font(.system(size: 64))
-                .foregroundStyle(.blue)
+            ZStack {
+                Circle()
+                    .fill(Color.wellnessTeal.opacity(0.1))
+                    .frame(width: 120, height: 120)
+                Image(systemName: "hand.tap.fill")
+                    .font(.system(size: 52))
+                    .foregroundStyle(Color.wellnessTeal)
+            }
 
             Text("Tap Test")
                 .font(.largeTitle.bold())
@@ -69,12 +75,8 @@ struct TapTestView: View {
 
             Button(action: { engine.start() }) {
                 Text("Start")
-                    .font(.title2.bold())
-                    .frame(maxWidth: .infinity)
-                    .padding(.vertical, 16)
             }
-            .buttonStyle(.borderedProminent)
-            .controlSize(.large)
+            .buttonStyle(PrimaryButtonStyle())
             .padding(.horizontal, 40)
             .padding(.bottom, 40)
         }
@@ -91,23 +93,45 @@ struct TapTestView: View {
                     handleTap()
                 }
 
-            VStack(spacing: 24) {
+            VStack(spacing: AppSpacing.lg) {
                 Text("Round \(round)")
-                    .font(.title2)
+                    .font(.title2.weight(.medium))
                     .foregroundStyle(.secondary)
 
-                Text(String(format: "%.1f", timeRemaining))
-                    .font(.system(size: 96, weight: .bold, design: .rounded))
-                    .monospacedDigit()
-                    .contentTransition(.numericText())
+                // Timer ring
+                ZStack {
+                    Circle()
+                        .stroke(Color(.systemGray5), lineWidth: 6)
+                        .frame(width: 180, height: 180)
+                    Circle()
+                        .trim(from: 0, to: timeRemaining / 10.0)
+                        .stroke(Color.wellnessTeal, style: StrokeStyle(lineWidth: 6, lineCap: .round))
+                        .frame(width: 180, height: 180)
+                        .rotationEffect(.degrees(-90))
+                        .animation(.linear(duration: 0.1), value: timeRemaining)
 
-                Text("\(engine.tapCount)")
-                    .font(.system(size: 48, weight: .semibold, design: .rounded))
-                    .foregroundStyle(.blue)
+                    VStack(spacing: 4) {
+                        Text(String(format: "%.1f", timeRemaining))
+                            .font(.system(size: 56, weight: .bold, design: .rounded))
+                            .monospacedDigit()
+                            .contentTransition(.numericText())
+                        Text("seconds")
+                            .font(.caption)
+                            .foregroundStyle(.secondary)
+                    }
+                }
 
-                Text("taps")
-                    .font(.title3)
-                    .foregroundStyle(.secondary)
+                // Tap counter with pulse feedback
+                VStack(spacing: 4) {
+                    Text("\(engine.tapCount)")
+                        .font(.system(size: 48, weight: .semibold, design: .rounded))
+                        .foregroundStyle(Color.wellnessTeal)
+                        .scaleEffect(tapScale)
+
+                    Text("taps")
+                        .font(.title3)
+                        .foregroundStyle(.secondary)
+                }
             }
             .allowsHitTesting(false)
         }
@@ -116,8 +140,12 @@ struct TapTestView: View {
     // MARK: - Rest
 
     private func restView(timeRemaining: Double) -> some View {
-        VStack(spacing: 24) {
+        VStack(spacing: AppSpacing.lg) {
             Spacer()
+
+            Image(systemName: "checkmark.circle.fill")
+                .font(.system(size: 48))
+                .foregroundStyle(Color.wellnessGreen)
 
             Text("Round 1 done!")
                 .font(.title.bold())
@@ -129,6 +157,7 @@ struct TapTestView: View {
             Text(String(format: "%.0f", ceil(timeRemaining)))
                 .font(.system(size: 72, weight: .bold, design: .rounded))
                 .monospacedDigit()
+                .foregroundStyle(Color.wellnessTeal)
 
             Spacer()
         }
@@ -137,46 +166,46 @@ struct TapTestView: View {
     // MARK: - Complete
 
     private func completeView(result: TapTestResult) -> some View {
-        VStack(spacing: 24) {
-            Spacer()
+        ScrollView {
+            VStack(spacing: AppSpacing.lg) {
+                Spacer(minLength: 20)
 
-            Image(systemName: "checkmark.circle.fill")
-                .font(.system(size: 56))
-                .foregroundStyle(.green)
+                Image(systemName: "checkmark.circle.fill")
+                    .font(.system(size: 56))
+                    .foregroundStyle(Color.wellnessGreen)
 
-            Text("Test Complete")
-                .font(.largeTitle.bold())
+                Text("Test Complete")
+                    .font(.largeTitle.bold())
 
-            VStack(spacing: 16) {
-                resultRow(label: "Round 1", value: "\(result.round1Taps) taps", detail: String(format: "%.1f/sec", result.round1Frequency))
-                resultRow(label: "Round 2", value: "\(result.round2Taps) taps", detail: String(format: "%.1f/sec", result.round2Frequency))
+                // Results card
+                VStack(spacing: AppSpacing.md) {
+                    resultRow(label: "Round 1", value: "\(result.round1Taps) taps", detail: String(format: "%.1f/sec", result.round1Frequency))
+                    resultRow(label: "Round 2", value: "\(result.round2Taps) taps", detail: String(format: "%.1f/sec", result.round2Frequency))
 
-                Divider()
-                    .padding(.horizontal, 40)
+                    Divider()
 
-                resultRow(label: "Rhythm Stability", value: String(format: "CV %.3f", result.rhythmStability), detail: stabilityLabel(result.rhythmStability))
-                resultRow(label: "Fatigue Decay", value: String(format: "%.1f%%", result.fatigueDecay * 100), detail: fatigueLabel(result.fatigueDecay))
+                    resultRow(label: "Rhythm Stability", value: String(format: "CV %.3f", result.rhythmStability), detail: stabilityLabel(result.rhythmStability))
+                    resultRow(label: "Fatigue Decay", value: String(format: "%.1f%%", result.fatigueDecay * 100), detail: fatigueLabel(result.fatigueDecay))
+                }
+                .cardStyle()
+                .padding(.horizontal, AppSpacing.md)
+
+                Spacer(minLength: 20)
+
+                Button(action: {
+                    onComplete?(result)
+                }) {
+                    Text("Done")
+                }
+                .buttonStyle(PrimaryButtonStyle())
+                .padding(.horizontal, 40)
+
+                Button("Try Again") {
+                    engine.reset()
+                }
+                .buttonStyle(SecondaryButtonStyle())
+                .padding(.bottom, 40)
             }
-            .padding(.horizontal, 24)
-
-            Spacer()
-
-            Button(action: {
-                onComplete?(result)
-            }) {
-                Text("Done")
-                    .font(.title2.bold())
-                    .frame(maxWidth: .infinity)
-                    .padding(.vertical, 16)
-            }
-            .buttonStyle(.borderedProminent)
-            .controlSize(.large)
-            .padding(.horizontal, 40)
-
-            Button("Try Again") {
-                engine.reset()
-            }
-            .padding(.bottom, 40)
         }
     }
 
@@ -187,9 +216,9 @@ struct TapTestView: View {
             Text(label)
                 .foregroundStyle(.secondary)
             Spacer()
-            VStack(alignment: .trailing) {
+            VStack(alignment: .trailing, spacing: 2) {
                 Text(value)
-                    .font(.headline)
+                    .font(.headline.monospacedDigit())
                 Text(detail)
                     .font(.caption)
                     .foregroundStyle(.secondary)
@@ -215,6 +244,13 @@ struct TapTestView: View {
         engine.recordTap()
         triggerHaptic()
         flashFeedback()
+        // Pulse the tap counter
+        withAnimation(.easeOut(duration: 0.08)) {
+            tapScale = 1.15
+        }
+        withAnimation(.easeIn(duration: 0.08).delay(0.08)) {
+            tapScale = 1.0
+        }
     }
 
     private func triggerHaptic() {

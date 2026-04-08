@@ -5,7 +5,7 @@ struct ContentView: View {
         TabView {
             AssessmentTab()
                 .tabItem {
-                    Label("Assessment", systemImage: "heart.text.clipboard")
+                    Label("Assess", systemImage: "heart.text.square")
                 }
 
             HistoryTab()
@@ -18,6 +18,7 @@ struct ContentView: View {
                     Label("Settings", systemImage: "gearshape")
                 }
         }
+        .tint(.wellnessTeal)
     }
 }
 

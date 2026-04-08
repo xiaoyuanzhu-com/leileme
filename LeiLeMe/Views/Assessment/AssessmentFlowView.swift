@@ -47,16 +47,21 @@ struct AssessmentFlowView: View {
 
     var body: some View {
         NavigationStack {
-            VStack(spacing: 0) {
-                if !flowManager.isComplete {
-                    progressBar
-                        .padding(.horizontal, 20)
-                        .padding(.top, 8)
-                        .padding(.bottom, 4)
-                }
+            ZStack {
+                Color.surfaceBackground
+                    .ignoresSafeArea()
 
-                phaseContent
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                VStack(spacing: 0) {
+                    if !flowManager.isComplete {
+                        progressIndicator
+                            .padding(.horizontal, AppSpacing.lg)
+                            .padding(.top, 12)
+                            .padding(.bottom, AppSpacing.sm)
+                    }
+
+                    phaseContent
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                }
             }
             .toolbar {
                 if !flowManager.isComplete {
@@ -64,6 +69,7 @@ struct AssessmentFlowView: View {
                         Button("Cancel") {
                             dismiss()
                         }
+                        .foregroundStyle(.secondary)
                     }
                 }
             }
@@ -71,26 +77,48 @@ struct AssessmentFlowView: View {
         }
     }
 
-    // MARK: - Progress Bar
+    // MARK: - Progress Indicator
 
-    private var progressBar: some View {
-        HStack(spacing: 8) {
-            ForEach(AssessmentFlowManager.Phase.allCases, id: \.rawValue) { phase in
-                Circle()
-                    .fill(dotColor(for: phase))
-                    .frame(width: 10, height: 10)
+    private var progressIndicator: some View {
+        HStack(spacing: 0) {
+            ForEach(Array(AssessmentFlowManager.Phase.allCases.enumerated()), id: \.element.rawValue) { index, phase in
+                if index > 0 {
+                    // Connecting line
+                    Rectangle()
+                        .fill(phase.rawValue <= flowManager.phaseIndex
+                              ? Color.wellnessTeal.opacity(0.5)
+                              : Color(.systemGray5))
+                        .frame(height: 2)
+                }
+
+                // Phase dot
+                ZStack {
+                    Circle()
+                        .fill(dotFillColor(for: phase))
+                        .frame(width: 14, height: 14)
+
+                    if phase.rawValue < flowManager.phaseIndex {
+                        Image(systemName: "checkmark")
+                            .font(.system(size: 8, weight: .bold))
+                            .foregroundStyle(.white)
+                    } else if phase.rawValue == flowManager.phaseIndex {
+                        Circle()
+                            .fill(.white)
+                            .frame(width: 5, height: 5)
+                    }
+                }
             }
         }
-        .animation(.easeInOut(duration: 0.3), value: flowManager.phaseIndex)
+        .animation(.easeInOut(duration: 0.4), value: flowManager.phaseIndex)
     }
 
-    private func dotColor(for phase: AssessmentFlowManager.Phase) -> Color {
+    private func dotFillColor(for phase: AssessmentFlowManager.Phase) -> Color {
         if phase.rawValue < flowManager.phaseIndex {
-            return .accentColor
+            return .wellnessTeal
         } else if phase.rawValue == flowManager.phaseIndex {
-            return .accentColor.opacity(0.6)
+            return .wellnessTeal.opacity(0.7)
         } else {
-            return Color(.systemGray4)
+            return Color(.systemGray5)
         }
     }
 
@@ -101,28 +129,44 @@ struct AssessmentFlowView: View {
         switch flowManager.currentPhase {
         case .healthFetch:
             healthFetchPhase
-                .transition(.opacity)
+                .transition(.asymmetric(
+                    insertion: .opacity.combined(with: .scale(scale: 0.95)),
+                    removal: .opacity.combined(with: .offset(x: -40))
+                ))
 
         case .tapTest:
             TapTestView { result in
                 flowManager.tapTestResult = result
-                flowManager.advance()
+                withAnimation(.easeInOut(duration: 0.35)) {
+                    flowManager.advance()
+                }
             }
-            .transition(.move(edge: .trailing))
+            .transition(.asymmetric(
+                insertion: .move(edge: .trailing).combined(with: .opacity),
+                removal: .move(edge: .leading).combined(with: .opacity)
+            ))
 
         case .reactionTime:
             ReactionTimeView { result in
                 flowManager.reactionTimeResult = result
-                flowManager.advance()
+                withAnimation(.easeInOut(duration: 0.35)) {
+                    flowManager.advance()
+                }
             }
-            .transition(.move(edge: .trailing))
+            .transition(.asymmetric(
+                insertion: .move(edge: .trailing).combined(with: .opacity),
+                removal: .move(edge: .leading).combined(with: .opacity)
+            ))
 
         case .subjective:
             SubjectiveAssessmentView { assessment in
                 flowManager.subjectiveAssessment = assessment
                 completeAssessment()
             }
-            .transition(.move(edge: .trailing))
+            .transition(.asymmetric(
+                insertion: .move(edge: .trailing).combined(with: .opacity),
+                removal: .move(edge: .leading).combined(with: .opacity)
+            ))
 
         case .results:
             if let assessment = flowManager.dailyAssessment,
@@ -133,9 +177,13 @@ struct AssessmentFlowView: View {
                             Button("Done") {
                                 dismiss()
                             }
+                            .fontWeight(.semibold)
                         }
                     }
-                    .transition(.move(edge: .trailing))
+                    .transition(.asymmetric(
+                        insertion: .move(edge: .trailing).combined(with: .opacity),
+                        removal: .opacity
+                    ))
             }
         }
     }
@@ -143,20 +191,29 @@ struct AssessmentFlowView: View {
     // MARK: - Health Fetch Phase
 
     private var healthFetchPhase: some View {
-        VStack(spacing: 24) {
+        VStack(spacing: AppSpacing.lg) {
             Spacer()
 
-            ProgressView()
-                .scaleEffect(1.5)
+            ZStack {
+                Circle()
+                    .fill(Color.wellnessTeal.opacity(0.08))
+                    .frame(width: 120, height: 120)
+
+                ProgressView()
+                    .scaleEffect(1.5)
+                    .tint(.wellnessTeal)
+            }
 
             Text("Reading health data...")
-                .font(.title3)
+                .font(.title3.weight(.medium))
                 .foregroundStyle(.secondary)
 
             if let error = healthFetchError {
                 Text(error)
                     .font(.caption)
                     .foregroundStyle(.secondary)
+                    .multilineTextAlignment(.center)
+                    .padding(.horizontal, AppSpacing.xl)
             }
 
             Spacer()
@@ -171,12 +228,14 @@ struct AssessmentFlowView: View {
             let reading = try await healthKitService.fetchCurrentReading()
             flowManager.healthKitReading = reading
         } catch {
-            healthFetchError = "Could not read HealthKit data — continuing without it."
+            healthFetchError = "Could not read HealthKit data \u{2014} continuing without it."
         }
 
         // Brief pause so the spinner is visible
         try? await Task.sleep(for: .milliseconds(600))
-        flowManager.advance()
+        withAnimation(.easeInOut(duration: 0.35)) {
+            flowManager.advance()
+        }
     }
 
     // MARK: - Completion
@@ -199,7 +258,9 @@ struct AssessmentFlowView: View {
 
         flowManager.dailyAssessment = assessment
         flowManager.baseline = baseline
-        flowManager.advance()
+        withAnimation(.easeInOut(duration: 0.35)) {
+            flowManager.advance()
+        }
     }
 }
 

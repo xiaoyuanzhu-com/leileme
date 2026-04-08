@@ -5,138 +5,193 @@ struct ResultView: View {
     let baseline: BaselineEngine.BaselineSnapshot
 
     @State private var showBaselineInfo = false
+    @State private var appearAnimation = false
 
     private var isBaselineBuilding: Bool {
         baseline.dayCount > 0 && baseline.dayCount < 7
     }
 
     var body: some View {
-        List {
-            // Baseline progress banner during bootstrap period
-            if isBaselineBuilding {
-                Section {
-                    BaselineProgressCard(dayCount: baseline.dayCount, showInfo: $showBaselineInfo)
+        ZStack {
+            Color.surfaceBackground
+                .ignoresSafeArea()
+
+            ScrollView {
+                VStack(spacing: AppSpacing.lg) {
+                    // Header
+                    VStack(spacing: AppSpacing.sm) {
+                        Image(systemName: "checkmark.seal.fill")
+                            .font(.system(size: 44))
+                            .foregroundStyle(Color.wellnessGreen)
+                            .scaleEffect(appearAnimation ? 1.0 : 0.5)
+                            .opacity(appearAnimation ? 1.0 : 0)
+
+                        Text("Assessment Complete")
+                            .font(.title2.bold())
+                            .opacity(appearAnimation ? 1.0 : 0)
+                    }
+                    .padding(.top, AppSpacing.lg)
+
+                    // Baseline progress banner during bootstrap period
+                    if isBaselineBuilding {
+                        BaselineProgressCard(dayCount: baseline.dayCount, showInfo: $showBaselineInfo)
+                            .cardStyle()
+                            .padding(.horizontal, AppSpacing.md)
+                    }
+
+                    // HealthKit section
+                    sectionCard(
+                        title: "HealthKit",
+                        icon: "heart.fill",
+                        color: .wellnessRed
+                    ) {
+                        DimensionRow(
+                            title: "HRV (RMSSD)",
+                            icon: "waveform.path.ecg",
+                            todayValue: assessment.healthKitData?.hrvRMSSD,
+                            baselineValue: baseline.hrvBaseline,
+                            unit: "ms",
+                            higherIsBetter: true,
+                            formatString: "%.0f",
+                            baselineDayCount: baseline.dayCount
+                        )
+
+                        Divider()
+
+                        DimensionRow(
+                            title: "Resting Heart Rate",
+                            icon: "heart.fill",
+                            todayValue: assessment.healthKitData?.restingHeartRate,
+                            baselineValue: baseline.rhrBaseline,
+                            unit: "bpm",
+                            higherIsBetter: false,
+                            formatString: "%.0f",
+                            baselineDayCount: baseline.dayCount
+                        )
+
+                        Divider()
+
+                        DimensionRow(
+                            title: "Sleep Duration",
+                            icon: "bed.double.fill",
+                            todayValue: assessment.healthKitData?.sleepDuration,
+                            baselineValue: baseline.sleepDurationBaseline,
+                            unit: "hrs",
+                            higherIsBetter: true,
+                            formatString: "%.1f",
+                            baselineDayCount: baseline.dayCount
+                        )
+                    }
+
+                    // Tap Test section
+                    sectionCard(
+                        title: "Tap Test",
+                        icon: "hand.tap.fill",
+                        color: .wellnessTeal
+                    ) {
+                        DimensionRow(
+                            title: "Tap Frequency",
+                            icon: "metronome.fill",
+                            todayValue: tapFrequencyToday,
+                            baselineValue: baseline.tapFrequencyBaseline,
+                            unit: "taps/s",
+                            higherIsBetter: true,
+                            formatString: "%.1f",
+                            baselineDayCount: baseline.dayCount
+                        )
+
+                        Divider()
+
+                        DimensionRow(
+                            title: "Rhythm Stability",
+                            icon: "waveform",
+                            todayValue: assessment.tapTestResult?.rhythmStability,
+                            baselineValue: baseline.rhythmStabilityBaseline,
+                            unit: "CV",
+                            higherIsBetter: false,
+                            formatString: "%.3f",
+                            baselineDayCount: baseline.dayCount
+                        )
+                    }
+
+                    // Reaction Time section
+                    sectionCard(
+                        title: "Reaction Time",
+                        icon: "bolt.circle.fill",
+                        color: .wellnessGreen
+                    ) {
+                        DimensionRow(
+                            title: "Avg Reaction Time",
+                            icon: "bolt.fill",
+                            todayValue: assessment.reactionTimeResult?.averageMs,
+                            baselineValue: baseline.reactionTimeBaseline,
+                            unit: "ms",
+                            higherIsBetter: false,
+                            formatString: "%.0f",
+                            baselineDayCount: baseline.dayCount
+                        )
+
+                        Divider()
+
+                        DimensionRow(
+                            title: "Consistency (StdDev)",
+                            icon: "chart.bar.fill",
+                            todayValue: assessment.reactionTimeResult?.standardDeviationMs,
+                            baselineValue: baseline.reactionConsistencyBaseline,
+                            unit: "ms",
+                            higherIsBetter: false,
+                            formatString: "%.0f",
+                            baselineDayCount: baseline.dayCount
+                        )
+                    }
+
+                    // Subjective section
+                    sectionCard(
+                        title: "Subjective",
+                        icon: "face.smiling",
+                        color: .wellnessAmber
+                    ) {
+                        DimensionRow(
+                            title: "Sleep Quality",
+                            icon: "moon.fill",
+                            todayValue: assessment.subjectiveAssessment.map { Double($0.sleepQuality) },
+                            baselineValue: baseline.sleepQualityBaseline,
+                            unit: "/5",
+                            higherIsBetter: true,
+                            formatString: "%.0f",
+                            baselineDayCount: baseline.dayCount
+                        )
+
+                        Divider()
+
+                        DimensionRow(
+                            title: "Muscle Soreness",
+                            icon: "figure.walk",
+                            todayValue: assessment.subjectiveAssessment.map { Double($0.muscleSoreness) },
+                            baselineValue: baseline.sorenessBaseline,
+                            unit: "/5",
+                            higherIsBetter: true,
+                            formatString: "%.0f",
+                            baselineDayCount: baseline.dayCount
+                        )
+
+                        Divider()
+
+                        DimensionRow(
+                            title: "Energy Level",
+                            icon: "bolt.fill",
+                            todayValue: assessment.subjectiveAssessment.map { Double($0.energyLevel) },
+                            baselineValue: baseline.energyBaseline,
+                            unit: "/5",
+                            higherIsBetter: true,
+                            formatString: "%.0f",
+                            baselineDayCount: baseline.dayCount
+                        )
+                    }
+
+                    Spacer(minLength: AppSpacing.xl)
                 }
-            }
-
-            // HealthKit section
-            Section {
-                DimensionRow(
-                    title: "HRV (RMSSD)",
-                    todayValue: assessment.healthKitData?.hrvRMSSD,
-                    baselineValue: baseline.hrvBaseline,
-                    unit: "ms",
-                    higherIsBetter: true,
-                    formatString: "%.0f",
-                    baselineDayCount: baseline.dayCount
-                )
-
-                DimensionRow(
-                    title: "Resting Heart Rate",
-                    todayValue: assessment.healthKitData?.restingHeartRate,
-                    baselineValue: baseline.rhrBaseline,
-                    unit: "bpm",
-                    higherIsBetter: false,
-                    formatString: "%.0f",
-                    baselineDayCount: baseline.dayCount
-                )
-
-                DimensionRow(
-                    title: "Sleep Duration",
-                    todayValue: assessment.healthKitData?.sleepDuration,
-                    baselineValue: baseline.sleepDurationBaseline,
-                    unit: "hrs",
-                    higherIsBetter: true,
-                    formatString: "%.1f",
-                    baselineDayCount: baseline.dayCount
-                )
-            } header: {
-                Label("HealthKit", systemImage: "heart.fill")
-            }
-
-            // Tap Test section
-            Section {
-                DimensionRow(
-                    title: "Tap Frequency",
-                    todayValue: tapFrequencyToday,
-                    baselineValue: baseline.tapFrequencyBaseline,
-                    unit: "taps/s",
-                    higherIsBetter: true,
-                    formatString: "%.1f",
-                    baselineDayCount: baseline.dayCount
-                )
-
-                DimensionRow(
-                    title: "Rhythm Stability",
-                    todayValue: assessment.tapTestResult?.rhythmStability,
-                    baselineValue: baseline.rhythmStabilityBaseline,
-                    unit: "CV",
-                    higherIsBetter: false,
-                    formatString: "%.3f",
-                    baselineDayCount: baseline.dayCount
-                )
-            } header: {
-                Label("Tap Test", systemImage: "hand.tap.fill")
-            }
-
-            // Reaction Time section
-            Section {
-                DimensionRow(
-                    title: "Avg Reaction Time",
-                    todayValue: assessment.reactionTimeResult?.averageMs,
-                    baselineValue: baseline.reactionTimeBaseline,
-                    unit: "ms",
-                    higherIsBetter: false,
-                    formatString: "%.0f",
-                    baselineDayCount: baseline.dayCount
-                )
-
-                DimensionRow(
-                    title: "Consistency (StdDev)",
-                    todayValue: assessment.reactionTimeResult?.standardDeviationMs,
-                    baselineValue: baseline.reactionConsistencyBaseline,
-                    unit: "ms",
-                    higherIsBetter: false,
-                    formatString: "%.0f",
-                    baselineDayCount: baseline.dayCount
-                )
-            } header: {
-                Label("Reaction Time", systemImage: "bolt.circle.fill")
-            }
-
-            // Subjective section
-            Section {
-                DimensionRow(
-                    title: "Sleep Quality",
-                    todayValue: assessment.subjectiveAssessment.map { Double($0.sleepQuality) },
-                    baselineValue: baseline.sleepQualityBaseline,
-                    unit: "/5",
-                    higherIsBetter: true,
-                    formatString: "%.0f",
-                    baselineDayCount: baseline.dayCount
-                )
-
-                DimensionRow(
-                    title: "Muscle Soreness",
-                    todayValue: assessment.subjectiveAssessment.map { Double($0.muscleSoreness) },
-                    baselineValue: baseline.sorenessBaseline,
-                    unit: "/5",
-                    higherIsBetter: true,
-                    formatString: "%.0f",
-                    baselineDayCount: baseline.dayCount
-                )
-
-                DimensionRow(
-                    title: "Energy Level",
-                    todayValue: assessment.subjectiveAssessment.map { Double($0.energyLevel) },
-                    baselineValue: baseline.energyBaseline,
-                    unit: "/5",
-                    higherIsBetter: true,
-                    formatString: "%.0f",
-                    baselineDayCount: baseline.dayCount
-                )
-            } header: {
-                Label("Subjective", systemImage: "heart.text.clipboard")
+                .padding(.horizontal, AppSpacing.md)
             }
         }
         .navigationTitle("Results")
@@ -144,6 +199,26 @@ struct ResultView: View {
         .sheet(isPresented: $showBaselineInfo) {
             BaselineInfoSheet()
         }
+        .onAppear {
+            withAnimation(.easeOut(duration: 0.6).delay(0.1)) {
+                appearAnimation = true
+            }
+        }
+    }
+
+    // MARK: - Section Card Builder
+
+    private func sectionCard<Content: View>(
+        title: String,
+        icon: String,
+        color: Color,
+        @ViewBuilder content: () -> Content
+    ) -> some View {
+        VStack(alignment: .leading, spacing: AppSpacing.md) {
+            ThemedSectionHeader(title: title, icon: icon, color: color)
+            content()
+        }
+        .cardStyle()
     }
 
     // MARK: - Computed
@@ -177,19 +252,19 @@ private struct BaselineProgressCard: View {
     }
 
     var body: some View {
-        HStack(spacing: 16) {
+        HStack(spacing: AppSpacing.md) {
             // Circular progress ring
             ZStack {
                 Circle()
                     .stroke(Color(.systemGray5), lineWidth: 5)
                 Circle()
                     .trim(from: 0, to: progress)
-                    .stroke(Color.accentColor, style: StrokeStyle(lineWidth: 5, lineCap: .round))
+                    .stroke(Color.wellnessTeal, style: StrokeStyle(lineWidth: 5, lineCap: .round))
                     .rotationEffect(.degrees(-90))
                     .animation(.easeInOut(duration: 0.5), value: dayCount)
                 Text("\(dayCount)/7")
                     .font(.caption.weight(.bold).monospacedDigit())
-                    .foregroundStyle(Color.accentColor)
+                    .foregroundStyle(Color.wellnessTeal)
             }
             .frame(width: 48, height: 48)
 
@@ -211,7 +286,6 @@ private struct BaselineProgressCard: View {
             }
             .buttonStyle(.plain)
         }
-        .padding(.vertical, 4)
     }
 }
 
@@ -234,7 +308,7 @@ private struct BaselineInfoSheet: View {
                         Text("We need 7 days of data to establish reliable averages. Until then, you\u{2019}ll see your raw values without comparisons.")
                     } icon: {
                         Image(systemName: "calendar.badge.clock")
-                            .foregroundStyle(Color.accentColor)
+                            .foregroundStyle(Color.wellnessTeal)
                     }
                     .font(.body)
 
@@ -242,7 +316,7 @@ private struct BaselineInfoSheet: View {
                         Text("Once established, your baseline updates daily. Each result is compared against your recent trend so you can spot changes.")
                     } icon: {
                         Image(systemName: "chart.line.uptrend.xyaxis")
-                            .foregroundStyle(Color.accentColor)
+                            .foregroundStyle(Color.wellnessTeal)
                     }
                     .font(.body)
 
@@ -250,7 +324,7 @@ private struct BaselineInfoSheet: View {
                         Text("Consistency matters \u{2014} try to assess at roughly the same time each day for the most reliable comparisons.")
                     } icon: {
                         Image(systemName: "clock.badge.checkmark")
-                            .foregroundStyle(Color.accentColor)
+                            .foregroundStyle(Color.wellnessTeal)
                     }
                     .font(.body)
                 }

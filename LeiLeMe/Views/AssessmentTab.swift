@@ -17,68 +17,95 @@ struct AssessmentTab: View {
 
     var body: some View {
         NavigationStack {
-            VStack(spacing: 24) {
-                Spacer()
+            ZStack {
+                LinearGradient.assessmentBackground
+                    .ignoresSafeArea()
 
-                // Hero icon
-                Image(systemName: isFirstTime ? "figure.wave" : "heart.text.clipboard")
-                    .font(.system(size: 64))
-                    .foregroundStyle(Color.accentColor)
+                ScrollView {
+                    VStack(spacing: AppSpacing.lg) {
+                        Spacer(minLength: 40)
 
-                if isFirstTime {
-                    // First-time welcome message
-                    Text("Welcome!")
-                        .font(.largeTitle.bold())
+                        // Hero icon with subtle glow
+                        ZStack {
+                            Circle()
+                                .fill(Color.wellnessTeal.opacity(0.1))
+                                .frame(width: 120, height: 120)
+                            Circle()
+                                .fill(Color.wellnessTeal.opacity(0.05))
+                                .frame(width: 160, height: 160)
+                            Image(systemName: isFirstTime ? "figure.wave" : "heart.text.square")
+                                .font(.system(size: 52))
+                                .foregroundStyle(Color.wellnessTeal)
+                        }
 
-                    Text("Start your first assessment to begin building your personal baseline. It takes about 90 seconds and covers health data, motor tests, and how you feel.")
-                        .font(.body)
-                        .foregroundStyle(.secondary)
-                        .multilineTextAlignment(.center)
-                        .padding(.horizontal, 32)
+                        if isFirstTime {
+                            firstTimeContent
+                        } else {
+                            returningContent
+                        }
 
-                    Text("After 7 days of assessments, you\u{2019}ll unlock personalized comparisons against your own trends.")
-                        .font(.callout)
-                        .foregroundStyle(.tertiary)
-                        .multilineTextAlignment(.center)
-                        .padding(.horizontal, 32)
-                } else {
-                    Text("Daily Assessment")
-                        .font(.largeTitle.bold())
+                        // Start button
+                        Button {
+                            showAssessmentFlow = true
+                        } label: {
+                            Text(buttonLabel)
+                        }
+                        .buttonStyle(PrimaryButtonStyle())
+                        .padding(.horizontal, AppSpacing.xl)
 
-                    Text("A ~90 second check-in covering\nhealth data, motor tests, and how you feel.")
-                        .font(.body)
-                        .foregroundStyle(.secondary)
-                        .multilineTextAlignment(.center)
-                        .padding(.horizontal, 32)
+                        // Today's summary or last assessed info
+                        if let today = todayAssessment {
+                            todaySummary(today)
+                                .padding(.horizontal, AppSpacing.md)
+                        } else if let latest = assessments.first {
+                            lastAssessedLabel(latest)
+                        }
+
+                        Spacer(minLength: 40)
+                    }
+                    .padding(.horizontal, AppSpacing.md)
                 }
-
-                // Start button
-                Button {
-                    showAssessmentFlow = true
-                } label: {
-                    Text(buttonLabel)
-                        .font(.title2.bold())
-                        .frame(maxWidth: .infinity)
-                        .padding(.vertical, 16)
-                }
-                .buttonStyle(.borderedProminent)
-                .controlSize(.large)
-                .padding(.horizontal, 40)
-
-                // Today's summary or last assessed info
-                if let today = todayAssessment {
-                    todaySummary(today)
-                        .padding(.horizontal, 24)
-                } else if let latest = assessments.first {
-                    lastAssessedLabel(latest)
-                }
-
-                Spacer()
             }
             .navigationTitle("Assessment")
             .fullScreenCover(isPresented: $showAssessmentFlow) {
                 AssessmentFlowView()
             }
+        }
+    }
+
+    // MARK: - First Time Content
+
+    private var firstTimeContent: some View {
+        VStack(spacing: AppSpacing.sm) {
+            Text("Welcome!")
+                .font(.largeTitle.bold())
+
+            Text("Start your first assessment to begin building your personal baseline. It takes about 90 seconds and covers health data, motor tests, and how you feel.")
+                .font(.body)
+                .foregroundStyle(.secondary)
+                .multilineTextAlignment(.center)
+                .padding(.horizontal, AppSpacing.md)
+
+            Text("After 7 days of assessments, you\u{2019}ll unlock personalized comparisons against your own trends.")
+                .font(.callout)
+                .foregroundStyle(.tertiary)
+                .multilineTextAlignment(.center)
+                .padding(.horizontal, AppSpacing.md)
+        }
+    }
+
+    // MARK: - Returning Content
+
+    private var returningContent: some View {
+        VStack(spacing: AppSpacing.sm) {
+            Text("Daily Check-in")
+                .font(.largeTitle.bold())
+
+            Text("A ~90 second check-in covering\nhealth data, motor tests, and how you feel.")
+                .font(.body)
+                .foregroundStyle(.secondary)
+                .multilineTextAlignment(.center)
+                .padding(.horizontal, AppSpacing.md)
         }
     }
 
@@ -96,15 +123,20 @@ struct AssessmentTab: View {
 
     private func todaySummary(_ assessment: DailyAssessment) -> some View {
         VStack(spacing: 12) {
-            Text("Today\u{2019}s Results")
-                .font(.headline)
+            HStack {
+                Image(systemName: "checkmark.seal.fill")
+                    .foregroundStyle(Color.wellnessGreen)
+                Text("Today\u{2019}s Results")
+                    .font(.headline)
+            }
 
-            HStack(spacing: 16) {
+            HStack(spacing: AppSpacing.md) {
                 if let tap = assessment.tapTestResult {
                     summaryItem(
                         icon: "hand.tap.fill",
                         label: "Tap",
-                        value: String(format: "%.1f/s", (tap.round1Frequency + tap.round2Frequency) / 2.0)
+                        value: String(format: "%.1f/s", (tap.round1Frequency + tap.round2Frequency) / 2.0),
+                        color: .wellnessTeal
                     )
                 }
 
@@ -112,7 +144,8 @@ struct AssessmentTab: View {
                     summaryItem(
                         icon: "bolt.circle.fill",
                         label: "Reaction",
-                        value: "\(Int(rt.averageMs)) ms"
+                        value: "\(Int(rt.averageMs)) ms",
+                        color: .wellnessGreen
                     )
                 }
 
@@ -120,20 +153,20 @@ struct AssessmentTab: View {
                     summaryItem(
                         icon: "face.smiling",
                         label: "Energy",
-                        value: "\(sub.energyLevel)/5"
+                        value: "\(sub.energyLevel)/5",
+                        color: .wellnessAmber
                     )
                 }
             }
         }
-        .padding()
-        .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 16))
+        .cardStyle()
     }
 
-    private func summaryItem(icon: String, label: String, value: String) -> some View {
-        VStack(spacing: 4) {
+    private func summaryItem(icon: String, label: String, value: String, color: Color) -> some View {
+        VStack(spacing: AppSpacing.xs) {
             Image(systemName: icon)
                 .font(.title2)
-                .foregroundStyle(Color.accentColor)
+                .foregroundStyle(color)
             Text(value)
                 .font(.headline.monospacedDigit())
             Text(label)
@@ -146,9 +179,13 @@ struct AssessmentTab: View {
     // MARK: - Last Assessed
 
     private func lastAssessedLabel(_ assessment: DailyAssessment) -> some View {
-        Text("Last assessed: \(assessment.date.formatted(date: .abbreviated, time: .omitted))")
-            .font(.footnote)
-            .foregroundStyle(.secondary)
+        HStack(spacing: 6) {
+            Image(systemName: "clock")
+                .font(.caption)
+            Text("Last assessed: \(assessment.date.formatted(date: .abbreviated, time: .omitted))")
+                .font(.footnote)
+        }
+        .foregroundStyle(.secondary)
     }
 }
 

@@ -30,6 +30,7 @@
 		AA000024 /* AssessmentFlowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA100024 /* AssessmentFlowView.swift */; };
 		AA000025 /* HistoryDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA100025 /* HistoryDetailView.swift */; };
 		AA000026 /* TrendChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA100026 /* TrendChartView.swift */; };
+		AA000027 /* AppTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA100027 /* AppTheme.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -59,6 +60,7 @@
 		AA100024 /* AssessmentFlowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssessmentFlowView.swift; sourceTree = "<group>"; };
 		AA100025 /* HistoryDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryDetailView.swift; sourceTree = "<group>"; };
 		AA100026 /* TrendChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendChartView.swift; sourceTree = "<group>"; };
+		AA100027 /* AppTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppTheme.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,6 +90,7 @@
 				AA300003 /* Views */,
 				AA300004 /* Models */,
 				AA300005 /* Services */,
+				AA300008 /* Theme */,
 				AA100006 /* Assets.xcassets */,
 				AA100007 /* LeiLeMe.entitlements */,
 				AA100008 /* Info.plist */,
@@ -150,6 +153,14 @@
 				AA100024 /* AssessmentFlowView.swift */,
 			);
 			path = Assessment;
+			sourceTree = "<group>";
+		};
+		AA300008 /* Theme */ = {
+			isa = PBXGroup;
+			children = (
+				AA100027 /* AppTheme.swift */,
+			);
+			path = Theme;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -243,6 +254,7 @@
 				AA000024 /* AssessmentFlowView.swift in Sources */,
 				AA000025 /* HistoryDetailView.swift in Sources */,
 				AA000026 /* TrendChartView.swift in Sources */,
+				AA000027 /* AppTheme.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

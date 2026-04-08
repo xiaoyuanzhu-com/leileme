@@ -14,8 +14,8 @@ struct SettingsTab: View {
     }
 
     private var appVersion: String {
-        let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "—"
-        let build = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "—"
+        let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "\u{2014}"
+        let build = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "\u{2014}"
         return "\(version) (\(build))"
     }
 
@@ -27,6 +27,8 @@ struct SettingsTab: View {
                 dataSection
                 aboutSection
             }
+            .scrollContentBackground(.hidden)
+            .background(Color.surfaceBackground)
             .navigationTitle("Settings")
         }
     }
@@ -36,7 +38,8 @@ struct SettingsTab: View {
     private var baselineSection: some View {
         Section {
             HStack {
-                Text("Data collected")
+                Label("Data collected", systemImage: "calendar")
+                    .foregroundStyle(.primary)
                 Spacer()
                 Text("\(baseline.dayCount) day\(baseline.dayCount == 1 ? "" : "s")")
                     .foregroundStyle(.secondary)
@@ -44,10 +47,10 @@ struct SettingsTab: View {
 
             if baseline.dayCount >= 7 {
                 Label("Baseline ready", systemImage: "checkmark.circle.fill")
-                    .foregroundStyle(.green)
+                    .foregroundStyle(Color.wellnessGreen)
             } else if baseline.dayCount > 0 {
                 Label("\(7 - baseline.dayCount) more day\(7 - baseline.dayCount == 1 ? "" : "s") needed", systemImage: "clock")
-                    .foregroundStyle(.orange)
+                    .foregroundStyle(Color.wellnessAmber)
             } else {
                 Label("No data yet", systemImage: "exclamationmark.circle")
                     .foregroundStyle(.secondary)
@@ -82,10 +85,10 @@ struct SettingsTab: View {
     private var healthKitSection: some View {
         Section {
             HStack {
-                Text("Authorization")
+                Label("Authorization", systemImage: "lock.shield")
                 Spacer()
                 Text(healthKitService.isAuthorized ? "Granted" : "Not Requested")
-                    .foregroundStyle(healthKitService.isAuthorized ? .green : .secondary)
+                    .foregroundStyle(healthKitService.isAuthorized ? Color.wellnessGreen : .secondary)
             }
 
             if healthKitService.isAvailable {
@@ -114,7 +117,7 @@ struct SettingsTab: View {
             Label(name, systemImage: systemImage)
             Spacer()
             Image(systemName: healthKitService.isAuthorized ? "checkmark.circle.fill" : "questionmark.circle")
-                .foregroundStyle(healthKitService.isAuthorized ? .green : .secondary)
+                .foregroundStyle(healthKitService.isAuthorized ? Color.wellnessGreen : .secondary)
         }
     }
 
@@ -123,7 +126,7 @@ struct SettingsTab: View {
     private var dataSection: some View {
         Section {
             HStack {
-                Text("Total assessments")
+                Label("Total assessments", systemImage: "number")
                 Spacer()
                 Text("\(assessments.count)")
                     .foregroundStyle(.secondary)
@@ -156,14 +159,14 @@ struct SettingsTab: View {
     private var aboutSection: some View {
         Section {
             HStack {
-                Text("App")
+                Label("App", systemImage: "app.badge")
                 Spacer()
-                Text("LeiLeMe (累了么)")
+                Text("LeiLeMe (\u{7D2F}\u{4E86}\u{4E48})")
                     .foregroundStyle(.secondary)
             }
 
             HStack {
-                Text("Version")
+                Label("Version", systemImage: "info.circle")
                 Spacer()
                 Text(appVersion)
                     .foregroundStyle(.secondary)

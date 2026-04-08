@@ -13,7 +13,7 @@ struct ReactionTimeView: View {
                     engine.onTap()
                 }
 
-            VStack(spacing: 24) {
+            VStack(spacing: AppSpacing.lg) {
                 switch engine.state {
                 case .ready:
                     readyContent
@@ -46,38 +46,46 @@ struct ReactionTimeView: View {
     private var backgroundColor: Color {
         switch engine.state {
         case .ready:
-            return Color(.systemBackground)
+            return Color.surfaceBackground
         case .waiting:
             return Color(.systemGray5)
         case .stimulus:
-            return .green
+            return Color.wellnessGreen
         case .tooEarly:
-            return Color(.systemRed).opacity(0.3)
+            return Color.wellnessRed.opacity(0.3)
         case .feedback:
-            return Color(.systemBackground)
+            return Color.surfaceBackground
         case .complete:
-            return Color(.systemBackground)
+            return Color.surfaceBackground
         }
     }
 
     // MARK: - State Views
 
     private var readyContent: some View {
-        VStack(spacing: 32) {
+        VStack(spacing: AppSpacing.xl) {
             Spacer()
 
-            Image(systemName: "bolt.circle.fill")
-                .font(.system(size: 80))
-                .foregroundStyle(.green)
+            ZStack {
+                Circle()
+                    .fill(Color.wellnessGreen.opacity(0.1))
+                    .frame(width: 140, height: 140)
+                Circle()
+                    .fill(Color.wellnessGreen.opacity(0.05))
+                    .frame(width: 180, height: 180)
+                Image(systemName: "bolt.circle.fill")
+                    .font(.system(size: 64))
+                    .foregroundStyle(Color.wellnessGreen)
+            }
 
-            Text("Reaction Time Test")
+            Text("Reaction Time")
                 .font(.largeTitle.bold())
 
             Text("When the screen turns **green**, tap as fast as you can.\n\n5 rounds.")
                 .font(.title3)
                 .multilineTextAlignment(.center)
                 .foregroundStyle(.secondary)
-                .padding(.horizontal, 32)
+                .padding(.horizontal, AppSpacing.xl)
 
             Spacer()
 
@@ -85,13 +93,9 @@ struct ReactionTimeView: View {
                 engine.start()
             } label: {
                 Text("Start")
-                    .font(.title2.bold())
-                    .frame(maxWidth: .infinity)
-                    .padding(.vertical, 16)
             }
-            .buttonStyle(.borderedProminent)
-            .tint(.green)
-            .padding(.horizontal, 48)
+            .buttonStyle(PrimaryButtonStyle(color: .wellnessGreen))
+            .padding(.horizontal, AppSpacing.xxl)
             .allowsHitTesting(true)
 
             Spacer()
@@ -99,7 +103,7 @@ struct ReactionTimeView: View {
     }
 
     private func waitingContent(trial: Int) -> some View {
-        VStack(spacing: 16) {
+        VStack(spacing: AppSpacing.md) {
             Spacer()
 
             Text("Trial \(trial) of \(engine.totalTrials)")
@@ -110,37 +114,50 @@ struct ReactionTimeView: View {
                 .font(.title.bold())
                 .foregroundStyle(.primary)
 
+            // Subtle waiting indicator
+            ProgressView()
+                .tint(.secondary)
+
             Spacer()
         }
     }
 
     private func stimulusContent(trial: Int) -> some View {
-        VStack(spacing: 16) {
+        VStack(spacing: AppSpacing.md) {
             Spacer()
 
             Text("TAP NOW!")
                 .font(.system(size: 48, weight: .black))
                 .foregroundStyle(.white)
 
-            Circle()
-                .fill(.white.opacity(0.4))
-                .frame(width: 120, height: 120)
+            // Pulsing circle
+            ZStack {
+                Circle()
+                    .fill(.white.opacity(0.2))
+                    .frame(width: 140, height: 140)
+                Circle()
+                    .fill(.white.opacity(0.4))
+                    .frame(width: 100, height: 100)
+                Image(systemName: "hand.tap.fill")
+                    .font(.system(size: 40))
+                    .foregroundStyle(.white)
+            }
 
             Spacer()
         }
     }
 
     private func tooEarlyContent(trial: Int) -> some View {
-        VStack(spacing: 16) {
+        VStack(spacing: AppSpacing.md) {
             Spacer()
 
             Image(systemName: "exclamationmark.triangle.fill")
                 .font(.system(size: 60))
-                .foregroundStyle(.red)
+                .foregroundStyle(Color.wellnessRed)
 
             Text("Too early!")
                 .font(.title.bold())
-                .foregroundStyle(.red)
+                .foregroundStyle(Color.wellnessRed)
 
             Text("Wait for the green screen.")
                 .font(.title3)
@@ -155,7 +172,7 @@ struct ReactionTimeView: View {
     }
 
     private func feedbackContent(trial: Int, ms: Double) -> some View {
-        VStack(spacing: 16) {
+        VStack(spacing: AppSpacing.md) {
             Spacer()
 
             Text("Trial \(trial) of \(engine.totalTrials)")
@@ -164,10 +181,10 @@ struct ReactionTimeView: View {
 
             Text("\(Int(ms)) ms")
                 .font(.system(size: 72, weight: .bold, design: .rounded))
-                .foregroundStyle(.green)
+                .foregroundStyle(reactionColor(ms: ms))
 
             Text(reactionQuality(ms: ms))
-                .font(.title3)
+                .font(.title3.weight(.medium))
                 .foregroundStyle(.secondary)
 
             Spacer()
@@ -181,64 +198,67 @@ struct ReactionTimeView: View {
     }
 
     private func completeContent(result: ReactionTimeResult) -> some View {
-        VStack(spacing: 20) {
-            Spacer()
+        ScrollView {
+            VStack(spacing: AppSpacing.lg) {
+                Spacer(minLength: 20)
 
-            Text("Results")
-                .font(.largeTitle.bold())
+                Image(systemName: "checkmark.circle.fill")
+                    .font(.system(size: 48))
+                    .foregroundStyle(Color.wellnessGreen)
 
-            VStack(spacing: 12) {
-                resultRow(label: "Average", value: "\(Int(result.averageMs)) ms")
-                resultRow(label: "Fastest", value: "\(Int(result.fastestMs)) ms")
-                resultRow(label: "Slowest", value: "\(Int(result.slowestMs)) ms")
-                resultRow(label: "Std Dev", value: "\(Int(result.standardDeviationMs)) ms")
-            }
-            .padding()
-            .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 16))
+                Text("Results")
+                    .font(.largeTitle.bold())
 
-            // Individual trials
-            VStack(spacing: 8) {
-                Text("Individual Trials")
-                    .font(.headline)
-                    .foregroundStyle(.secondary)
+                // Summary card
+                VStack(spacing: 12) {
+                    resultRow(label: "Average", value: "\(Int(result.averageMs)) ms")
+                    resultRow(label: "Fastest", value: "\(Int(result.fastestMs)) ms")
+                    resultRow(label: "Slowest", value: "\(Int(result.slowestMs)) ms")
+                    resultRow(label: "Std Dev", value: "\(Int(result.standardDeviationMs)) ms")
+                }
+                .cardStyle()
+                .padding(.horizontal, AppSpacing.md)
 
-                HStack(spacing: 12) {
-                    ForEach(Array(result.reactionTimesMs.enumerated()), id: \.offset) { index, time in
-                        VStack(spacing: 4) {
-                            Text("\(index + 1)")
-                                .font(.caption2)
-                                .foregroundStyle(.secondary)
-                            Text("\(Int(time))")
-                                .font(.subheadline.bold().monospacedDigit())
-                            Text("ms")
-                                .font(.caption2)
-                                .foregroundStyle(.secondary)
+                // Individual trials card
+                VStack(spacing: AppSpacing.sm) {
+                    Text("Individual Trials")
+                        .font(.headline)
+                        .foregroundStyle(.secondary)
+
+                    HStack(spacing: 12) {
+                        ForEach(Array(result.reactionTimesMs.enumerated()), id: \.offset) { index, time in
+                            VStack(spacing: 4) {
+                                Text("\(index + 1)")
+                                    .font(.caption2)
+                                    .foregroundStyle(.secondary)
+                                Text("\(Int(time))")
+                                    .font(.subheadline.bold().monospacedDigit())
+                                    .foregroundStyle(reactionColor(ms: time))
+                                Text("ms")
+                                    .font(.caption2)
+                                    .foregroundStyle(.secondary)
+                            }
+                            .frame(maxWidth: .infinity)
                         }
-                        .frame(maxWidth: .infinity)
                     }
                 }
+                .cardStyle()
+                .padding(.horizontal, AppSpacing.md)
+
+                Spacer(minLength: 20)
+
+                Button {
+                    onComplete?(result)
+                } label: {
+                    Text("Done")
+                }
+                .buttonStyle(PrimaryButtonStyle(color: .wellnessGreen))
+                .padding(.horizontal, AppSpacing.xxl)
+                .allowsHitTesting(true)
+
+                Spacer(minLength: 40)
             }
-            .padding()
-            .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 16))
-
-            Spacer()
-
-            Button {
-                onComplete?(result)
-            } label: {
-                Text("Done")
-                    .font(.title2.bold())
-                    .frame(maxWidth: .infinity)
-                    .padding(.vertical, 16)
-            }
-            .buttonStyle(.borderedProminent)
-            .tint(.green)
-            .padding(.horizontal, 48)
-            .allowsHitTesting(true)
-
-            Spacer()
         }
-        .padding(.horizontal)
     }
 
     // MARK: - Helpers
@@ -250,6 +270,15 @@ struct ReactionTimeView: View {
             Spacer()
             Text(value)
                 .font(.title3.bold().monospacedDigit())
+        }
+    }
+
+    private func reactionColor(ms: Double) -> Color {
+        switch ms {
+        case ..<200: return .wellnessGreen
+        case ..<300: return .wellnessTeal
+        case ..<400: return .wellnessAmber
+        default: return .wellnessRed
         }
     }
 

@@ -12,50 +12,66 @@ struct SubjectiveAssessmentView: View {
     }
 
     var body: some View {
-        ScrollView {
-            VStack(spacing: 32) {
-                RatingQuestion(
-                    prompt: "How well did you sleep?",
-                    labels: ["Terrible", "Poor", "Okay", "Good", "Great"],
-                    selection: $sleepQuality
-                )
+        ZStack {
+            Color.surfaceBackground
+                .ignoresSafeArea()
 
-                RatingQuestion(
-                    prompt: "How sore are your muscles?",
-                    labels: ["Very sore", "Sore", "Moderate", "Mild", "Not at all"],
-                    selection: $muscleSoreness
-                )
+            ScrollView {
+                VStack(spacing: AppSpacing.xl) {
+                    // Header
+                    VStack(spacing: AppSpacing.sm) {
+                        Image(systemName: "face.smiling")
+                            .font(.system(size: 40))
+                            .foregroundStyle(Color.wellnessTeal)
+                        Text("How are you feeling?")
+                            .font(.title2.bold())
+                    }
+                    .padding(.top, AppSpacing.lg)
 
-                RatingQuestion(
-                    prompt: "How's your energy?",
-                    labels: ["Exhausted", "Low", "Moderate", "Good", "Energized"],
-                    selection: $energyLevel
-                )
-
-                Button {
-                    guard let sleep = sleepQuality,
-                          let soreness = muscleSoreness,
-                          let energy = energyLevel else { return }
-                    let assessment = SubjectiveAssessment(
-                        sleepQuality: sleep,
-                        muscleSoreness: soreness,
-                        energyLevel: energy
+                    RatingQuestion(
+                        prompt: "How well did you sleep?",
+                        icon: "bed.double.fill",
+                        labels: ["Terrible", "Poor", "Okay", "Good", "Great"],
+                        selection: $sleepQuality
                     )
-                    onComplete(assessment)
-                } label: {
-                    Text("Done")
-                        .font(.headline)
-                        .frame(maxWidth: .infinity)
-                        .padding(.vertical, 12)
+
+                    RatingQuestion(
+                        prompt: "How sore are your muscles?",
+                        icon: "figure.walk",
+                        labels: ["Very sore", "Sore", "Moderate", "Mild", "Not at all"],
+                        selection: $muscleSoreness
+                    )
+
+                    RatingQuestion(
+                        prompt: "How's your energy?",
+                        icon: "bolt.fill",
+                        labels: ["Exhausted", "Low", "Moderate", "Good", "Energized"],
+                        selection: $energyLevel
+                    )
+
+                    Button {
+                        guard let sleep = sleepQuality,
+                              let soreness = muscleSoreness,
+                              let energy = energyLevel else { return }
+                        let assessment = SubjectiveAssessment(
+                            sleepQuality: sleep,
+                            muscleSoreness: soreness,
+                            energyLevel: energy
+                        )
+                        onComplete(assessment)
+                    } label: {
+                        Text("Done")
+                    }
+                    .buttonStyle(PrimaryButtonStyle())
+                    .disabled(!allSelected)
+                    .opacity(allSelected ? 1.0 : 0.5)
+                    .padding(.horizontal, AppSpacing.md)
+                    .padding(.top, AppSpacing.sm)
                 }
-                .buttonStyle(.borderedProminent)
-                .disabled(!allSelected)
-                .padding(.top, 8)
+                .padding(AppSpacing.lg)
             }
-            .padding(24)
         }
-        .navigationTitle("How are you feeling?")
-        .navigationBarTitleDisplayMode(.large)
+        .navigationBarTitleDisplayMode(.inline)
     }
 }
 
@@ -63,13 +79,19 @@ struct SubjectiveAssessmentView: View {
 
 private struct RatingQuestion: View {
     let prompt: String
+    let icon: String
     let labels: [String]
     @Binding var selection: Int?
 
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
-            Text(prompt)
-                .font(.headline)
+            HStack(spacing: 8) {
+                Image(systemName: icon)
+                    .foregroundStyle(Color.wellnessTeal)
+                    .font(.subheadline)
+                Text(prompt)
+                    .font(.headline)
+            }
 
             HStack(spacing: 8) {
                 ForEach(1...5, id: \.self) { value in
@@ -78,11 +100,14 @@ private struct RatingQuestion: View {
                         label: labels[value - 1],
                         isSelected: selection == value
                     ) {
-                        selection = value
+                        withAnimation(.easeOut(duration: 0.2)) {
+                            selection = value
+                        }
                     }
                 }
             }
         }
+        .cardStyle()
     }
 }
 
@@ -107,12 +132,14 @@ private struct RatingButton: View {
             .frame(maxWidth: .infinity)
             .padding(.vertical, 10)
             .background(
-                RoundedRectangle(cornerRadius: 10)
-                    .fill(isSelected ? Color.accentColor : Color(.systemGray6))
+                RoundedRectangle(cornerRadius: 10, style: .continuous)
+                    .fill(isSelected ? Color.wellnessTeal : Color(.systemGray6))
             )
             .foregroundStyle(isSelected ? .white : .primary)
         }
         .buttonStyle(.plain)
+        .scaleEffect(isSelected ? 1.05 : 1.0)
+        .animation(.easeOut(duration: 0.2), value: isSelected)
         .accessibilityLabel("\(value), \(label)")
     }
 }

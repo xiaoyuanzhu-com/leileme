@@ -31,6 +31,7 @@ struct LeiLeMeApp: App {
         WindowGroup {
             ContentView()
                 .environment(healthKitService)
+                .tint(.wellnessTeal)
         }
         .modelContainer(sharedModelContainer)
     }

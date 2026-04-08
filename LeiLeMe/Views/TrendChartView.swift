@@ -34,14 +34,13 @@ struct TrendChartView: View {
     }
 
     var body: some View {
-        VStack(spacing: 12) {
+        VStack(spacing: AppSpacing.md) {
             Picker("Time Range", selection: $selectedRange) {
                 ForEach(TimeRange.allCases, id: \.self) { range in
                     Text(range.rawValue).tag(range)
                 }
             }
             .pickerStyle(.segmented)
-            .padding(.horizontal)
 
             if filteredAssessments.isEmpty {
                 Text("No data for this period")
@@ -58,14 +57,13 @@ struct TrendChartView: View {
                             .font(.caption)
                     }
                     .foregroundStyle(.secondary)
-                    .padding(.horizontal)
                 }
 
-                VStack(spacing: 16) {
+                VStack(spacing: AppSpacing.lg) {
                     chartSection(
                         title: "Tap Frequency",
                         unit: "taps/s",
-                        color: .blue,
+                        color: .wellnessTeal,
                         dataPoints: filteredAssessments.compactMap { a in
                             guard let tap = a.tapTestResult else { return nil }
                             return ChartPoint(date: a.date, value: (tap.round1Frequency + tap.round2Frequency) / 2.0)
@@ -75,7 +73,7 @@ struct TrendChartView: View {
                     chartSection(
                         title: "Reaction Time",
                         unit: "ms",
-                        color: .orange,
+                        color: .wellnessAmber,
                         dataPoints: filteredAssessments.compactMap { a in
                             guard let rt = a.reactionTimeResult else { return nil }
                             return ChartPoint(date: a.date, value: rt.averageMs)
@@ -85,7 +83,7 @@ struct TrendChartView: View {
                     chartSection(
                         title: "HRV (RMSSD)",
                         unit: "ms",
-                        color: .green,
+                        color: .wellnessGreen,
                         dataPoints: filteredAssessments.compactMap { a in
                             guard let hrv = a.healthKitData?.hrvRMSSD else { return nil }
                             return ChartPoint(date: a.date, value: hrv)
@@ -95,7 +93,7 @@ struct TrendChartView: View {
                     chartSection(
                         title: "Resting Heart Rate",
                         unit: "bpm",
-                        color: .red,
+                        color: .wellnessRed,
                         dataPoints: filteredAssessments.compactMap { a in
                             guard let rhr = a.healthKitData?.restingHeartRate else { return nil }
                             return ChartPoint(date: a.date, value: rhr)
@@ -111,8 +109,11 @@ struct TrendChartView: View {
     @ViewBuilder
     private func chartSection(title: String, unit: String, color: Color, dataPoints: [ChartPoint]) -> some View {
         if !dataPoints.isEmpty {
-            VStack(alignment: .leading, spacing: 4) {
+            VStack(alignment: .leading, spacing: AppSpacing.xs) {
                 HStack {
+                    Circle()
+                        .fill(color)
+                        .frame(width: 8, height: 8)
                     Text(title)
                         .font(.subheadline.weight(.semibold))
                     Spacer()
@@ -122,14 +123,27 @@ struct TrendChartView: View {
                             .foregroundStyle(.secondary)
                     }
                 }
-                .padding(.horizontal)
 
                 Chart(dataPoints) { point in
                     LineMark(
                         x: .value("Date", point.date),
                         y: .value(title, point.value)
                     )
-                    .foregroundStyle(color)
+                    .foregroundStyle(color.opacity(0.8))
+                    .interpolationMethod(.catmullRom)
+                    .lineStyle(StrokeStyle(lineWidth: 2.5))
+
+                    AreaMark(
+                        x: .value("Date", point.date),
+                        y: .value(title, point.value)
+                    )
+                    .foregroundStyle(
+                        LinearGradient(
+                            colors: [color.opacity(0.15), color.opacity(0.02)],
+                            startPoint: .top,
+                            endPoint: .bottom
+                        )
+                    )
                     .interpolationMethod(.catmullRom)
 
                     PointMark(
@@ -142,24 +156,26 @@ struct TrendChartView: View {
                 .chartXAxis {
                     AxisMarks(values: .stride(by: .day, count: selectedRange == .sevenDays ? 1 : 5)) { _ in
                         AxisGridLine()
+                            .foregroundStyle(Color(.systemGray5))
                         AxisValueLabel(format: .dateTime.month(.abbreviated).day())
+                            .font(.caption2)
                     }
                 }
                 .chartYAxis {
                     AxisMarks(position: .leading) { _ in
                         AxisGridLine()
+                            .foregroundStyle(Color(.systemGray5))
                         AxisValueLabel()
+                            .font(.caption2)
                     }
                 }
                 .frame(height: 120)
-                .padding(.horizontal)
 
                 // Show point count hint for sparse data
                 if dataPoints.count < 3 {
                     Text("\(dataPoints.count) data point\(dataPoints.count == 1 ? "" : "s") so far")
                         .font(.caption2)
                         .foregroundStyle(.tertiary)
-                        .padding(.horizontal)
                 }
             }
         }
@@ -176,4 +192,5 @@ private struct ChartPoint: Identifiable {
 
 #Preview {
     TrendChartView(assessments: [])
+        .padding()
 }

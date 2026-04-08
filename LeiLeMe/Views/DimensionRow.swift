@@ -2,6 +2,7 @@ import SwiftUI
 
 struct DimensionRow: View {
     let title: String
+    var icon: String = ""
     let todayValue: Double?
     let baselineValue: Double?
     let unit: String
@@ -45,9 +46,9 @@ struct DimensionRow: View {
 
     private var comparisonColor: Color {
         switch comparison {
-        case .better: return .green
-        case .worse: return .red
-        case .neutral: return .secondary
+        case .better: return .statusGood
+        case .worse: return .statusBad
+        case .neutral: return .statusNeutral
         }
     }
 
@@ -68,8 +69,14 @@ struct DimensionRow: View {
     }
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 8) {
-            HStack {
+        VStack(alignment: .leading, spacing: AppSpacing.sm) {
+            HStack(spacing: AppSpacing.sm) {
+                if !icon.isEmpty {
+                    Image(systemName: icon)
+                        .font(.caption)
+                        .foregroundStyle(Color.wellnessTeal)
+                        .frame(width: 20)
+                }
                 Text(title)
                     .font(.subheadline.weight(.semibold))
                 Spacer()
@@ -88,7 +95,7 @@ struct DimensionRow: View {
                 }
             }
 
-            HStack(spacing: 16) {
+            HStack(spacing: AppSpacing.md) {
                 VStack(alignment: .leading, spacing: 2) {
                     Text("Today")
                         .font(.caption2)
@@ -140,16 +147,16 @@ struct DimensionRow: View {
                             .frame(width: max(4, geometry.size.width * progressRatio / 2.0), height: 6)
 
                         // Baseline marker at 50%
-                        Rectangle()
+                        Capsule()
                             .fill(Color(.systemGray3))
-                            .frame(width: 2, height: 10)
+                            .frame(width: 2, height: 12)
                             .offset(x: geometry.size.width / 2.0 - 1)
                     }
                 }
-                .frame(height: 10)
+                .frame(height: 12)
             }
         }
-        .padding(.vertical, 4)
+        .padding(.vertical, AppSpacing.xs)
     }
 
     // MARK: - Baseline Building Dots
@@ -159,7 +166,7 @@ struct DimensionRow: View {
         HStack(spacing: 2) {
             ForEach(0..<7, id: \.self) { index in
                 Circle()
-                    .fill(index < baselineDayCount ? Color.accentColor : Color(.systemGray4))
+                    .fill(index < baselineDayCount ? Color.wellnessTeal : Color(.systemGray4))
                     .frame(width: 4, height: 4)
             }
         }
@@ -181,7 +188,7 @@ private struct BaselineBuildingLabel: View {
             HStack(spacing: 2) {
                 ForEach(0..<7, id: \.self) { index in
                     RoundedRectangle(cornerRadius: 1.5)
-                        .fill(index < dayCount ? Color.accentColor : Color(.systemGray5))
+                        .fill(index < dayCount ? Color.wellnessTeal : Color(.systemGray5))
                         .frame(width: 6, height: 3)
                 }
             }
@@ -193,9 +200,10 @@ private struct BaselineBuildingLabel: View {
 }
 
 #Preview {
-    List {
+    VStack(spacing: 16) {
         DimensionRow(
             title: "HRV (RMSSD)",
+            icon: "waveform.path.ecg",
             todayValue: 42,
             baselineValue: 38,
             unit: "ms",
@@ -205,6 +213,7 @@ private struct BaselineBuildingLabel: View {
         )
         DimensionRow(
             title: "Resting Heart Rate",
+            icon: "heart.fill",
             todayValue: 58,
             baselineValue: 62,
             unit: "bpm",
@@ -214,6 +223,7 @@ private struct BaselineBuildingLabel: View {
         )
         DimensionRow(
             title: "Sleep Duration",
+            icon: "bed.double.fill",
             todayValue: nil,
             baselineValue: 7.2,
             unit: "hrs",
@@ -223,6 +233,7 @@ private struct BaselineBuildingLabel: View {
         )
         DimensionRow(
             title: "Energy Level",
+            icon: "bolt.fill",
             todayValue: 3,
             baselineValue: nil,
             unit: "/5",
@@ -231,4 +242,5 @@ private struct BaselineBuildingLabel: View {
             baselineDayCount: 2
         )
     }
+    .padding()
 }

@@ -7,11 +7,16 @@ struct HistoryTab: View {
 
     var body: some View {
         NavigationStack {
-            Group {
-                if assessments.isEmpty {
-                    emptyState
-                } else {
-                    assessmentList
+            ZStack {
+                Color.surfaceBackground
+                    .ignoresSafeArea()
+
+                Group {
+                    if assessments.isEmpty {
+                        emptyState
+                    } else {
+                        assessmentList
+                    }
                 }
             }
             .navigationTitle("History")
@@ -21,33 +26,62 @@ struct HistoryTab: View {
     // MARK: - Empty State
 
     private var emptyState: some View {
-        ContentUnavailableView {
-            Label("No Assessments Yet", systemImage: "chart.line.uptrend.xyaxis")
-        } description: {
-            Text("Complete your first daily assessment to start tracking trends.")
+        VStack(spacing: AppSpacing.lg) {
+            Spacer()
+
+            ZStack {
+                Circle()
+                    .fill(Color.wellnessTeal.opacity(0.08))
+                    .frame(width: 120, height: 120)
+                Image(systemName: "chart.line.uptrend.xyaxis")
+                    .font(.system(size: 48))
+                    .foregroundStyle(Color.wellnessTeal.opacity(0.6))
+            }
+
+            Text("No Assessments Yet")
+                .font(.title3.bold())
+
+            Text("Complete your first daily assessment\nto start tracking trends.")
+                .font(.body)
+                .foregroundStyle(.secondary)
+                .multilineTextAlignment(.center)
+
+            Spacer()
         }
     }
 
     // MARK: - Assessment List
 
     private var assessmentList: some View {
-        List {
-            Section {
-                TrendChartView(assessments: assessments)
-                    .listRowInsets(EdgeInsets(top: 8, leading: 0, bottom: 8, trailing: 0))
-            } header: {
-                Label("Trends", systemImage: "chart.xyaxis.line")
-            }
+        ScrollView {
+            VStack(spacing: AppSpacing.lg) {
+                // Trends section
+                VStack(alignment: .leading, spacing: AppSpacing.sm) {
+                    ThemedSectionHeader(title: "Trends", icon: "chart.xyaxis.line")
+                        .padding(.horizontal, AppSpacing.md)
 
-            Section {
-                ForEach(assessments) { assessment in
-                    NavigationLink(destination: HistoryDetailView(assessment: assessment, allAssessments: assessments)) {
-                        AssessmentRow(assessment: assessment)
-                    }
+                    TrendChartView(assessments: assessments)
+                        .cardStyle()
                 }
-            } header: {
-                Label("Past Assessments", systemImage: "calendar")
+                .padding(.horizontal, AppSpacing.md)
+
+                // Past assessments section
+                VStack(alignment: .leading, spacing: AppSpacing.sm) {
+                    ThemedSectionHeader(title: "Past Assessments", icon: "calendar")
+                        .padding(.horizontal, AppSpacing.md)
+
+                    LazyVStack(spacing: AppSpacing.sm) {
+                        ForEach(assessments) { assessment in
+                            NavigationLink(destination: HistoryDetailView(assessment: assessment, allAssessments: assessments)) {
+                                AssessmentRow(assessment: assessment)
+                            }
+                            .buttonStyle(.plain)
+                        }
+                    }
+                    .padding(.horizontal, AppSpacing.md)
+                }
             }
+            .padding(.vertical, AppSpacing.md)
         }
     }
 }
@@ -58,14 +92,41 @@ private struct AssessmentRow: View {
     let assessment: DailyAssessment
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 4) {
-            Text(relativeDateLabel(for: assessment.date))
-                .font(.headline)
-            Text(summaryText)
-                .font(.subheadline)
-                .foregroundStyle(.secondary)
+        HStack(spacing: AppSpacing.md) {
+            // Date badge
+            VStack(spacing: 2) {
+                Text(dayLabel)
+                    .font(.caption2.weight(.semibold))
+                    .foregroundStyle(.secondary)
+                Text(dayNumber)
+                    .font(.title3.bold())
+                    .foregroundStyle(Color.wellnessTeal)
+            }
+            .frame(width: 44)
+
+            VStack(alignment: .leading, spacing: 4) {
+                Text(relativeDateLabel(for: assessment.date))
+                    .font(.headline)
+                Text(summaryText)
+                    .font(.subheadline)
+                    .foregroundStyle(.secondary)
+            }
+
+            Spacer()
+
+            Image(systemName: "chevron.right")
+                .font(.caption.weight(.semibold))
+                .foregroundStyle(.tertiary)
         }
-        .padding(.vertical, 4)
+        .cardStyle()
+    }
+
+    private var dayLabel: String {
+        assessment.date.formatted(.dateTime.weekday(.abbreviated)).uppercased()
+    }
+
+    private var dayNumber: String {
+        assessment.date.formatted(.dateTime.day())
     }
 
     private var summaryText: String {
