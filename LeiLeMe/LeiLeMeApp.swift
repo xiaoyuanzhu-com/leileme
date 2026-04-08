@@ -4,7 +4,13 @@ import SwiftData
 @main
 struct LeiLeMeApp: App {
     var sharedModelContainer: ModelContainer = {
-        let schema = Schema([])
+        let schema = Schema([
+            DailyAssessment.self,
+            HealthKitReading.self,
+            TapTestResult.self,
+            ReactionTimeResult.self,
+            SubjectiveAssessment.self,
+        ])
         let modelConfiguration = ModelConfiguration(
             schema: schema,
             isStoredInMemoryOnly: false

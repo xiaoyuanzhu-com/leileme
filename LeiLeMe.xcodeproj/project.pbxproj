@@ -13,6 +13,12 @@
 		AA000004 /* HistoryTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA100004 /* HistoryTab.swift */; };
 		AA000005 /* SettingsTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA100005 /* SettingsTab.swift */; };
 		AA000006 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AA100006 /* Assets.xcassets */; };
+		AA000010 /* DailyAssessment.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA100010 /* DailyAssessment.swift */; };
+		AA000011 /* HealthKitReading.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA100011 /* HealthKitReading.swift */; };
+		AA000012 /* TapTestResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA100012 /* TapTestResult.swift */; };
+		AA000013 /* ReactionTimeResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA100013 /* ReactionTimeResult.swift */; };
+		AA000014 /* SubjectiveAssessment.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA100014 /* SubjectiveAssessment.swift */; };
+		AA000015 /* BaselineEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA100015 /* BaselineEngine.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,6 +31,12 @@
 		AA100007 /* LeiLeMe.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = LeiLeMe.entitlements; sourceTree = "<group>"; };
 		AA100008 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AA100009 /* LeiLeMe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LeiLeMe.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		AA100010 /* DailyAssessment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyAssessment.swift; sourceTree = "<group>"; };
+		AA100011 /* HealthKitReading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitReading.swift; sourceTree = "<group>"; };
+		AA100012 /* TapTestResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapTestResult.swift; sourceTree = "<group>"; };
+		AA100013 /* ReactionTimeResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReactionTimeResult.swift; sourceTree = "<group>"; };
+		AA100014 /* SubjectiveAssessment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubjectiveAssessment.swift; sourceTree = "<group>"; };
+		AA100015 /* BaselineEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaselineEngine.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,6 +86,11 @@
 		AA300004 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				AA100010 /* DailyAssessment.swift */,
+				AA100011 /* HealthKitReading.swift */,
+				AA100012 /* TapTestResult.swift */,
+				AA100013 /* ReactionTimeResult.swift */,
+				AA100014 /* SubjectiveAssessment.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -81,6 +98,7 @@
 		AA300005 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				AA100015 /* BaselineEngine.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -167,6 +185,12 @@
 				AA000003 /* AssessmentTab.swift in Sources */,
 				AA000004 /* HistoryTab.swift in Sources */,
 				AA000005 /* SettingsTab.swift in Sources */,
+				AA000010 /* DailyAssessment.swift in Sources */,
+				AA000011 /* HealthKitReading.swift in Sources */,
+				AA000012 /* TapTestResult.swift in Sources */,
+				AA000013 /* ReactionTimeResult.swift in Sources */,
+				AA000014 /* SubjectiveAssessment.swift in Sources */,
+				AA000015 /* BaselineEngine.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
