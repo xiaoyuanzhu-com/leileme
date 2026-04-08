@@ -20,6 +20,8 @@
 		AA000014 /* SubjectiveAssessment.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA100014 /* SubjectiveAssessment.swift */; };
 		AA000015 /* BaselineEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA100015 /* BaselineEngine.swift */; };
 		AA000016 /* HealthKitService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA100016 /* HealthKitService.swift */; };
+		AA000017 /* TapTestEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA100017 /* TapTestEngine.swift */; };
+		AA000018 /* TapTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA100018 /* TapTestView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,6 +41,8 @@
 		AA100014 /* SubjectiveAssessment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubjectiveAssessment.swift; sourceTree = "<group>"; };
 		AA100015 /* BaselineEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaselineEngine.swift; sourceTree = "<group>"; };
 		AA100016 /* HealthKitService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitService.swift; sourceTree = "<group>"; };
+		AA100017 /* TapTestEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapTestEngine.swift; sourceTree = "<group>"; };
+		AA100018 /* TapTestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapTestView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,6 +85,7 @@
 				AA100003 /* AssessmentTab.swift */,
 				AA100004 /* HistoryTab.swift */,
 				AA100005 /* SettingsTab.swift */,
+				AA100018 /* TapTestView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -102,6 +107,7 @@
 			children = (
 				AA100015 /* BaselineEngine.swift */,
 				AA100016 /* HealthKitService.swift */,
+				AA100017 /* TapTestEngine.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -195,6 +201,8 @@
 				AA000014 /* SubjectiveAssessment.swift in Sources */,
 				AA000015 /* BaselineEngine.swift in Sources */,
 				AA000016 /* HealthKitService.swift in Sources */,
+				AA000017 /* TapTestEngine.swift in Sources */,
+				AA000018 /* TapTestView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
