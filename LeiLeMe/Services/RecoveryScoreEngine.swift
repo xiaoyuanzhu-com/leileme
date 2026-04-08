@@ -45,7 +45,7 @@ struct RecoveryScoreEngine {
 
         let dims: [Dimension] = [
             Dimension(name: "HRV",
-                      todayValue: assessment.healthKitData?.hrvRMSSD,
+                      todayValue: assessment.healthKitData?.hrvSDNN,
                       baselineValue: baseline.hrvBaseline,
                       weight: 20, higherIsBetter: true),
             Dimension(name: "Resting HR",
