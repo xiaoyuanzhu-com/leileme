@@ -22,6 +22,8 @@
 		AA000016 /* HealthKitService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA100016 /* HealthKitService.swift */; };
 		AA000017 /* TapTestEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA100017 /* TapTestEngine.swift */; };
 		AA000018 /* TapTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA100018 /* TapTestView.swift */; };
+		AA000019 /* ReactionTimeEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA100019 /* ReactionTimeEngine.swift */; };
+		AA000020 /* ReactionTimeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA100020 /* ReactionTimeView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -43,6 +45,8 @@
 		AA100016 /* HealthKitService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitService.swift; sourceTree = "<group>"; };
 		AA100017 /* TapTestEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapTestEngine.swift; sourceTree = "<group>"; };
 		AA100018 /* TapTestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapTestView.swift; sourceTree = "<group>"; };
+		AA100019 /* ReactionTimeEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReactionTimeEngine.swift; sourceTree = "<group>"; };
+		AA100020 /* ReactionTimeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReactionTimeView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,6 +90,7 @@
 				AA100004 /* HistoryTab.swift */,
 				AA100005 /* SettingsTab.swift */,
 				AA100018 /* TapTestView.swift */,
+				AA100020 /* ReactionTimeView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -108,6 +113,7 @@
 				AA100015 /* BaselineEngine.swift */,
 				AA100016 /* HealthKitService.swift */,
 				AA100017 /* TapTestEngine.swift */,
+				AA100019 /* ReactionTimeEngine.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -203,6 +209,8 @@
 				AA000016 /* HealthKitService.swift in Sources */,
 				AA000017 /* TapTestEngine.swift in Sources */,
 				AA000018 /* TapTestView.swift in Sources */,
+				AA000019 /* ReactionTimeEngine.swift in Sources */,
+				AA000020 /* ReactionTimeView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
