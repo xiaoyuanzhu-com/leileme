@@ -81,11 +81,11 @@ struct TrendChartView: View {
                     )
 
                     chartSection(
-                        title: "HRV (RMSSD)",
+                        title: "HRV (SDNN)",
                         unit: "ms",
                         color: .wellnessGreen,
                         dataPoints: filteredAssessments.compactMap { a in
-                            guard let hrv = a.healthKitData?.hrvRMSSD else { return nil }
+                            guard let hrv = a.healthKitData?.hrvSDNN else { return nil }
                             return ChartPoint(date: a.date, value: hrv)
                         }
                     )
@@ -99,6 +99,52 @@ struct TrendChartView: View {
                             return ChartPoint(date: a.date, value: rhr)
                         }
                     )
+                }
+
+                // Subjective Trends — always available (no Apple Watch needed)
+                let sleepQualityPoints = filteredAssessments.compactMap { a -> ChartPoint? in
+                    guard let sub = a.subjectiveAssessment else { return nil }
+                    return ChartPoint(date: a.date, value: Double(sub.sleepQuality))
+                }
+                let sorenessPoints = filteredAssessments.compactMap { a -> ChartPoint? in
+                    guard let sub = a.subjectiveAssessment else { return nil }
+                    return ChartPoint(date: a.date, value: Double(sub.muscleSoreness))
+                }
+                let energyPoints = filteredAssessments.compactMap { a -> ChartPoint? in
+                    guard let sub = a.subjectiveAssessment else { return nil }
+                    return ChartPoint(date: a.date, value: Double(sub.energyLevel))
+                }
+
+                if !sleepQualityPoints.isEmpty || !sorenessPoints.isEmpty || !energyPoints.isEmpty {
+                    VStack(alignment: .leading, spacing: AppSpacing.sm) {
+                        Text("Subjective Trends")
+                            .font(.subheadline.weight(.semibold))
+                            .foregroundStyle(.secondary)
+                            .padding(.top, AppSpacing.sm)
+                    }
+
+                    VStack(spacing: AppSpacing.lg) {
+                        chartSection(
+                            title: "Sleep Quality",
+                            unit: "/5",
+                            color: .indigo,
+                            dataPoints: sleepQualityPoints
+                        )
+
+                        chartSection(
+                            title: "Muscle Soreness",
+                            unit: "/5",
+                            color: .orange,
+                            dataPoints: sorenessPoints
+                        )
+
+                        chartSection(
+                            title: "Energy Level",
+                            unit: "/5",
+                            color: .mint,
+                            dataPoints: energyPoints
+                        )
+                    }
                 }
             }
         }

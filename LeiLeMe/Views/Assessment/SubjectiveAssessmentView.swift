@@ -38,7 +38,7 @@ struct SubjectiveAssessmentView: View {
                     RatingQuestion(
                         prompt: "How sore are your muscles?",
                         icon: "figure.walk",
-                        labels: ["Very sore", "Sore", "Moderate", "Mild", "Not at all"],
+                        labels: ["None", "Mild", "Moderate", "Sore", "Very sore"],
                         selection: $muscleSoreness
                     )
 

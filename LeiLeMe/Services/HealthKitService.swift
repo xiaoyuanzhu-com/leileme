@@ -144,7 +144,7 @@ final class HealthKitService {
         let sleep = try await sleepResult
 
         return HealthKitReading(
-            hrvRMSSD: hrv,
+            hrvSDNN: hrv,
             restingHeartRate: rhr,
             sleepDuration: sleep.duration,
             sleepQuality: sleep.quality,

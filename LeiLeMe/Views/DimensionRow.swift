@@ -52,12 +52,17 @@ struct DimensionRow: View {
         }
     }
 
+    /// Arrow reflects the VALUE direction (up = value increased, down = value decreased).
+    /// Color (via `comparisonColor`) stays semantic (green = good, red = bad).
     private var comparisonIcon: String {
-        switch comparison {
-        case .better: return "arrow.up.circle.fill"
-        case .worse: return "arrow.down.circle.fill"
-        case .neutral: return "minus.circle.fill"
+        guard let today = todayValue, let baseline = baselineValue else {
+            return "minus.circle.fill"
         }
+        let diff = today - baseline
+        if abs(diff) < 0.001 {
+            return "minus.circle.fill"
+        }
+        return diff > 0 ? "arrow.up.circle.fill" : "arrow.down.circle.fill"
     }
 
     /// Progress ratio for the bar: today / baseline, clamped to [0, 2].
@@ -202,7 +207,7 @@ private struct BaselineBuildingLabel: View {
 #Preview {
     VStack(spacing: 16) {
         DimensionRow(
-            title: "HRV (RMSSD)",
+            title: "HRV (SDNN)",
             icon: "waveform.path.ecg",
             todayValue: 42,
             baselineValue: 38,

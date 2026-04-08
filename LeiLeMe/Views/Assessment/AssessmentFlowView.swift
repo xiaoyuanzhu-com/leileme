@@ -78,7 +78,7 @@ struct AssessmentFlowView: View {
 
     private var progressIndicator: some View {
         HStack(spacing: 0) {
-            ForEach(Array(AssessmentFlowManager.Phase.allCases.enumerated()), id: \.element.rawValue) { index, phase in
+            ForEach(Array(AssessmentFlowManager.Phase.allCases.filter { $0 != .results }.enumerated()), id: \.element.rawValue) { index, phase in
                 if index > 0 {
                     // Connecting line
                     Rectangle()
@@ -191,26 +191,62 @@ struct AssessmentFlowView: View {
         VStack(spacing: AppSpacing.lg) {
             Spacer()
 
-            ZStack {
-                Circle()
-                    .fill(Color.wellnessTeal.opacity(0.08))
-                    .frame(width: 120, height: 120)
-
-                ProgressView()
-                    .scaleEffect(1.5)
-                    .tint(.wellnessTeal)
-            }
-
-            Text("Reading health data...")
-                .font(.title3.weight(.medium))
-                .foregroundStyle(.secondary)
-
             if let error = healthFetchError {
+                // Error state — clear message with manual continue
+                ZStack {
+                    Circle()
+                        .fill(Color.wellnessAmber.opacity(0.08))
+                        .frame(width: 120, height: 120)
+
+                    Image(systemName: "heart.slash")
+                        .font(.system(size: 36))
+                        .foregroundStyle(Color.wellnessAmber)
+                }
+
+                Text("No health data available")
+                    .font(.title3.weight(.medium))
+
                 Text(error)
                     .font(.caption)
                     .foregroundStyle(.secondary)
                     .multilineTextAlignment(.center)
                     .padding(.horizontal, AppSpacing.xl)
+
+                Button {
+                    withAnimation(.easeInOut(duration: 0.35)) {
+                        flowManager.advance()
+                    }
+                } label: {
+                    Text("Continue without health data")
+                }
+                .buttonStyle(PrimaryButtonStyle())
+                .padding(.horizontal, AppSpacing.xl)
+            } else {
+                // Loading state
+                ZStack {
+                    Circle()
+                        .fill(Color.wellnessTeal.opacity(0.08))
+                        .frame(width: 120, height: 120)
+
+                    ProgressView()
+                        .scaleEffect(1.5)
+                        .tint(.wellnessTeal)
+                }
+
+                Text("Reading health data...")
+                    .font(.title3.weight(.medium))
+                    .foregroundStyle(.secondary)
+
+                Button {
+                    withAnimation(.easeInOut(duration: 0.35)) {
+                        flowManager.advance()
+                    }
+                } label: {
+                    Text("Skip")
+                        .font(.subheadline)
+                }
+                .foregroundStyle(.secondary)
+                .padding(.top, AppSpacing.sm)
             }
 
             Spacer()
@@ -226,7 +262,13 @@ struct AssessmentFlowView: View {
             let reading = try await healthKitService.fetchCurrentReading()
             flowManager.healthKitReading = reading
         } catch {
-            healthFetchError = "Could not read HealthKit data \u{2014} continuing without it."
+            healthFetchError = "Could not read HealthKit data. You can still complete the assessment."
+            // Give user 2 seconds to see the message before auto-advancing
+            try? await Task.sleep(for: .seconds(2))
+            withAnimation(.easeInOut(duration: 0.35)) {
+                flowManager.advance()
+            }
+            return
         }
 
         // Brief pause so the spinner is visible

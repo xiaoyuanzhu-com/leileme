@@ -51,7 +51,7 @@ final class BaselineEngine {
         for assessment in recent {
             // HealthKit
             if let hk = assessment.healthKitData {
-                if let v = hk.hrvRMSSD { hrvValues.append(v) }
+                if let v = hk.hrvSDNN { hrvValues.append(v) }
                 if let v = hk.restingHeartRate { rhrValues.append(v) }
                 if let v = hk.sleepDuration { sleepDurationValues.append(v) }
             }

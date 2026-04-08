@@ -26,9 +26,9 @@ struct HistoryDetailView: View {
                         color: .wellnessRed
                     ) {
                         DimensionRow(
-                            title: "HRV (RMSSD)",
+                            title: "HRV (SDNN)",
                             icon: "waveform.path.ecg",
-                            todayValue: assessment.healthKitData?.hrvRMSSD,
+                            todayValue: assessment.healthKitData?.hrvSDNN,
                             baselineValue: baseline.hrvBaseline,
                             unit: "ms",
                             higherIsBetter: true,
@@ -150,7 +150,7 @@ struct HistoryDetailView: View {
                             todayValue: assessment.subjectiveAssessment.map { Double($0.muscleSoreness) },
                             baselineValue: baseline.sorenessBaseline,
                             unit: "/5",
-                            higherIsBetter: true,
+                            higherIsBetter: false,
                             formatString: "%.0f",
                             baselineDayCount: baseline.dayCount
                         )
@@ -219,7 +219,7 @@ struct HistoryDetailView: View {
             assessment: {
                 let a = DailyAssessment(date: Date())
                 a.healthKitData = HealthKitReading(
-                    hrvRMSSD: 42,
+                    hrvSDNN: 42,
                     restingHeartRate: 58,
                     sleepDuration: 7.5
                 )
