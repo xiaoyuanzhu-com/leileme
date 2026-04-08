@@ -3,6 +3,8 @@ import SwiftData
 
 @main
 struct LeiLeMeApp: App {
+    @State private var healthKitService = HealthKitService()
+
     var sharedModelContainer: ModelContainer = {
         let schema = Schema([
             DailyAssessment.self,
@@ -28,6 +30,7 @@ struct LeiLeMeApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environment(healthKitService)
         }
         .modelContainer(sharedModelContainer)
     }

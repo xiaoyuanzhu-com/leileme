@@ -19,6 +19,7 @@
 		AA000013 /* ReactionTimeResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA100013 /* ReactionTimeResult.swift */; };
 		AA000014 /* SubjectiveAssessment.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA100014 /* SubjectiveAssessment.swift */; };
 		AA000015 /* BaselineEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA100015 /* BaselineEngine.swift */; };
+		AA000016 /* HealthKitService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA100016 /* HealthKitService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,6 +38,7 @@
 		AA100013 /* ReactionTimeResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReactionTimeResult.swift; sourceTree = "<group>"; };
 		AA100014 /* SubjectiveAssessment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubjectiveAssessment.swift; sourceTree = "<group>"; };
 		AA100015 /* BaselineEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaselineEngine.swift; sourceTree = "<group>"; };
+		AA100016 /* HealthKitService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,6 +101,7 @@
 			isa = PBXGroup;
 			children = (
 				AA100015 /* BaselineEngine.swift */,
+				AA100016 /* HealthKitService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -191,6 +194,7 @@
 				AA000013 /* ReactionTimeResult.swift in Sources */,
 				AA000014 /* SubjectiveAssessment.swift in Sources */,
 				AA000015 /* BaselineEngine.swift in Sources */,
+				AA000016 /* HealthKitService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
