@@ -25,6 +25,8 @@
 		AA000019 /* ReactionTimeEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA100019 /* ReactionTimeEngine.swift */; };
 		AA000020 /* ReactionTimeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA100020 /* ReactionTimeView.swift */; };
 		AA000021 /* SubjectiveAssessmentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA100021 /* SubjectiveAssessmentView.swift */; };
+		AA000022 /* ResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA100022 /* ResultView.swift */; };
+		AA000023 /* DimensionRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA100023 /* DimensionRow.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -49,6 +51,8 @@
 		AA100019 /* ReactionTimeEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReactionTimeEngine.swift; sourceTree = "<group>"; };
 		AA100020 /* ReactionTimeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReactionTimeView.swift; sourceTree = "<group>"; };
 		AA100021 /* SubjectiveAssessmentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubjectiveAssessmentView.swift; sourceTree = "<group>"; };
+		AA100022 /* ResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultView.swift; sourceTree = "<group>"; };
+		AA100023 /* DimensionRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DimensionRow.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,6 +98,8 @@
 				AA100005 /* SettingsTab.swift */,
 				AA100018 /* TapTestView.swift */,
 				AA100020 /* ReactionTimeView.swift */,
+				AA100022 /* ResultView.swift */,
+				AA100023 /* DimensionRow.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -223,6 +229,8 @@
 				AA000019 /* ReactionTimeEngine.swift in Sources */,
 				AA000020 /* ReactionTimeView.swift in Sources */,
 				AA000021 /* SubjectiveAssessmentView.swift in Sources */,
+				AA000022 /* ResultView.swift in Sources */,
+				AA000023 /* DimensionRow.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
