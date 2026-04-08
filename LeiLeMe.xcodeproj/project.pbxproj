@@ -19,6 +19,7 @@
 		AA000013 /* ReactionTimeResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA100013 /* ReactionTimeResult.swift */; };
 		AA000014 /* SubjectiveAssessment.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA100014 /* SubjectiveAssessment.swift */; };
 		AA000015 /* BaselineEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA100015 /* BaselineEngine.swift */; };
+		AA000016 /* SubjectiveAssessmentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA100016 /* SubjectiveAssessmentView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,6 +38,7 @@
 		AA100013 /* ReactionTimeResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReactionTimeResult.swift; sourceTree = "<group>"; };
 		AA100014 /* SubjectiveAssessment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubjectiveAssessment.swift; sourceTree = "<group>"; };
 		AA100015 /* BaselineEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaselineEngine.swift; sourceTree = "<group>"; };
+		AA100016 /* SubjectiveAssessmentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubjectiveAssessmentView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,11 +78,20 @@
 		AA300003 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				AA300007 /* Assessment */,
 				AA100003 /* AssessmentTab.swift */,
 				AA100004 /* HistoryTab.swift */,
 				AA100005 /* SettingsTab.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		AA300007 /* Assessment */ = {
+			isa = PBXGroup;
+			children = (
+				AA100016 /* SubjectiveAssessmentView.swift */,
+			);
+			path = Assessment;
 			sourceTree = "<group>";
 		};
 		AA300004 /* Models */ = {
@@ -191,6 +202,7 @@
 				AA000013 /* ReactionTimeResult.swift in Sources */,
 				AA000014 /* SubjectiveAssessment.swift in Sources */,
 				AA000015 /* BaselineEngine.swift in Sources */,
+				AA000016 /* SubjectiveAssessmentView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
