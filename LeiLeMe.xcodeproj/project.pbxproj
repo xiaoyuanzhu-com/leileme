@@ -24,6 +24,7 @@
 		AA000018 /* TapTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA100018 /* TapTestView.swift */; };
 		AA000019 /* ReactionTimeEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA100019 /* ReactionTimeEngine.swift */; };
 		AA000020 /* ReactionTimeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA100020 /* ReactionTimeView.swift */; };
+		AA000021 /* SubjectiveAssessmentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA100021 /* SubjectiveAssessmentView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -47,6 +48,7 @@
 		AA100018 /* TapTestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapTestView.swift; sourceTree = "<group>"; };
 		AA100019 /* ReactionTimeEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReactionTimeEngine.swift; sourceTree = "<group>"; };
 		AA100020 /* ReactionTimeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReactionTimeView.swift; sourceTree = "<group>"; };
+		AA100021 /* SubjectiveAssessmentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubjectiveAssessmentView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,6 +88,7 @@
 		AA300003 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				AA300007 /* Assessment */,
 				AA100003 /* AssessmentTab.swift */,
 				AA100004 /* HistoryTab.swift */,
 				AA100005 /* SettingsTab.swift */,
@@ -124,6 +127,14 @@
 				AA100009 /* LeiLeMe.app */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		AA300007 /* Assessment */ = {
+			isa = PBXGroup;
+			children = (
+				AA100021 /* SubjectiveAssessmentView.swift */,
+			);
+			path = Assessment;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -211,6 +222,7 @@
 				AA000018 /* TapTestView.swift in Sources */,
 				AA000019 /* ReactionTimeEngine.swift in Sources */,
 				AA000020 /* ReactionTimeView.swift in Sources */,
+				AA000021 /* SubjectiveAssessmentView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

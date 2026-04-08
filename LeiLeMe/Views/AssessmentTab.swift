@@ -6,6 +6,8 @@ struct AssessmentTab: View {
     @State private var showTapTest = false
     @State private var showingReactionTime = false
     @State private var lastReactionResult: ReactionTimeResult?
+    @State private var showingSubjectiveAssessment = false
+    @State private var lastSubjectiveAssessment: SubjectiveAssessment?
 
     var body: some View {
         NavigationStack {
@@ -39,11 +41,28 @@ struct AssessmentTab: View {
                     }
                 }
 
+                Section("Subjective") {
+                    Button {
+                        showingSubjectiveAssessment = true
+                    } label: {
+                        Label(lastSubjectiveAssessment == nil ? "Start Check-in" : "Redo Check-in",
+                              systemImage: "heart.text.clipboard")
+                    }
+                }
+
                 if let result = lastReactionResult {
                     Section("Last Reaction Time Result") {
                         LabeledContent("Average", value: "\(Int(result.averageMs)) ms")
                         LabeledContent("Fastest", value: "\(Int(result.fastestMs)) ms")
                         LabeledContent("Consistency (SD)", value: "\(Int(result.standardDeviationMs)) ms")
+                    }
+                }
+
+                if let assessment = lastSubjectiveAssessment {
+                    Section("Last Check-in") {
+                        LabeledContent("Sleep Quality", value: "\(assessment.sleepQuality)/5")
+                        LabeledContent("Muscle Soreness", value: "\(assessment.muscleSoreness)/5")
+                        LabeledContent("Energy Level", value: "\(assessment.energyLevel)/5")
                     }
                 }
             }
@@ -52,6 +71,12 @@ struct AssessmentTab: View {
                 TapTestView { result in
                     modelContext.insert(result)
                     showTapTest = false
+                }
+            }
+            .navigationDestination(isPresented: $showingSubjectiveAssessment) {
+                SubjectiveAssessmentView { assessment in
+                    lastSubjectiveAssessment = assessment
+                    showingSubjectiveAssessment = false
                 }
             }
         }
