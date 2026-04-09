@@ -38,6 +38,8 @@
 		AA000041 /* MeasureCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA100041 /* MeasureCard.swift */; };
 		AA000042 /* HomePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA100042 /* HomePage.swift */; };
 		AA000050 /* AssessmentStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA100050 /* AssessmentStore.swift */; };
+		AA000060 /* MeasureDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA100060 /* MeasureDetailView.swift */; };
+		AA000061 /* SingleMeasureTrendChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA100061 /* SingleMeasureTrendChart.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -75,6 +77,8 @@
 		AA100041 /* MeasureCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeasureCard.swift; sourceTree = "<group>"; };
 		AA100042 /* HomePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePage.swift; sourceTree = "<group>"; };
 		AA100050 /* AssessmentStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssessmentStore.swift; sourceTree = "<group>"; };
+		AA100060 /* MeasureDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeasureDetailView.swift; sourceTree = "<group>"; };
+		AA100061 /* SingleMeasureTrendChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleMeasureTrendChart.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -129,6 +133,8 @@
 				AA100031 /* RecoveryRecommendationCard.swift */,
 				AA100041 /* MeasureCard.swift */,
 				AA100042 /* HomePage.swift */,
+				AA100060 /* MeasureDetailView.swift */,
+				AA100061 /* SingleMeasureTrendChart.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -283,6 +289,8 @@
 				AA000041 /* MeasureCard.swift in Sources */,
 				AA000042 /* HomePage.swift in Sources */,
 				AA000050 /* AssessmentStore.swift in Sources */,
+				AA000060 /* MeasureDetailView.swift in Sources */,
+				AA000061 /* SingleMeasureTrendChart.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

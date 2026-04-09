@@ -39,7 +39,7 @@ struct HomePage: View {
                 score: 0,
                 status: .neutral,
                 headline: "No data today",
-                detail: "Tap a measure below to start today's check-in",
+                detail: "Tap a measure below to start today\u{2019}s check-in",
                 availableDimensions: 0
             )
         }
@@ -76,15 +76,18 @@ struct HomePage: View {
                         baselineDayCount: baseline.dayCount
                     )
 
-                    // Measure cards
+                    // Measure cards — each navigates to its detail page
                     ForEach(Measure.allCases) { measure in
-                        MeasureCard(
-                            measure: measure,
-                            todayValue: todayAssessment?.value(for: measure),
-                            baselineValue: baseline.value(for: measure),
-                            lastValue: lastValue(for: measure),
-                            hasHistory: hasHistory(for: measure)
-                        )
+                        NavigationLink(value: measure) {
+                            MeasureCard(
+                                measure: measure,
+                                todayValue: todayAssessment?.value(for: measure),
+                                baselineValue: baseline.value(for: measure),
+                                lastValue: lastValue(for: measure),
+                                hasHistory: hasHistory(for: measure)
+                            )
+                        }
+                        .buttonStyle(.plain)
                     }
                 }
                 .padding(.horizontal, AppSpacing.md)
@@ -93,6 +96,9 @@ struct HomePage: View {
             }
             .background(Color.surfaceBackground)
             .navigationTitle("\u{7D2F}\u{4E86}\u{4E48}")
+            .navigationDestination(for: Measure.self) { measure in
+                MeasureDetailView(measure: measure)
+            }
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     NavigationLink {

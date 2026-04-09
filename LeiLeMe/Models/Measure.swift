@@ -157,3 +157,30 @@ extension BaselineEngine.BaselineSnapshot {
         }
     }
 }
+
+// MARK: - Description (placeholder text — T0026 will fill in real content)
+
+extension Measure {
+    var description: String {
+        switch self {
+        case .hrvSDNN:
+            return "Heart Rate Variability (SDNN) measures the variation in time between heartbeats. Higher HRV generally indicates better cardiovascular fitness and recovery. It reflects your autonomic nervous system balance."
+        case .restingHeartRate:
+            return "Your resting heart rate is the number of times your heart beats per minute while at rest. A lower resting heart rate typically indicates better cardiovascular fitness and recovery."
+        case .sleepDuration:
+            return "Total hours of sleep recorded last night. Adequate sleep (7-9 hours for most adults) is essential for physical recovery, cognitive function, and overall wellbeing."
+        case .tapFrequency:
+            return "Tap frequency measures how quickly you can tap the screen in a timed test. It reflects neuromuscular readiness and fine motor speed, which can decline when fatigued."
+        case .tapStability:
+            return "Tap stability measures the consistency of your tapping rhythm (coefficient of variation). Lower values mean more consistent timing, indicating better neuromuscular control."
+        case .reactionTime:
+            return "Reaction time measures how quickly you respond to a visual stimulus. Faster reaction times suggest better alertness and cognitive readiness. Fatigue and poor recovery slow reaction times."
+        case .sleepQuality:
+            return "A subjective rating of how restful your sleep felt. This captures aspects that sleep duration alone may miss, such as sleep interruptions, dreams, and how refreshed you feel."
+        case .muscleSoreness:
+            return "A subjective rating of muscle soreness. Higher values mean less soreness. Tracking soreness helps gauge recovery from training and identify when to push harder or rest."
+        case .energyLevel:
+            return "A subjective rating of your overall energy. This captures your general sense of vitality and readiness, complementing the objective measures with your lived experience."
+        }
+    }
+}
