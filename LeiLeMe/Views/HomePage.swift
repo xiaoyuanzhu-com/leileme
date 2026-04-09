@@ -7,6 +7,7 @@ struct HomePage: View {
     @Query(sort: \DailyAssessment.date, order: .reverse) private var assessments: [DailyAssessment]
     @Environment(\.modelContext) private var modelContext
     @Environment(AssessmentStore.self) private var assessmentStore: AssessmentStore?
+    @Environment(HealthKitService.self) private var healthKitService: HealthKitService?
 
     private let baselineEngine = BaselineEngine()
 
@@ -109,6 +110,30 @@ struct HomePage: View {
                     }
                 }
             }
+            .task {
+                await autoSyncHealthKit()
+            }
+        }
+    }
+
+    // MARK: - Auto-sync
+
+    /// Automatically sync HealthKit data when the home page appears.
+    /// Skips if data was already synced today or HealthKit is unavailable.
+    private func autoSyncHealthKit() async {
+        guard let healthKitService, let assessmentStore else { return }
+        guard healthKitService.isAvailable else { return }
+
+        // Skip if we already have HealthKit data today
+        let hasHKData = assessmentStore.fetchTodayAssessment()?.healthKitData != nil
+        guard !hasHKData else { return }
+
+        do {
+            try await healthKitService.requestAuthorization()
+            let reading = try await healthKitService.fetchCurrentReading()
+            assessmentStore.saveHealthKitReading(reading)
+        } catch {
+            // Silent failure for auto-sync — user can manually sync from detail page
         }
     }
 }
