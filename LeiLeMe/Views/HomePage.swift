@@ -50,6 +50,26 @@ struct HomePage: View {
         return RecoveryScoreEngine.evaluate(assessment: today, baseline: baseline)
     }
 
+
+    /// Number of measures completed in today's assessment.
+    private var todayCompletedCount: Int {
+        guard let today = todayAssessment else { return 0 }
+        return Measure.allCases.filter { today.value(for: $0) != nil }.count
+    }
+
+    /// Find the date of the most recent assessment containing a value for this measure (excluding today).
+    private func lastDate(for measure: Measure) -> Date? {
+        let calendar = Calendar.current
+        let startOfToday = calendar.startOfDay(for: Date())
+        for assessment in assessments {
+            guard assessment.date < startOfToday else { continue }
+            if assessment.value(for: measure) != nil {
+                return assessment.date
+            }
+        }
+        return nil
+    }
+
     /// Find the most recent non-nil value for a measure from past assessments (excluding today).
     private func lastValue(for measure: Measure) -> Double? {
         let calendar = Calendar.current
@@ -77,7 +97,8 @@ struct HomePage: View {
                     // Recovery score card
                     RecoveryRecommendationCard(
                         result: recoveryResult,
-                        baselineDayCount: baseline.dayCount
+                        baselineDayCount: baseline.dayCount,
+                        todayCompletedCount: todayCompletedCount
                     )
 
                     // Measure cards — each navigates to its detail page
@@ -88,6 +109,7 @@ struct HomePage: View {
                                 todayValue: todayAssessment?.value(for: measure),
                                 baselineValue: baseline.value(for: measure),
                                 lastValue: lastValue(for: measure),
+                                lastDate: lastDate(for: measure),
                                 hasHistory: hasHistory(for: measure)
                             )
                         }

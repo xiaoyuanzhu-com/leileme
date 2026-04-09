@@ -6,6 +6,7 @@ struct MeasureCard: View {
     let todayValue: Double?
     let baselineValue: Double?
     let lastValue: Double?
+    let lastDate: Date?
     let hasHistory: Bool
 
     /// Visual state of the card.
@@ -121,6 +122,12 @@ struct MeasureCard: View {
                                 .foregroundStyle(.tertiary)
                         }
 
+                        if let lastDate {
+                            Text(lastDate.formatted(.relative(presentation: .named)))
+                                .font(.caption)
+                                .foregroundStyle(.tertiary)
+                        }
+
                         Text("Update")
                             .font(.caption.weight(.medium))
                             .foregroundStyle(Color.wellnessTeal)
@@ -147,6 +154,7 @@ struct MeasureCard: View {
         todayValue: nil,
         baselineValue: nil,
         lastValue: nil,
+        lastDate: nil,
         hasHistory: false
     )
     .padding()
@@ -158,6 +166,7 @@ struct MeasureCard: View {
         todayValue: 45,
         baselineValue: 40,
         lastValue: 45,
+        lastDate: Calendar.current.date(byAdding: .day, value: -1, to: Date()),
         hasHistory: true
     )
     .padding()
@@ -169,6 +178,7 @@ struct MeasureCard: View {
         todayValue: nil,
         baselineValue: 320,
         lastValue: 310,
+        lastDate: Calendar.current.date(byAdding: .day, value: -2, to: Date()),
         hasHistory: true
     )
     .padding()

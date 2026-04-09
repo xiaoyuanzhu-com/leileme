@@ -4,6 +4,7 @@ import SwiftUI
 struct RecoveryRecommendationCard: View {
     let result: RecoveryScoreEngine.Result
     let baselineDayCount: Int
+    let todayCompletedCount: Int
 
     @State private var ringAnimation: CGFloat = 0
 
@@ -36,6 +37,19 @@ struct RecoveryRecommendationCard: View {
                         .font(.subheadline)
                         .foregroundStyle(.secondary)
                         .fixedSize(horizontal: false, vertical: true)
+
+                    if isBaseline {
+                        if todayCompletedCount >= Measure.allCases.count {
+                            Text("All measures complete! Come back tomorrow to continue building your baseline (day \(baselineDayCount + 1) of 7)")
+                                .font(.caption)
+                                .foregroundStyle(Color.wellnessTeal)
+                                .fixedSize(horizontal: false, vertical: true)
+                        } else {
+                            Text("\(todayCompletedCount) of \(Measure.allCases.count) measures completed today")
+                                .font(.caption)
+                                .foregroundStyle(.tertiary)
+                        }
+                    }
                 }
 
                 Spacer(minLength: 0)
@@ -113,7 +127,8 @@ struct RecoveryRecommendationCard: View {
                       headline: "Ready to train",
                       detail: "Your metrics are at or above baseline — go for it",
                       availableDimensions: 7, totalDimensions: 9),
-        baselineDayCount: 7
+        baselineDayCount: 7,
+        todayCompletedCount: 9
     )
     .padding()
 }
@@ -124,7 +139,8 @@ struct RecoveryRecommendationCard: View {
                       headline: "Light activity today",
                       detail: "Some metrics are below your norm — keep it easy",
                       availableDimensions: 5, totalDimensions: 9),
-        baselineDayCount: 7
+        baselineDayCount: 7,
+        todayCompletedCount: 5
     )
     .padding()
 }
@@ -135,7 +151,8 @@ struct RecoveryRecommendationCard: View {
                       headline: "Rest and recover",
                       detail: "Multiple metrics suggest fatigue — prioritize recovery",
                       availableDimensions: 9, totalDimensions: 9),
-        baselineDayCount: 7
+        baselineDayCount: 7,
+        todayCompletedCount: 9
     )
     .padding()
 }
@@ -146,7 +163,8 @@ struct RecoveryRecommendationCard: View {
                       headline: "Building your profile",
                       detail: "Day 3 of 7 — keep checking in daily",
                       availableDimensions: 0, totalDimensions: 9),
-        baselineDayCount: 3
+        baselineDayCount: 3,
+        todayCompletedCount: 4
     )
     .padding()
 }

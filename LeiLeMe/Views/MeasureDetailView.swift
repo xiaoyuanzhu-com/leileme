@@ -102,6 +102,26 @@ struct MeasureDetailView: View {
                             .font(.caption)
                             .foregroundStyle(.secondary)
                     }
+
+                    if measure == .tapFrequency {
+                        HStack(spacing: AppSpacing.xs) {
+                            Image(systemName: "info.circle")
+                                .font(.caption)
+                                .foregroundStyle(.tertiary)
+                            Text("This is measured together with Tap Stability during the same tap test.")
+                                .font(.caption)
+                                .foregroundStyle(.tertiary)
+                        }
+                    } else if measure == .tapStability {
+                        HStack(spacing: AppSpacing.xs) {
+                            Image(systemName: "info.circle")
+                                .font(.caption)
+                                .foregroundStyle(.tertiary)
+                            Text("This is measured together with Tap Frequency during the same tap test.")
+                                .font(.caption)
+                                .foregroundStyle(.tertiary)
+                        }
+                    }
                 }
                 .padding(.horizontal, AppSpacing.md)
                 .padding(.bottom, AppSpacing.md)
