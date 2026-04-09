@@ -158,29 +158,29 @@ extension BaselineEngine.BaselineSnapshot {
     }
 }
 
-// MARK: - Description (placeholder text — T0026 will fill in real content)
+// MARK: - Description
 
 extension Measure {
     var description: String {
         switch self {
         case .hrvSDNN:
-            return "Heart Rate Variability (SDNN) measures the variation in time between heartbeats. Higher HRV generally indicates better cardiovascular fitness and recovery. It reflects your autonomic nervous system balance."
+            return "Heart rate variability measures the tiny differences in timing between each heartbeat \u{2014} a sign of how well your body\u{2019}s rest-and-recover system is working. It\u{2019}s considered the gold standard for recovery tracking. A higher value means your nervous system is more resilient and ready to handle stress."
         case .restingHeartRate:
-            return "Your resting heart rate is the number of times your heart beats per minute while at rest. A lower resting heart rate typically indicates better cardiovascular fitness and recovery."
+            return "Your resting heart rate is how many times your heart beats per minute when you\u{2019}re fully at rest. When it\u{2019}s lower than your usual baseline, your cardiovascular system is well recovered. An elevated reading often signals that stress, illness, or incomplete recovery is putting extra load on your body."
         case .sleepDuration:
-            return "Total hours of sleep recorded last night. Adequate sleep (7-9 hours for most adults) is essential for physical recovery, cognitive function, and overall wellbeing."
+            return "This is the total hours of sleep recorded from your phone or watch. Sleep is when your body does most of its repair work \u{2014} muscles rebuild, hormones rebalance, and memories consolidate. Most adults need 7\u{2013}9 hours, and more sleep generally means better recovery."
         case .tapFrequency:
-            return "Tap frequency measures how quickly you can tap the screen in a timed test. It reflects neuromuscular readiness and fine motor speed, which can decline when fatigued."
+            return "This measures how fast you can tap in a quick 10-second test, which reveals how efficiently your brain is sending signals to your muscles. Think of it as a readiness check for your motor system. If you\u{2019}re tapping slower than your baseline, your nervous system may be fatigued."
         case .tapStability:
-            return "Tap stability measures the consistency of your tapping rhythm (coefficient of variation). Lower values mean more consistent timing, indicating better neuromuscular control."
+            return "While tap frequency checks speed, stability checks rhythm \u{2014} how evenly spaced your taps are. A steady, consistent rhythm means your nervous system has good fine motor control. When you\u{2019}re fatigued, your tapping becomes more erratic even if you don\u{2019}t feel tired."
         case .reactionTime:
-            return "Reaction time measures how quickly you respond to a visual stimulus. Faster reaction times suggest better alertness and cognitive readiness. Fatigue and poor recovery slow reaction times."
+            return "This measures how quickly you respond to something appearing on screen \u{2014} a direct window into your alertness and cognitive sharpness. Slower reactions than your baseline usually point to sleep debt, mental fatigue, or incomplete recovery."
         case .sleepQuality:
-            return "A subjective rating of how restful your sleep felt. This captures aspects that sleep duration alone may miss, such as sleep interruptions, dreams, and how refreshed you feel."
+            return "Your own rating of how well you slept, from restless to deeply refreshing. This captures things that hours alone can\u{2019}t \u{2014} like whether you woke up multiple times, had vivid dreams, or simply feel unrested despite a full night."
         case .muscleSoreness:
-            return "A subjective rating of muscle soreness. Higher values mean less soreness. Tracking soreness helps gauge recovery from training and identify when to push harder or rest."
+            return "A quick self-check on how your muscles feel right now. Higher ratings mean less soreness. Persistent or unusual soreness is your body\u{2019}s way of saying your muscles have not fully repaired yet and could benefit from lighter activity or rest."
         case .energyLevel:
-            return "A subjective rating of your overall energy. This captures your general sense of vitality and readiness, complementing the objective measures with your lived experience."
+            return "A simple rating of how much energy you feel you have right now. This intuitive gut check often picks up on things the objective tests miss \u{2014} like emotional stress, motivation, or coming down with something. Higher means you feel more ready to go."
         }
     }
 }
