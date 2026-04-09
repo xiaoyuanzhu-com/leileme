@@ -56,6 +56,7 @@ class AssessmentStore {
 
     func saveTapTestResult(_ result: TapTestResult) {
         let assessment = todayAssessment()
+        if let old = assessment.tapTestResult { modelContext.delete(old) }
         modelContext.insert(result)
         assessment.tapTestResult = result
         try? modelContext.save()
@@ -63,6 +64,7 @@ class AssessmentStore {
 
     func saveReactionTimeResult(_ result: ReactionTimeResult) {
         let assessment = todayAssessment()
+        if let old = assessment.reactionTimeResult { modelContext.delete(old) }
         modelContext.insert(result)
         assessment.reactionTimeResult = result
         try? modelContext.save()

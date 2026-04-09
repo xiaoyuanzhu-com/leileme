@@ -8,6 +8,7 @@ struct HomePage: View {
     @Environment(\.modelContext) private var modelContext
     @Environment(AssessmentStore.self) private var assessmentStore: AssessmentStore?
     @Environment(HealthKitService.self) private var healthKitService: HealthKitService?
+    @Environment(\.scenePhase) private var scenePhase
 
     private let baselineEngine = BaselineEngine()
 
@@ -112,7 +113,7 @@ struct HomePage: View {
                     }
                 }
             }
-            .task {
+            .task(id: scenePhase) {
                 await autoSyncHealthKit()
             }
         }

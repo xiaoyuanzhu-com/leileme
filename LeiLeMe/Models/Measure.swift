@@ -130,11 +130,14 @@ extension DailyAssessment {
         case .reactionTime:
             return reactionTimeResult?.averageMs
         case .sleepQuality:
-            return subjectiveAssessment.map { Double($0.sleepQuality) }
+            guard let sub = subjectiveAssessment, sub.sleepQuality > 0 else { return nil }
+            return Double(sub.sleepQuality)
         case .muscleSoreness:
-            return subjectiveAssessment.map { Double($0.muscleSoreness) }
+            guard let sub = subjectiveAssessment, sub.muscleSoreness > 0 else { return nil }
+            return Double(sub.muscleSoreness)
         case .energyLevel:
-            return subjectiveAssessment.map { Double($0.energyLevel) }
+            guard let sub = subjectiveAssessment, sub.energyLevel > 0 else { return nil }
+            return Double(sub.energyLevel)
         }
     }
 }

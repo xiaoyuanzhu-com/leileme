@@ -30,7 +30,8 @@ final class BaselineEngine {
             return emptySnapshot()
         }
 
-        let recent = assessments.filter { $0.date >= cutoff }
+        let startOfToday = calendar.startOfDay(for: now)
+        let recent = assessments.filter { $0.date >= cutoff && $0.date < startOfToday }
 
         if recent.isEmpty {
             return emptySnapshot()
