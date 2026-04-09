@@ -9,8 +9,6 @@
 /* Begin PBXBuildFile section */
 		AA000001 /* LeiLeMeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA100001 /* LeiLeMeApp.swift */; };
 		AA000002 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA100002 /* ContentView.swift */; };
-		AA000003 /* AssessmentTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA100003 /* AssessmentTab.swift */; };
-		AA000004 /* HistoryTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA100004 /* HistoryTab.swift */; };
 		AA000005 /* SettingsTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA100005 /* SettingsTab.swift */; };
 		AA000006 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AA100006 /* Assets.xcassets */; };
 		AA000010 /* DailyAssessment.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA100010 /* DailyAssessment.swift */; };
@@ -24,12 +22,6 @@
 		AA000018 /* TapTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA100018 /* TapTestView.swift */; };
 		AA000019 /* ReactionTimeEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA100019 /* ReactionTimeEngine.swift */; };
 		AA000020 /* ReactionTimeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA100020 /* ReactionTimeView.swift */; };
-		AA000021 /* SubjectiveAssessmentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA100021 /* SubjectiveAssessmentView.swift */; };
-		AA000022 /* ResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA100022 /* ResultView.swift */; };
-		AA000023 /* DimensionRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA100023 /* DimensionRow.swift */; };
-		AA000024 /* AssessmentFlowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA100024 /* AssessmentFlowView.swift */; };
-		AA000025 /* HistoryDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA100025 /* HistoryDetailView.swift */; };
-		AA000026 /* TrendChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA100026 /* TrendChartView.swift */; };
 		AA000027 /* AppTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA100027 /* AppTheme.swift */; };
 		AA000028 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AA100028 /* LaunchScreen.storyboard */; };
 		AA000030 /* RecoveryScoreEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA100030 /* RecoveryScoreEngine.swift */; };
@@ -45,8 +37,6 @@
 /* Begin PBXFileReference section */
 		AA100001 /* LeiLeMeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeiLeMeApp.swift; sourceTree = "<group>"; };
 		AA100002 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
-		AA100003 /* AssessmentTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssessmentTab.swift; sourceTree = "<group>"; };
-		AA100004 /* HistoryTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTab.swift; sourceTree = "<group>"; };
 		AA100005 /* SettingsTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTab.swift; sourceTree = "<group>"; };
 		AA100006 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AA100007 /* LeiLeMe.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = LeiLeMe.entitlements; sourceTree = "<group>"; };
@@ -63,12 +53,6 @@
 		AA100018 /* TapTestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapTestView.swift; sourceTree = "<group>"; };
 		AA100019 /* ReactionTimeEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReactionTimeEngine.swift; sourceTree = "<group>"; };
 		AA100020 /* ReactionTimeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReactionTimeView.swift; sourceTree = "<group>"; };
-		AA100021 /* SubjectiveAssessmentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubjectiveAssessmentView.swift; sourceTree = "<group>"; };
-		AA100022 /* ResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultView.swift; sourceTree = "<group>"; };
-		AA100023 /* DimensionRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DimensionRow.swift; sourceTree = "<group>"; };
-		AA100024 /* AssessmentFlowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssessmentFlowView.swift; sourceTree = "<group>"; };
-		AA100025 /* HistoryDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryDetailView.swift; sourceTree = "<group>"; };
-		AA100026 /* TrendChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendChartView.swift; sourceTree = "<group>"; };
 		AA100027 /* AppTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppTheme.swift; sourceTree = "<group>"; };
 		AA100028 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		AA100030 /* RecoveryScoreEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecoveryScoreEngine.swift; sourceTree = "<group>"; };
@@ -120,16 +104,9 @@
 		AA300003 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				AA300007 /* Assessment */,
-				AA100003 /* AssessmentTab.swift */,
-				AA100004 /* HistoryTab.swift */,
-				AA100025 /* HistoryDetailView.swift */,
-				AA100026 /* TrendChartView.swift */,
 				AA100005 /* SettingsTab.swift */,
 				AA100018 /* TapTestView.swift */,
 				AA100020 /* ReactionTimeView.swift */,
-				AA100022 /* ResultView.swift */,
-				AA100023 /* DimensionRow.swift */,
 				AA100031 /* RecoveryRecommendationCard.swift */,
 				AA100041 /* MeasureCard.swift */,
 				AA100042 /* HomePage.swift */,
@@ -171,15 +148,6 @@
 				AA100009 /* LeiLeMe.app */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		AA300007 /* Assessment */ = {
-			isa = PBXGroup;
-			children = (
-				AA100021 /* SubjectiveAssessmentView.swift */,
-				AA100024 /* AssessmentFlowView.swift */,
-			);
-			path = Assessment;
 			sourceTree = "<group>";
 		};
 		AA300008 /* Theme */ = {
@@ -262,8 +230,6 @@
 			files = (
 				AA000001 /* LeiLeMeApp.swift in Sources */,
 				AA000002 /* ContentView.swift in Sources */,
-				AA000003 /* AssessmentTab.swift in Sources */,
-				AA000004 /* HistoryTab.swift in Sources */,
 				AA000005 /* SettingsTab.swift in Sources */,
 				AA000010 /* DailyAssessment.swift in Sources */,
 				AA000011 /* HealthKitReading.swift in Sources */,
@@ -276,12 +242,6 @@
 				AA000018 /* TapTestView.swift in Sources */,
 				AA000019 /* ReactionTimeEngine.swift in Sources */,
 				AA000020 /* ReactionTimeView.swift in Sources */,
-				AA000021 /* SubjectiveAssessmentView.swift in Sources */,
-				AA000022 /* ResultView.swift in Sources */,
-				AA000023 /* DimensionRow.swift in Sources */,
-				AA000024 /* AssessmentFlowView.swift in Sources */,
-				AA000025 /* HistoryDetailView.swift in Sources */,
-				AA000026 /* TrendChartView.swift in Sources */,
 				AA000027 /* AppTheme.swift in Sources */,
 				AA000030 /* RecoveryScoreEngine.swift in Sources */,
 				AA000031 /* RecoveryRecommendationCard.swift in Sources */,

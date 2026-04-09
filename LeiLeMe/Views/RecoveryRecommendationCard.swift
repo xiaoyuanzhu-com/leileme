@@ -1,6 +1,6 @@
 import SwiftUI
 
-/// A prominent card showing a composite recovery recommendation at the top of ResultView.
+/// A prominent card showing a composite recovery recommendation at the top of HomePage.
 struct RecoveryRecommendationCard: View {
     let result: RecoveryScoreEngine.Result
     let baselineDayCount: Int
