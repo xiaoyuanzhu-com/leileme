@@ -14,6 +14,7 @@ struct MeasureDetailView: View {
 
     @AppStorage private var aboutExpanded: Bool
 
+    @State private var showingTest = false
     @State private var isSyncing = false
     @State private var syncError: String?
 
@@ -159,11 +160,33 @@ struct MeasureDetailView: View {
             }
 
             Button {
-                // T0022 will embed actual test UIs
+                showingTest = true
             } label: {
                 Text(todayValue != nil ? "Redo Test" : "Start Test")
             }
             .buttonStyle(PrimaryButtonStyle())
+            .fullScreenCover(isPresented: $showingTest) {
+                activeTestCover
+            }
+        }
+    }
+
+
+    @ViewBuilder
+    private var activeTestCover: some View {
+        switch measure {
+        case .tapFrequency, .tapStability:
+            TapTestView { result in
+                assessmentStore?.saveTapTestResult(result)
+                showingTest = false
+            }
+        case .reactionTime:
+            ReactionTimeView { result in
+                assessmentStore?.saveReactionTimeResult(result)
+                showingTest = false
+            }
+        default:
+            EmptyView()
         }
     }
 
