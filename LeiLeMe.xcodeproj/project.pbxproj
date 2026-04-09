@@ -19,8 +19,6 @@
 		AA000013 /* ReactionTimeResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA100013 /* ReactionTimeResult.swift */; };
 		AA000014 /* SubjectiveAssessment.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA100014 /* SubjectiveAssessment.swift */; };
 		AA000015 /* BaselineEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA100015 /* BaselineEngine.swift */; };
-		AA000030 /* RecoveryScoreEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA100030 /* RecoveryScoreEngine.swift */; };
-		AA000031 /* RecoveryRecommendationCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA100031 /* RecoveryRecommendationCard.swift */; };
 		AA000016 /* HealthKitService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA100016 /* HealthKitService.swift */; };
 		AA000017 /* TapTestEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA100017 /* TapTestEngine.swift */; };
 		AA000018 /* TapTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA100018 /* TapTestView.swift */; };
@@ -34,6 +32,11 @@
 		AA000026 /* TrendChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA100026 /* TrendChartView.swift */; };
 		AA000027 /* AppTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA100027 /* AppTheme.swift */; };
 		AA000028 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AA100028 /* LaunchScreen.storyboard */; };
+		AA000030 /* RecoveryScoreEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA100030 /* RecoveryScoreEngine.swift */; };
+		AA000031 /* RecoveryRecommendationCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA100031 /* RecoveryRecommendationCard.swift */; };
+		AA000040 /* Measure.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA100040 /* Measure.swift */; };
+		AA000041 /* MeasureCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA100041 /* MeasureCard.swift */; };
+		AA000042 /* HomePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA100042 /* HomePage.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -52,8 +55,6 @@
 		AA100013 /* ReactionTimeResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReactionTimeResult.swift; sourceTree = "<group>"; };
 		AA100014 /* SubjectiveAssessment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubjectiveAssessment.swift; sourceTree = "<group>"; };
 		AA100015 /* BaselineEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaselineEngine.swift; sourceTree = "<group>"; };
-		AA100030 /* RecoveryScoreEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecoveryScoreEngine.swift; sourceTree = "<group>"; };
-		AA100031 /* RecoveryRecommendationCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecoveryRecommendationCard.swift; sourceTree = "<group>"; };
 		AA100016 /* HealthKitService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitService.swift; sourceTree = "<group>"; };
 		AA100017 /* TapTestEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapTestEngine.swift; sourceTree = "<group>"; };
 		AA100018 /* TapTestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapTestView.swift; sourceTree = "<group>"; };
@@ -67,6 +68,11 @@
 		AA100026 /* TrendChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendChartView.swift; sourceTree = "<group>"; };
 		AA100027 /* AppTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppTheme.swift; sourceTree = "<group>"; };
 		AA100028 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
+		AA100030 /* RecoveryScoreEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecoveryScoreEngine.swift; sourceTree = "<group>"; };
+		AA100031 /* RecoveryRecommendationCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecoveryRecommendationCard.swift; sourceTree = "<group>"; };
+		AA100040 /* Measure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Measure.swift; sourceTree = "<group>"; };
+		AA100041 /* MeasureCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeasureCard.swift; sourceTree = "<group>"; };
+		AA100042 /* HomePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePage.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -119,6 +125,8 @@
 				AA100022 /* ResultView.swift */,
 				AA100023 /* DimensionRow.swift */,
 				AA100031 /* RecoveryRecommendationCard.swift */,
+				AA100041 /* MeasureCard.swift */,
+				AA100042 /* HomePage.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -131,6 +139,7 @@
 				AA100012 /* TapTestResult.swift */,
 				AA100013 /* ReactionTimeResult.swift */,
 				AA100014 /* SubjectiveAssessment.swift */,
+				AA100040 /* Measure.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -253,8 +262,6 @@
 				AA000013 /* ReactionTimeResult.swift in Sources */,
 				AA000014 /* SubjectiveAssessment.swift in Sources */,
 				AA000015 /* BaselineEngine.swift in Sources */,
-				AA000030 /* RecoveryScoreEngine.swift in Sources */,
-				AA000031 /* RecoveryRecommendationCard.swift in Sources */,
 				AA000016 /* HealthKitService.swift in Sources */,
 				AA000017 /* TapTestEngine.swift in Sources */,
 				AA000018 /* TapTestView.swift in Sources */,
@@ -267,6 +274,11 @@
 				AA000025 /* HistoryDetailView.swift in Sources */,
 				AA000026 /* TrendChartView.swift in Sources */,
 				AA000027 /* AppTheme.swift in Sources */,
+				AA000030 /* RecoveryScoreEngine.swift in Sources */,
+				AA000031 /* RecoveryRecommendationCard.swift in Sources */,
+				AA000040 /* Measure.swift in Sources */,
+				AA000041 /* MeasureCard.swift in Sources */,
+				AA000042 /* HomePage.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
