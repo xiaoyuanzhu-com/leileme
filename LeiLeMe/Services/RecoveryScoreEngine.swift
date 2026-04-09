@@ -9,6 +9,7 @@ struct RecoveryScoreEngine {
         let headline: String
         let detail: String
         let availableDimensions: Int
+        let totalDimensions: Int
     }
 
     /// Dimension descriptor used internally.
@@ -19,6 +20,9 @@ struct RecoveryScoreEngine {
         let weight: Double
         let higherIsBetter: Bool
     }
+
+    /// Total number of scored dimensions.
+    static let dimensionCount = 9
 
     // MARK: - Public
 
@@ -34,7 +38,8 @@ struct RecoveryScoreEngine {
                 status: .neutral,
                 headline: "Building your profile",
                 detail: "Day \(max(baseline.dayCount, 1)) of 7 — keep checking in daily",
-                availableDimensions: 0
+                availableDimensions: 0,
+                totalDimensions: dimensionCount
             )
         }
 
@@ -91,7 +96,8 @@ struct RecoveryScoreEngine {
                 status: .neutral,
                 headline: "Not enough data",
                 detail: "Complete more assessment sections for a recommendation",
-                availableDimensions: 0
+                availableDimensions: 0,
+                totalDimensions: dims.count
             )
         }
 
@@ -146,7 +152,8 @@ struct RecoveryScoreEngine {
             status: status,
             headline: headline,
             detail: detail,
-            availableDimensions: available.count
+            availableDimensions: available.count,
+            totalDimensions: dims.count
         )
     }
 }

@@ -43,7 +43,7 @@ struct RecoveryRecommendationCard: View {
 
             if !isBaseline {
                 // Dimension count footnote
-                Text("\(result.availableDimensions) dimension\(result.availableDimensions == 1 ? "" : "s") compared to your baseline")
+                Text("Based on \(result.availableDimensions) of \(result.totalDimensions) dimensions")
                     .font(.caption2)
                     .foregroundStyle(.tertiary)
                     .frame(maxWidth: .infinity, alignment: .leading)
@@ -112,7 +112,7 @@ struct RecoveryRecommendationCard: View {
         result: .init(score: 95, status: .good,
                       headline: "Ready to train",
                       detail: "Your metrics are at or above baseline — go for it",
-                      availableDimensions: 7),
+                      availableDimensions: 7, totalDimensions: 9),
         baselineDayCount: 7
     )
     .padding()
@@ -123,7 +123,7 @@ struct RecoveryRecommendationCard: View {
         result: .init(score: 78, status: .moderate,
                       headline: "Light activity today",
                       detail: "Some metrics are below your norm — keep it easy",
-                      availableDimensions: 5),
+                      availableDimensions: 5, totalDimensions: 9),
         baselineDayCount: 7
     )
     .padding()
@@ -134,7 +134,7 @@ struct RecoveryRecommendationCard: View {
         result: .init(score: 55, status: .needsAttention,
                       headline: "Rest and recover",
                       detail: "Multiple metrics suggest fatigue — prioritize recovery",
-                      availableDimensions: 9),
+                      availableDimensions: 9, totalDimensions: 9),
         baselineDayCount: 7
     )
     .padding()
@@ -145,7 +145,7 @@ struct RecoveryRecommendationCard: View {
         result: .init(score: 0, status: .neutral,
                       headline: "Building your profile",
                       detail: "Day 3 of 7 — keep checking in daily",
-                      availableDimensions: 0),
+                      availableDimensions: 0, totalDimensions: 9),
         baselineDayCount: 3
     )
     .padding()

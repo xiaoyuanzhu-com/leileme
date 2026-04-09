@@ -33,7 +33,8 @@ struct HomePage: View {
                     detail: baseline.dayCount > 0
                         ? "Day \(baseline.dayCount) of 7 \u{2014} keep checking in daily"
                         : "Complete your first assessment to get started",
-                    availableDimensions: 0
+                    availableDimensions: 0,
+                    totalDimensions: RecoveryScoreEngine.dimensionCount
                 )
             }
             return RecoveryScoreEngine.Result(
@@ -41,7 +42,8 @@ struct HomePage: View {
                 status: .neutral,
                 headline: "No data today",
                 detail: "Tap a measure below to start today\u{2019}s check-in",
-                availableDimensions: 0
+                availableDimensions: 0,
+                totalDimensions: RecoveryScoreEngine.dimensionCount
             )
         }
         return RecoveryScoreEngine.evaluate(assessment: today, baseline: baseline)
