@@ -6,6 +6,7 @@ import SwiftData
 struct HomePage: View {
     @Query(sort: \DailyAssessment.date, order: .reverse) private var assessments: [DailyAssessment]
     @Environment(\.modelContext) private var modelContext
+    @Environment(AssessmentStore.self) private var assessmentStore: AssessmentStore?
 
     private let baselineEngine = BaselineEngine()
 
@@ -109,5 +110,6 @@ struct HomePage: View {
 #Preview {
     HomePage()
         .environment(HealthKitService())
+        .environment(AssessmentStore(modelContext: try! ModelContainer(for: DailyAssessment.self, configurations: ModelConfiguration(isStoredInMemoryOnly: true)).mainContext))
         .modelContainer(for: DailyAssessment.self, inMemory: true)
 }

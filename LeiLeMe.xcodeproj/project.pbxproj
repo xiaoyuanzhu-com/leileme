@@ -37,6 +37,7 @@
 		AA000040 /* Measure.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA100040 /* Measure.swift */; };
 		AA000041 /* MeasureCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA100041 /* MeasureCard.swift */; };
 		AA000042 /* HomePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA100042 /* HomePage.swift */; };
+		AA000050 /* AssessmentStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA100050 /* AssessmentStore.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -73,6 +74,7 @@
 		AA100040 /* Measure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Measure.swift; sourceTree = "<group>"; };
 		AA100041 /* MeasureCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeasureCard.swift; sourceTree = "<group>"; };
 		AA100042 /* HomePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePage.swift; sourceTree = "<group>"; };
+		AA100050 /* AssessmentStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssessmentStore.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -152,6 +154,7 @@
 				AA100016 /* HealthKitService.swift */,
 				AA100017 /* TapTestEngine.swift */,
 				AA100019 /* ReactionTimeEngine.swift */,
+				AA100050 /* AssessmentStore.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -279,6 +282,7 @@
 				AA000040 /* Measure.swift in Sources */,
 				AA000041 /* MeasureCard.swift in Sources */,
 				AA000042 /* HomePage.swift in Sources */,
+				AA000050 /* AssessmentStore.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

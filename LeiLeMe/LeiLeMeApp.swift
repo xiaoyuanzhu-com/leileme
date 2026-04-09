@@ -4,6 +4,7 @@ import SwiftData
 @main
 struct LeiLeMeApp: App {
     @State private var healthKitService = HealthKitService()
+    @State private var assessmentStore: AssessmentStore?
 
     var sharedModelContainer: ModelContainer = {
         let schema = Schema([
@@ -31,6 +32,14 @@ struct LeiLeMeApp: App {
         WindowGroup {
             ContentView()
                 .environment(healthKitService)
+                .task {
+                    if assessmentStore == nil {
+                        assessmentStore = AssessmentStore(
+                            modelContext: sharedModelContainer.mainContext
+                        )
+                    }
+                }
+                .environment(assessmentStore)
                 .tint(.wellnessTeal)
         }
         .modelContainer(sharedModelContainer)
