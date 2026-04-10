@@ -33,11 +33,25 @@ struct RecoveryScoreEngine {
 
         // During baseline building (< 3 days), we cannot give a meaningful score.
         guard baseline.dayCount >= 3 else {
+            let userDay = max(baseline.dayCount, 1) + 1
+            let headline: String
+            let detail: String
+            switch userDay {
+            case 1...2:
+                headline = "Getting to know you"
+                detail = "Day \(userDay) of 7 \u{2014} each check-in helps personalize your score"
+            case 3:
+                headline = "Day \(userDay) \u{2014} looking good!"
+                detail = "Your baseline is taking shape"
+            default:
+                headline = "Day \(userDay) of 7"
+                detail = "Keep checking in \u{2014} your first recovery score is coming soon"
+            }
             return Result(
                 score: 0,
                 status: .neutral,
-                headline: "Building your profile",
-                detail: "Day \(max(baseline.dayCount, 1)) of 7 — keep checking in daily",
+                headline: headline,
+                detail: detail,
                 availableDimensions: 0,
                 totalDimensions: dimensionCount
             )

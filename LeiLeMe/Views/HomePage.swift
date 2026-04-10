@@ -31,13 +31,25 @@ struct HomePage: View {
     private var recoveryResult: RecoveryScoreEngine.Result {
         guard let today = todayAssessment else {
             if baseline.dayCount < 3 {
+                let userDay = baseline.dayCount + 1
+                let headline: String
+                let detail: String
+                switch userDay {
+                case 1:
+                    headline = "Welcome to LeiLeMe"
+                    detail = "Complete your first check-in to get started"
+                case 2:
+                    headline = "Day 2 \u{2014} you\u{2019}re building momentum"
+                    detail = "Each day teaches us more about your body"
+                default:
+                    headline = "Day \(userDay) \u{2014} looking good!"
+                    detail = "Your baseline is taking shape"
+                }
                 return RecoveryScoreEngine.Result(
                     score: 0,
                     status: .neutral,
-                    headline: baseline.dayCount > 0 ? "Building your profile" : "Welcome to LeiLeMe",
-                    detail: baseline.dayCount > 0
-                        ? "Day \(baseline.dayCount) of 7 \u{2014} keep checking in daily"
-                        : "Complete your first assessment to get started",
+                    headline: headline,
+                    detail: detail,
                     availableDimensions: 0,
                     totalDimensions: RecoveryScoreEngine.dimensionCount
                 )

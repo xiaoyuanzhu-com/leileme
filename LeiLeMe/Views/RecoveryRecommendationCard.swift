@@ -21,6 +21,32 @@ struct RecoveryRecommendationCard: View {
         }
     }
 
+
+    /// Day-aware warm messaging during baseline period.
+    /// baselineDayCount is the number of past days with data (excluding today).
+    /// So dayCount 0 = user's first day, dayCount 6 = day 7, etc.
+    private var baselineWarmMessage: String? {
+        guard isBaseline else { return nil }
+        let userDay = baselineDayCount + 1 // Convert from 0-indexed past days to 1-indexed user day
+        switch userDay {
+        case 1...2:
+            return "Welcome! Each day helps us learn your body's patterns"
+        case 3...4:
+            return "Getting to know you \u{2014} your baseline is taking shape"
+        case 5...6:
+            return "Almost there! One more day until your first recovery score"
+        case 7:
+            return "Your baseline is ready! Here's your first recovery score \u{1F389}"
+        default:
+            return nil
+        }
+    }
+
+    /// Whether this is the day-7 celebration moment.
+    private var isBaselineCelebration: Bool {
+        isBaseline && baselineDayCount + 1 >= 7
+    }
+
     var body: some View {
         VStack(spacing: AppSpacing.md) {
             HStack(spacing: AppSpacing.md) {
@@ -53,6 +79,23 @@ struct RecoveryRecommendationCard: View {
                 }
 
                 Spacer(minLength: 0)
+            }
+
+            // Warm coaching message during baseline period
+            if isBaseline, let warmMessage = baselineWarmMessage {
+                HStack(spacing: 8) {
+                    if isBaselineCelebration {
+                        Image(systemName: "star.fill")
+                            .font(.caption)
+                            .foregroundStyle(Color.wellnessTeal)
+                    }
+                    Text(warmMessage)
+                        .font(.subheadline.weight(.medium))
+                        .foregroundStyle(isBaselineCelebration ? Color.wellnessTeal : .secondary)
+                        .fixedSize(horizontal: false, vertical: true)
+                }
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding(.top, 2)
             }
 
             if !isBaseline {
