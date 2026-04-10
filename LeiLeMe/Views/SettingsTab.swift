@@ -10,6 +10,10 @@ struct SettingsTab: View {
     @State private var showRecalibrateConfirmation = false
     @State private var showClearDataConfirmation = false
     @State private var showRecalibrateExplanation = false
+    @State private var exportFormat: DataExporter.ExportFormat = .csv
+    @State private var showExportSheet = false
+    @State private var exportFileURL: URL?
+    @State private var showNoDataAlert = false
 
     private var baseline: BaselineEngine.BaselineSnapshot {
         BaselineEngine().computeBaseline(from: assessments)
@@ -28,6 +32,7 @@ struct SettingsTab: View {
                 baselineSection
                 healthKitSection
                 dataSection
+                exportSection
                 recalibrateSection
                 aboutSection
             }
@@ -218,7 +223,43 @@ struct SettingsTab: View {
         }
     }
 
-    // MARK: - Recalibrate Section
+    // MARK: - Export Section
+
+    private var exportSection: some View {
+        Section {
+            Picker("Format", selection: $exportFormat) {
+                ForEach(DataExporter.ExportFormat.allCases) { format in
+                    Text(format.rawValue).tag(format)
+                }
+            }
+            .pickerStyle(.segmented)
+
+            Button {
+                exportData()
+            } label: {
+                Label("Export All Data", systemImage: "square.and.arrow.up")
+            }
+            .disabled(assessments.isEmpty)
+        } header: {
+            Text("Export")
+        } footer: {
+            Text(assessments.isEmpty
+                 ? "No data to export yet."
+                 : "Export \(assessments.count) assessment\(assessments.count == 1 ? "" : "s") as \(exportFormat.rawValue).")
+        }
+        .alert("No Data", isPresented: $showNoDataAlert) {
+            Button("OK", role: .cancel) {}
+        } message: {
+            Text("No data to export yet. Complete at least one daily assessment first.")
+        }
+        .sheet(isPresented: $showExportSheet) {
+            if let url = exportFileURL {
+                ShareSheet(activityItems: [url])
+            }
+        }
+    }
+
+        // MARK: - Recalibrate Section
 
     private var recalibrateSection: some View {
         Section {
@@ -312,6 +353,33 @@ struct SettingsTab: View {
             UIApplication.shared.open(url)
         }
     }
+    private func exportData() {
+        guard !assessments.isEmpty else {
+            showNoDataAlert = true
+            return
+        }
+
+        guard let url = DataExporter.export(
+            assessments: assessments,
+            format: exportFormat,
+            baseline: baseline
+        ) else { return }
+
+        exportFileURL = url
+        showExportSheet = true
+    }
+}
+
+// MARK: - Share Sheet
+
+struct ShareSheet: UIViewControllerRepresentable {
+    let activityItems: [Any]
+
+    func makeUIViewController(context: Context) -> UIActivityViewController {
+        UIActivityViewController(activityItems: activityItems, applicationActivities: nil)
+    }
+
+    func updateUIViewController(_ uiViewController: UIActivityViewController, context: Context) {}
 }
 
 #Preview {
