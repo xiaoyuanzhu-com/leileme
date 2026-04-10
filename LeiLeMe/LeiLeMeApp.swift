@@ -5,6 +5,7 @@ import SwiftData
 struct LeiLeMeApp: App {
     @State private var healthKitService = HealthKitService()
     @State private var assessmentStore: AssessmentStore?
+    @State private var notificationManager = NotificationManager()
 
     var sharedModelContainer: ModelContainer = {
         let schema = Schema([
@@ -32,11 +33,18 @@ struct LeiLeMeApp: App {
         WindowGroup {
             ContentView()
                 .environment(healthKitService)
+                .environment(notificationManager)
                 .task {
                     if assessmentStore == nil {
                         assessmentStore = AssessmentStore(
                             modelContext: sharedModelContainer.mainContext
                         )
+                    }
+                    // Refresh notification authorization status on launch
+                    await notificationManager.refreshAuthorizationStatus()
+                    // Re-schedule notifications if enabled (keeps rotation fresh)
+                    if notificationManager.remindersEnabled && notificationManager.isAuthorized {
+                        notificationManager.scheduleNotifications()
                     }
                 }
                 .environment(assessmentStore)

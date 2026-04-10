@@ -3,6 +3,7 @@ import SwiftData
 
 struct SettingsTab: View {
     @Environment(HealthKitService.self) private var healthKitService
+    @Environment(NotificationManager.self) private var notificationManager: NotificationManager?
     @Environment(\.modelContext) private var modelContext
     @Query(sort: \DailyAssessment.date, order: .reverse) private var assessments: [DailyAssessment]
 
@@ -22,6 +23,7 @@ struct SettingsTab: View {
     var body: some View {
         Group {
             Form {
+                notificationSection
                 baselineSection
                 healthKitSection
                 dataSection
@@ -30,6 +32,84 @@ struct SettingsTab: View {
             .scrollContentBackground(.hidden)
             .background(Color.surfaceBackground)
             .navigationTitle("Settings")
+        }
+    }
+
+    // MARK: - Notification Section
+
+    @ViewBuilder
+    private var notificationSection: some View {
+        if let nm = notificationManager {
+            Section {
+                @Bindable var nmBindable = nm
+
+                Toggle(isOn: $nmBindable.remindersEnabled) {
+                    Label("Daily Reminder", systemImage: "bell.fill")
+                }
+                .tint(Color.wellnessTeal)
+
+                if nm.remindersEnabled {
+                    DatePicker(
+                        selection: $nmBindable.reminderTime,
+                        displayedComponents: .hourAndMinute
+                    ) {
+                        Label("Reminder Time", systemImage: "clock")
+                    }
+                }
+
+                // Authorization status
+                HStack {
+                    Label("Notifications", systemImage: "app.badge")
+                    Spacer()
+                    Group {
+                        switch nm.authorizationStatus {
+                        case .authorized:
+                            Text("Allowed")
+                                .foregroundStyle(Color.wellnessGreen)
+                        case .denied:
+                            Text("Denied")
+                                .foregroundStyle(Color.wellnessRed)
+                        case .provisional:
+                            Text("Provisional")
+                                .foregroundStyle(Color.wellnessAmber)
+                        default:
+                            Text("Not Requested")
+                                .foregroundStyle(.secondary)
+                        }
+                    }
+                    .font(.subheadline)
+                }
+
+                if nm.authorizationStatus == .denied {
+                    Button {
+                        if let url = URL(string: UIApplication.openSettingsURLString) {
+                            UIApplication.shared.open(url)
+                        }
+                    } label: {
+                        Label("Open System Settings", systemImage: "gear")
+                    }
+                }
+
+                if !nm.isAuthorized && nm.authorizationStatus != .denied {
+                    Button {
+                        Task {
+                            await nm.requestAuthorization()
+                        }
+                    } label: {
+                        Label("Enable Notifications", systemImage: "bell.badge")
+                    }
+                }
+            } header: {
+                Text("Reminders")
+            } footer: {
+                if nm.remindersEnabled && nm.isAuthorized {
+                    Text("You'll receive a daily reminder at \(nm.formattedReminderTime).")
+                } else if nm.authorizationStatus == .denied {
+                    Text("Notifications are disabled in System Settings. Tap above to change.")
+                } else {
+                    Text("Get a gentle daily nudge to check in on your recovery.")
+                }
+            }
         }
     }
 
@@ -211,5 +291,6 @@ struct SettingsTab: View {
 #Preview {
     SettingsTab()
         .environment(HealthKitService())
+        .environment(NotificationManager())
         .modelContainer(for: DailyAssessment.self, inMemory: true)
 }

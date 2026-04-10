@@ -32,6 +32,7 @@
 		AA000050 /* AssessmentStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA100050 /* AssessmentStore.swift */; };
 		AA000060 /* MeasureDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA100060 /* MeasureDetailView.swift */; };
 		AA000061 /* SingleMeasureTrendChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA100061 /* SingleMeasureTrendChart.swift */; };
+		AA000070 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA100070 /* NotificationManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -63,6 +64,7 @@
 		AA100050 /* AssessmentStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssessmentStore.swift; sourceTree = "<group>"; };
 		AA100060 /* MeasureDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeasureDetailView.swift; sourceTree = "<group>"; };
 		AA100061 /* SingleMeasureTrendChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleMeasureTrendChart.swift; sourceTree = "<group>"; };
+		AA100070 /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -138,6 +140,7 @@
 				AA100017 /* TapTestEngine.swift */,
 				AA100019 /* ReactionTimeEngine.swift */,
 				AA100050 /* AssessmentStore.swift */,
+				AA100070 /* NotificationManager.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -251,6 +254,7 @@
 				AA000050 /* AssessmentStore.swift in Sources */,
 				AA000060 /* MeasureDetailView.swift in Sources */,
 				AA000061 /* SingleMeasureTrendChart.swift in Sources */,
+				AA000070 /* NotificationManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
