@@ -157,28 +157,6 @@ struct MeasureDetailView: View {
     @ViewBuilder
     private var activeTestAction: some View {
         VStack(spacing: AppSpacing.md) {
-            if let value = todayValue {
-                HStack {
-                    VStack(alignment: .leading, spacing: AppSpacing.xs) {
-                        Text("Today\u{2019}s Result")
-                            .font(.caption)
-                            .foregroundStyle(.secondary)
-                        HStack(alignment: .firstTextBaseline, spacing: 4) {
-                            Text(String(format: measure.formatString, value))
-                                .font(.title2.weight(.bold).monospacedDigit())
-                            Text(measure.unit)
-                                .font(.subheadline)
-                                .foregroundStyle(.secondary)
-                        }
-                    }
-                    Spacer()
-                }
-                .padding(AppSpacing.md)
-                .background(Color.cardBackground)
-                .clipShape(RoundedRectangle(cornerRadius: 14, style: .continuous))
-                .shadow(color: .black.opacity(0.06), radius: 6, x: 0, y: 2)
-            }
-
             Button {
                 showingTest = true
             } label: {
@@ -215,33 +193,6 @@ struct MeasureDetailView: View {
     @ViewBuilder
     private var healthKitAction: some View {
         VStack(spacing: AppSpacing.md) {
-            if let value = todayValue {
-                HStack {
-                    VStack(alignment: .leading, spacing: AppSpacing.xs) {
-                        Text("Latest Reading")
-                            .font(.caption)
-                            .foregroundStyle(.secondary)
-                        HStack(alignment: .firstTextBaseline, spacing: 4) {
-                            Text(String(format: measure.formatString, value))
-                                .font(.title2.weight(.bold).monospacedDigit())
-                            Text(measure.unit)
-                                .font(.subheadline)
-                                .foregroundStyle(.secondary)
-                        }
-                    }
-                    Spacer()
-                    if let hk = todayAssessment?.healthKitData {
-                        Text("Synced \(hk.recordedAt.formatted(.relative(presentation: .named)))")
-                            .font(.caption2)
-                            .foregroundStyle(.tertiary)
-                    }
-                }
-                .padding(AppSpacing.md)
-                .background(Color.cardBackground)
-                .clipShape(RoundedRectangle(cornerRadius: 14, style: .continuous))
-                .shadow(color: .black.opacity(0.06), radius: 6, x: 0, y: 2)
-            }
-
             if let error = syncError {
                 Text(error)
                     .font(.caption)
