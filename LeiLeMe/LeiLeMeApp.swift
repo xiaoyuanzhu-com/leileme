@@ -5,6 +5,7 @@ import SwiftData
 struct LeiLeMeApp: App {
     @State private var healthKitService = HealthKitService()
     @State private var assessmentStore: AssessmentStore?
+    @State private var streakTracker: StreakTracker?
     @State private var notificationManager = NotificationManager()
 
     var sharedModelContainer: ModelContainer = {
@@ -14,6 +15,7 @@ struct LeiLeMeApp: App {
             TapTestResult.self,
             ReactionTimeResult.self,
             SubjectiveAssessment.self,
+            StreakRecord.self,
         ])
         let modelConfiguration = ModelConfiguration(
             schema: schema,
@@ -40,6 +42,11 @@ struct LeiLeMeApp: App {
                             modelContext: sharedModelContainer.mainContext
                         )
                     }
+                    if streakTracker == nil {
+                        streakTracker = StreakTracker(
+                            modelContext: sharedModelContainer.mainContext
+                        )
+                    }
                     // Refresh notification authorization status on launch
                     await notificationManager.refreshAuthorizationStatus()
                     // Re-schedule notifications if enabled (keeps rotation fresh)
@@ -48,6 +55,7 @@ struct LeiLeMeApp: App {
                     }
                 }
                 .environment(assessmentStore)
+                .environment(streakTracker)
                 .tint(.wellnessTeal)
         }
         .modelContainer(sharedModelContainer)

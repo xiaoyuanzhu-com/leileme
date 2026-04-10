@@ -33,6 +33,9 @@
 		AA000060 /* MeasureDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA100060 /* MeasureDetailView.swift */; };
 		AA000061 /* SingleMeasureTrendChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA100061 /* SingleMeasureTrendChart.swift */; };
 		AA000070 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA100070 /* NotificationManager.swift */; };
+		AA000080 /* StreakRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA100080 /* StreakRecord.swift */; };
+		AA000081 /* StreakTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA100081 /* StreakTracker.swift */; };
+		AA000082 /* StreakBadge.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA100082 /* StreakBadge.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -65,6 +68,9 @@
 		AA100060 /* MeasureDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeasureDetailView.swift; sourceTree = "<group>"; };
 		AA100061 /* SingleMeasureTrendChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleMeasureTrendChart.swift; sourceTree = "<group>"; };
 		AA100070 /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
+		AA100080 /* StreakRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreakRecord.swift; sourceTree = "<group>"; };
+		AA100081 /* StreakTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreakTracker.swift; sourceTree = "<group>"; };
+		AA100082 /* StreakBadge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreakBadge.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -114,6 +120,7 @@
 				AA100042 /* HomePage.swift */,
 				AA100060 /* MeasureDetailView.swift */,
 				AA100061 /* SingleMeasureTrendChart.swift */,
+				AA100082 /* StreakBadge.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -127,6 +134,7 @@
 				AA100013 /* ReactionTimeResult.swift */,
 				AA100014 /* SubjectiveAssessment.swift */,
 				AA100040 /* Measure.swift */,
+				AA100080 /* StreakRecord.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -141,6 +149,7 @@
 				AA100019 /* ReactionTimeEngine.swift */,
 				AA100050 /* AssessmentStore.swift */,
 				AA100070 /* NotificationManager.swift */,
+				AA100081 /* StreakTracker.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -255,6 +264,9 @@
 				AA000060 /* MeasureDetailView.swift in Sources */,
 				AA000061 /* SingleMeasureTrendChart.swift in Sources */,
 				AA000070 /* NotificationManager.swift in Sources */,
+				AA000080 /* StreakRecord.swift in Sources */,
+				AA000081 /* StreakTracker.swift in Sources */,
+				AA000082 /* StreakBadge.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

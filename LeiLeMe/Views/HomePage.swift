@@ -8,6 +8,7 @@ struct HomePage: View {
     @Environment(\.modelContext) private var modelContext
     @Environment(AssessmentStore.self) private var assessmentStore: AssessmentStore?
     @Environment(HealthKitService.self) private var healthKitService: HealthKitService?
+    @Environment(StreakTracker.self) private var streakTracker: StreakTracker?
     @Environment(\.scenePhase) private var scenePhase
 
     private let baselineEngine = BaselineEngine()
@@ -101,6 +102,15 @@ struct HomePage: View {
                         todayCompletedCount: todayCompletedCount
                     )
 
+                    // Streak badge (below recovery card)
+                    if let streakTracker {
+                        StreakBadge(
+                            streakCount: streakTracker.currentStreak,
+                            milestoneMessage: streakTracker.milestoneMessage,
+                            graceUsed: streakTracker.graceUsed
+                        )
+                    }
+
                     // Measure cards — each navigates to its detail page
                     ForEach(Measure.allCases) { measure in
                         NavigationLink(value: measure) {
@@ -138,6 +148,12 @@ struct HomePage: View {
             }
             .task(id: scenePhase) {
                 await autoSyncHealthKit()
+            }
+            .onChange(of: assessments.count) {
+                streakTracker?.refresh(assessments: assessments)
+            }
+            .onAppear {
+                streakTracker?.refresh(assessments: assessments)
             }
         }
     }
