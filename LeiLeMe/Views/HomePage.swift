@@ -13,6 +13,9 @@ struct HomePage: View {
 
     private let baselineEngine = BaselineEngine()
 
+    /// Whether the completion celebration overlay is currently showing.
+    @State private var showCelebration = false
+
     // MARK: - Computed properties
 
     private var todayAssessment: DailyAssessment? {
@@ -58,6 +61,11 @@ struct HomePage: View {
         return Measure.allCases.filter { today.value(for: $0) != nil }.count
     }
 
+    /// Whether all 9 measures have data for today.
+    private var allMeasuresComplete: Bool {
+        todayCompletedCount == Measure.allCases.count
+    }
+
     /// Find the date of the most recent assessment containing a value for this measure (excluding today).
     private func lastDate(for measure: Measure) -> Date? {
         let calendar = Calendar.current
@@ -93,43 +101,55 @@ struct HomePage: View {
 
     var body: some View {
         NavigationStack {
-            ScrollView {
-                VStack(spacing: AppSpacing.md) {
-                    // Recovery score card
-                    RecoveryRecommendationCard(
-                        result: recoveryResult,
-                        baselineDayCount: baseline.dayCount,
-                        todayCompletedCount: todayCompletedCount
-                    )
-
-                    // Streak badge (below recovery card)
-                    if let streakTracker {
-                        StreakBadge(
-                            streakCount: streakTracker.currentStreak,
-                            milestoneMessage: streakTracker.milestoneMessage,
-                            graceUsed: streakTracker.graceUsed
+            ZStack(alignment: .top) {
+                ScrollView {
+                    VStack(spacing: AppSpacing.md) {
+                        // Recovery score card
+                        RecoveryRecommendationCard(
+                            result: recoveryResult,
+                            baselineDayCount: baseline.dayCount,
+                            todayCompletedCount: todayCompletedCount
                         )
-                    }
 
-                    // Measure cards — each navigates to its detail page
-                    ForEach(Measure.allCases) { measure in
-                        NavigationLink(value: measure) {
-                            MeasureCard(
-                                measure: measure,
-                                todayValue: todayAssessment?.value(for: measure),
-                                baselineValue: baseline.value(for: measure),
-                                lastValue: lastValue(for: measure),
-                                lastDate: lastDate(for: measure),
-                                hasHistory: hasHistory(for: measure),
-                                healthKitAuthRequested: healthKitService?.hasRequestedAuthorization ?? false
+                        // Streak badge (below recovery card)
+                        if let streakTracker {
+                            StreakBadge(
+                                streakCount: streakTracker.currentStreak,
+                                milestoneMessage: streakTracker.milestoneMessage,
+                                graceUsed: streakTracker.graceUsed
                             )
                         }
-                        .buttonStyle(.plain)
+
+                        // Measure cards — each navigates to its detail page
+                        ForEach(Measure.allCases) { measure in
+                            NavigationLink(value: measure) {
+                                MeasureCard(
+                                    measure: measure,
+                                    todayValue: todayAssessment?.value(for: measure),
+                                    baselineValue: baseline.value(for: measure),
+                                    lastValue: lastValue(for: measure),
+                                    lastDate: lastDate(for: measure),
+                                    hasHistory: hasHistory(for: measure),
+                                    healthKitAuthRequested: healthKitService?.hasRequestedAuthorization ?? false
+                                )
+                            }
+                            .buttonStyle(.plain)
+                        }
                     }
+                    .padding(.horizontal, AppSpacing.md)
+                    .padding(.top, AppSpacing.sm)
+                    .padding(.bottom, AppSpacing.xl)
                 }
-                .padding(.horizontal, AppSpacing.md)
-                .padding(.top, AppSpacing.sm)
-                .padding(.bottom, AppSpacing.xl)
+
+                // Completion celebration overlay — positioned near the top, non-blocking
+                if showCelebration {
+                    CompletionCelebrationView {
+                        showCelebration = false
+                    }
+                    .padding(.top, 120) // Below the navigation bar area
+                    .transition(.opacity.combined(with: .scale(scale: 0.8)))
+                    .zIndex(1)
+                }
             }
             .background(Color.surfaceBackground)
             .navigationTitle("\u{7D2F}\u{4E86}\u{4E48}")
@@ -152,9 +172,27 @@ struct HomePage: View {
             .onChange(of: assessments.count) {
                 streakTracker?.refresh(assessments: assessments)
             }
+            .onChange(of: todayCompletedCount) {
+                checkForCelebration()
+            }
             .onAppear {
                 streakTracker?.refresh(assessments: assessments)
+                checkForCelebration()
             }
+        }
+    }
+
+    // MARK: - Celebration
+
+    /// Show the celebration overlay if all measures are complete and it hasn't been shown today yet.
+    private func checkForCelebration() {
+        guard allMeasuresComplete,
+              !CelebrationTracker.hasShownToday,
+              !showCelebration else { return }
+
+        CelebrationTracker.markShown()
+        withAnimation {
+            showCelebration = true
         }
     }
 

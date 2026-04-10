@@ -36,6 +36,7 @@
 		AA000080 /* StreakRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA100080 /* StreakRecord.swift */; };
 		AA000081 /* StreakTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA100081 /* StreakTracker.swift */; };
 		AA000082 /* StreakBadge.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA100082 /* StreakBadge.swift */; };
+		AA000090 /* CompletionCelebrationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA100090 /* CompletionCelebrationView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -71,6 +72,7 @@
 		AA100080 /* StreakRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreakRecord.swift; sourceTree = "<group>"; };
 		AA100081 /* StreakTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreakTracker.swift; sourceTree = "<group>"; };
 		AA100082 /* StreakBadge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreakBadge.swift; sourceTree = "<group>"; };
+		AA100090 /* CompletionCelebrationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletionCelebrationView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -121,6 +123,7 @@
 				AA100060 /* MeasureDetailView.swift */,
 				AA100061 /* SingleMeasureTrendChart.swift */,
 				AA100082 /* StreakBadge.swift */,
+				AA100090 /* CompletionCelebrationView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -267,6 +270,7 @@
 				AA000080 /* StreakRecord.swift in Sources */,
 				AA000081 /* StreakTracker.swift in Sources */,
 				AA000082 /* StreakBadge.swift in Sources */,
+				AA000090 /* CompletionCelebrationView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
