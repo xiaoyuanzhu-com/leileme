@@ -37,6 +37,8 @@
 		AA000081 /* StreakTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA100081 /* StreakTracker.swift */; };
 		AA000082 /* StreakBadge.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA100082 /* StreakBadge.swift */; };
 		AA000090 /* CompletionCelebrationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA100090 /* CompletionCelebrationView.swift */; };
+		AA000091 /* WeeklyInsightsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA100091 /* WeeklyInsightsService.swift */; };
+		AA000092 /* WeeklyInsightsCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA100092 /* WeeklyInsightsCard.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -73,6 +75,8 @@
 		AA100081 /* StreakTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreakTracker.swift; sourceTree = "<group>"; };
 		AA100082 /* StreakBadge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreakBadge.swift; sourceTree = "<group>"; };
 		AA100090 /* CompletionCelebrationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletionCelebrationView.swift; sourceTree = "<group>"; };
+		AA100091 /* WeeklyInsightsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyInsightsService.swift; sourceTree = "<group>"; };
+		AA100092 /* WeeklyInsightsCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyInsightsCard.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -124,6 +128,7 @@
 				AA100061 /* SingleMeasureTrendChart.swift */,
 				AA100082 /* StreakBadge.swift */,
 				AA100090 /* CompletionCelebrationView.swift */,
+				AA100092 /* WeeklyInsightsCard.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -153,6 +158,7 @@
 				AA100050 /* AssessmentStore.swift */,
 				AA100070 /* NotificationManager.swift */,
 				AA100081 /* StreakTracker.swift */,
+				AA100091 /* WeeklyInsightsService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -271,6 +277,8 @@
 				AA000081 /* StreakTracker.swift in Sources */,
 				AA000082 /* StreakBadge.swift in Sources */,
 				AA000090 /* CompletionCelebrationView.swift in Sources */,
+				AA000091 /* WeeklyInsightsService.swift in Sources */,
+				AA000092 /* WeeklyInsightsCard.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -97,6 +97,11 @@ struct HomePage: View {
         lastValue(for: measure) != nil
     }
 
+    /// Weekly insights — nil if fewer than 7 days of data.
+    private var weeklyInsight: WeeklyInsightsService.WeeklyInsight? {
+        WeeklyInsightsService.compute(assessments: assessments, baseline: baseline)
+    }
+
     // MARK: - Body
 
     var body: some View {
@@ -118,6 +123,11 @@ struct HomePage: View {
                                 milestoneMessage: streakTracker.milestoneMessage,
                                 graceUsed: streakTracker.graceUsed
                             )
+                        }
+
+                        // Weekly insights card (below recovery card, above measure list)
+                        if let weeklyInsight {
+                            WeeklyInsightsCard(insight: weeklyInsight)
                         }
 
                         // Measure cards — each navigates to its detail page
