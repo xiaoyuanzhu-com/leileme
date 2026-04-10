@@ -127,7 +127,7 @@ final class HealthKitService {
                 asleepSeconds += duration
             case .awake:
                 awakeSeconds += duration
-            case .inBed:
+            case .inBed, .none:
                 break // Don't count time merely in bed.
             @unknown default:
                 break
