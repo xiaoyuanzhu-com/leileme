@@ -110,7 +110,8 @@ struct HomePage: View {
                                 baselineValue: baseline.value(for: measure),
                                 lastValue: lastValue(for: measure),
                                 lastDate: lastDate(for: measure),
-                                hasHistory: hasHistory(for: measure)
+                                hasHistory: hasHistory(for: measure),
+                                healthKitAuthRequested: healthKitService?.hasRequestedAuthorization ?? false
                             )
                         }
                         .buttonStyle(.plain)

@@ -4,12 +4,24 @@ import HealthKit
 @Observable
 final class HealthKitService {
 
+    // MARK: - Keys
+
+    private enum Keys {
+        static let authorizationRequested = "healthkit_authorization_requested"
+    }
+
     // MARK: - State
 
     var isAuthorized: Bool = false
 
     var isAvailable: Bool {
         HKHealthStore.isHealthDataAvailable()
+    }
+
+    /// Whether we have already prompted the user for HealthKit authorization.
+    /// Used to avoid re-prompting on subsequent launches.
+    var hasRequestedAuthorization: Bool {
+        UserDefaults.standard.bool(forKey: Keys.authorizationRequested)
     }
 
     // MARK: - Private
@@ -29,6 +41,13 @@ final class HealthKitService {
 
         try await healthStore.requestAuthorization(toShare: [], read: readTypes)
         isAuthorized = true
+        markAuthorizationRequested()
+    }
+
+    /// Mark that we have shown the HealthKit authorization prompt.
+    /// Called even when user declines, so we don't re-prompt.
+    func markAuthorizationRequested() {
+        UserDefaults.standard.set(true, forKey: Keys.authorizationRequested)
     }
 
     // MARK: - HRV

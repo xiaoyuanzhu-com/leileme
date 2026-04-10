@@ -3,28 +3,63 @@ import SwiftData
 
 struct ContentView: View {
     @Environment(NotificationManager.self) private var notificationManager: NotificationManager?
+    @Environment(HealthKitService.self) private var healthKitService: HealthKitService?
     @AppStorage("has_completed_onboarding") private var hasCompletedOnboarding = false
 
-    @State private var showNotificationOnboarding = false
+    @State private var showOnboarding = false
 
     var body: some View {
         HomePage()
             .onAppear {
                 if !hasCompletedOnboarding {
-                    // Show notification permission request on first launch
-                    if let nm = notificationManager, !nm.hasRequestedPermission {
-                        showNotificationOnboarding = true
-                    } else {
-                        hasCompletedOnboarding = true
+                    showOnboarding = true
+                }
+            }
+            .sheet(isPresented: $showOnboarding) {
+                OnboardingFlowView {
+                    hasCompletedOnboarding = true
+                    showOnboarding = false
+                }
+            }
+    }
+}
+
+// MARK: - Onboarding Flow View
+
+/// Multi-step onboarding: notifications → HealthKit authorization.
+struct OnboardingFlowView: View {
+    @Environment(NotificationManager.self) private var notificationManager: NotificationManager?
+    @Environment(HealthKitService.self) private var healthKitService: HealthKitService?
+    @Environment(AssessmentStore.self) private var assessmentStore: AssessmentStore?
+
+    enum Step {
+        case notifications
+        case healthKit
+    }
+
+    @State private var currentStep: Step = .notifications
+    var onComplete: () -> Void
+
+    var body: some View {
+        Group {
+            switch currentStep {
+            case .notifications:
+                NotificationOnboardingView {
+                    // After notification step, move to HealthKit step
+                    withAnimation {
+                        currentStep = .healthKit
                     }
                 }
-            }
-            .sheet(isPresented: $showNotificationOnboarding) {
-                NotificationOnboardingView {
-                    hasCompletedOnboarding = true
-                    showNotificationOnboarding = false
+            case .healthKit:
+                HealthKitOnboardingView {
+                    onComplete()
                 }
             }
+        }
+        .transition(.asymmetric(
+            insertion: .move(edge: .trailing).combined(with: .opacity),
+            removal: .move(edge: .leading).combined(with: .opacity)
+        ))
     }
 }
 
@@ -99,6 +134,108 @@ struct NotificationOnboardingView: View {
                 .foregroundStyle(.primary)
             Spacer()
         }
+    }
+}
+
+// MARK: - HealthKit Onboarding View
+
+struct HealthKitOnboardingView: View {
+    @Environment(HealthKitService.self) private var healthKitService: HealthKitService?
+    @Environment(AssessmentStore.self) private var assessmentStore: AssessmentStore?
+
+    var onComplete: () -> Void
+
+    var body: some View {
+        VStack(spacing: AppSpacing.lg) {
+            Spacer()
+
+            Image(systemName: "heart.text.square.fill")
+                .font(.system(size: 64))
+                .foregroundStyle(Color.wellnessTeal)
+                .symbolRenderingMode(.hierarchical)
+
+            Text("Connect Apple Health")
+                .font(.title.bold())
+
+            Text("We read heart rate, HRV, and sleep data from Apple Health to assess your recovery.")
+                .font(.body)
+                .foregroundStyle(.secondary)
+                .multilineTextAlignment(.center)
+                .padding(.horizontal, AppSpacing.lg)
+
+            VStack(spacing: AppSpacing.sm) {
+                featureRow(icon: "waveform.path.ecg", text: "Heart rate variability (HRV)")
+                featureRow(icon: "heart.fill", text: "Resting heart rate")
+                featureRow(icon: "bed.double.fill", text: "Sleep duration & stages")
+                featureRow(icon: "lock.shield.fill", text: "Read-only — we never write to Health")
+            }
+            .padding(.horizontal, AppSpacing.lg)
+
+            if let healthKitService, !healthKitService.isAvailable {
+                Text("Apple Health is not available on this device.")
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+                    .multilineTextAlignment(.center)
+                    .padding(.horizontal, AppSpacing.lg)
+            }
+
+            Spacer()
+
+            VStack(spacing: AppSpacing.md) {
+                Button {
+                    Task {
+                        await authorizeAndSync()
+                        onComplete()
+                    }
+                } label: {
+                    Text("Allow Health Access")
+                        .frame(maxWidth: .infinity)
+                }
+                .buttonStyle(PrimaryButtonStyle())
+                .disabled(healthKitService?.isAvailable != true)
+
+                Button {
+                    healthKitService?.markAuthorizationRequested()
+                    onComplete()
+                } label: {
+                    Text("Not Now")
+                        .font(.body)
+                        .foregroundStyle(.secondary)
+                }
+            }
+            .padding(.horizontal, AppSpacing.lg)
+            .padding(.bottom, AppSpacing.xl)
+        }
+        .background(Color.surfaceBackground)
+        .interactiveDismissDisabled()
+    }
+
+    private func featureRow(icon: String, text: String) -> some View {
+        HStack(spacing: AppSpacing.md) {
+            Image(systemName: icon)
+                .font(.body)
+                .foregroundStyle(Color.wellnessTeal)
+                .frame(width: 24)
+            Text(text)
+                .font(.subheadline)
+                .foregroundStyle(.primary)
+            Spacer()
+        }
+    }
+
+    private func authorizeAndSync() async {
+        guard let healthKitService else { return }
+        do {
+            try await healthKitService.requestAuthorization()
+            // Immediately sync after authorization
+            if let assessmentStore {
+                let reading = try await healthKitService.fetchCurrentReading()
+                assessmentStore.saveHealthKitReading(reading)
+            }
+        } catch {
+            // Auth failed or sync failed — still mark as requested so we don't re-prompt
+        }
+        healthKitService.markAuthorizationRequested()
     }
 }
 

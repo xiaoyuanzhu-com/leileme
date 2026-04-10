@@ -8,6 +8,8 @@ struct MeasureCard: View {
     let lastValue: Double?
     let lastDate: Date?
     let hasHistory: Bool
+    /// Whether HealthKit authorization has been requested (for graceful no-data messaging).
+    var healthKitAuthRequested: Bool = false
 
     /// Visual state of the card.
     private enum CardState {
@@ -67,6 +69,14 @@ struct MeasureCard: View {
         return "\(sign)\(String(format: "%.0f", d))%"
     }
 
+    /// The text to show when there is no data for this measure.
+    private var noDataText: String {
+        if measure.type == .healthKit && healthKitAuthRequested && !hasHistory {
+            return "No data available \u{2014} updates automatically with Apple Watch"
+        }
+        return measure.promptText
+    }
+
     // MARK: - Body
 
     var body: some View {
@@ -84,7 +94,7 @@ struct MeasureCard: View {
 
                 switch state {
                 case .noData:
-                    Text(measure.promptText)
+                    Text(noDataText)
                         .font(.caption)
                         .foregroundStyle(.tertiary)
 
@@ -156,6 +166,19 @@ struct MeasureCard: View {
         lastValue: nil,
         lastDate: nil,
         hasHistory: false
+    )
+    .padding()
+}
+
+#Preview("No Data - HealthKit Authorized") {
+    MeasureCard(
+        measure: .hrvSDNN,
+        todayValue: nil,
+        baselineValue: nil,
+        lastValue: nil,
+        lastDate: nil,
+        hasHistory: false,
+        healthKitAuthRequested: true
     )
     .padding()
 }
