@@ -42,7 +42,26 @@
 		AA000092 /* WeeklyInsightsCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA100092 /* WeeklyInsightsCard.swift */; };
 		AA000200 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = AA100210 /* Localizable.strings */; };
 		AA000201 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = AA100211 /* InfoPlist.strings */; };
+		BB000001 /* TestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB100001 /* TestHelpers.swift */; };
+		BB000002 /* BaselineEngineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB100002 /* BaselineEngineTests.swift */; };
+		BB000003 /* RecoveryScoreEngineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB100003 /* RecoveryScoreEngineTests.swift */; };
+		BB000004 /* TapTestEngineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB100004 /* TapTestEngineTests.swift */; };
+		BB000005 /* ReactionTimeEngineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB100005 /* ReactionTimeEngineTests.swift */; };
+		BB000006 /* StreakTrackerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB100006 /* StreakTrackerTests.swift */; };
+		BB000007 /* WeeklyInsightsServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB100007 /* WeeklyInsightsServiceTests.swift */; };
+		BB000008 /* DataExporterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB100008 /* DataExporterTests.swift */; };
+		BB000009 /* MeasureTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB100009 /* MeasureTests.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		BB900001 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = AA400002 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = AA400001;
+			remoteInfo = LeiLeMe;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		AA100001 /* LeiLeMeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeiLeMeApp.swift; sourceTree = "<group>"; };
@@ -85,10 +104,27 @@
 		AA100201 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		AA100202 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		AA100203 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		BB100001 /* TestHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestHelpers.swift; sourceTree = "<group>"; };
+		BB100002 /* BaselineEngineTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaselineEngineTests.swift; sourceTree = "<group>"; };
+		BB100003 /* RecoveryScoreEngineTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecoveryScoreEngineTests.swift; sourceTree = "<group>"; };
+		BB100004 /* TapTestEngineTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapTestEngineTests.swift; sourceTree = "<group>"; };
+		BB100005 /* ReactionTimeEngineTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReactionTimeEngineTests.swift; sourceTree = "<group>"; };
+		BB100006 /* StreakTrackerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreakTrackerTests.swift; sourceTree = "<group>"; };
+		BB100007 /* WeeklyInsightsServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyInsightsServiceTests.swift; sourceTree = "<group>"; };
+		BB100008 /* DataExporterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataExporterTests.swift; sourceTree = "<group>"; };
+		BB100009 /* MeasureTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeasureTests.swift; sourceTree = "<group>"; };
+		BB100099 /* LeiLeMeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LeiLeMeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		AA200001 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BB200001 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -102,6 +138,7 @@
 			isa = PBXGroup;
 			children = (
 				AA300002 /* LeiLeMe */,
+				BB300001 /* LeiLeMeTests */,
 				AA300006 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -178,6 +215,7 @@
 			isa = PBXGroup;
 			children = (
 				AA100009 /* LeiLeMe.app */,
+				BB100099 /* LeiLeMeTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -188,6 +226,22 @@
 				AA100027 /* AppTheme.swift */,
 			);
 			path = Theme;
+			sourceTree = "<group>";
+		};
+		BB300001 /* LeiLeMeTests */ = {
+			isa = PBXGroup;
+			children = (
+				BB100001 /* TestHelpers.swift */,
+				BB100002 /* BaselineEngineTests.swift */,
+				BB100003 /* RecoveryScoreEngineTests.swift */,
+				BB100004 /* TapTestEngineTests.swift */,
+				BB100005 /* ReactionTimeEngineTests.swift */,
+				BB100006 /* StreakTrackerTests.swift */,
+				BB100007 /* WeeklyInsightsServiceTests.swift */,
+				BB100008 /* DataExporterTests.swift */,
+				BB100009 /* MeasureTests.swift */,
+			);
+			path = LeiLeMeTests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -210,6 +264,24 @@
 			productReference = AA100009 /* LeiLeMe.app */;
 			productType = "com.apple.product-type.application";
 		};
+		BB400001 /* LeiLeMeTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BB600001 /* Build configuration list for PBXNativeTarget "LeiLeMeTests" */;
+			buildPhases = (
+				BB500001 /* Sources */,
+				BB200001 /* Frameworks */,
+				BB500002 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				BB800001 /* PBXTargetDependency */,
+			);
+			name = LeiLeMeTests;
+			productName = LeiLeMeTests;
+			productReference = BB100099 /* LeiLeMeTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -222,6 +294,10 @@
 				TargetAttributes = {
 					AA400001 = {
 						CreatedOnToolsVersion = 16.0;
+					};
+					BB400001 = {
+						CreatedOnToolsVersion = 16.0;
+						TestTargetID = AA400001;
 					};
 				};
 			};
@@ -240,6 +316,7 @@
 			projectRoot = "";
 			targets = (
 				AA400001 /* LeiLeMe */,
+				BB400001 /* LeiLeMeTests */,
 			);
 		};
 /* End PBXProject section */
@@ -253,6 +330,13 @@
 				AA000028 /* LaunchScreen.storyboard in Resources */,
 				AA000200 /* Localizable.strings in Resources */,
 				AA000201 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BB500002 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -297,7 +381,31 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		BB500001 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BB000001 /* TestHelpers.swift in Sources */,
+				BB000002 /* BaselineEngineTests.swift in Sources */,
+				BB000003 /* RecoveryScoreEngineTests.swift in Sources */,
+				BB000004 /* TapTestEngineTests.swift in Sources */,
+				BB000005 /* ReactionTimeEngineTests.swift in Sources */,
+				BB000006 /* StreakTrackerTests.swift in Sources */,
+				BB000007 /* WeeklyInsightsServiceTests.swift in Sources */,
+				BB000008 /* DataExporterTests.swift in Sources */,
+				BB000009 /* MeasureTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		BB800001 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = AA400001 /* LeiLeMe */;
+			targetProxy = BB900001 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		AA100210 /* Localizable.strings */ = {
@@ -499,6 +607,44 @@
 			};
 			name = Release;
 		};
+		BB700001 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.xiaoyuanzhu.LeiLeMeTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/LeiLeMe.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/LeiLeMe";
+			};
+			name = Debug;
+		};
+		BB700002 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.xiaoyuanzhu.LeiLeMeTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/LeiLeMe.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/LeiLeMe";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -516,6 +662,15 @@
 			buildConfigurations = (
 				AA700003 /* Debug */,
 				AA700004 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		BB600001 /* Build configuration list for PBXNativeTarget "LeiLeMeTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BB700001 /* Debug */,
+				BB700002 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
