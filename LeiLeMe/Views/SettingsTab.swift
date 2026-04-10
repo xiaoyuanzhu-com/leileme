@@ -7,8 +7,9 @@ struct SettingsTab: View {
     @Environment(\.modelContext) private var modelContext
     @Query(sort: \DailyAssessment.date, order: .reverse) private var assessments: [DailyAssessment]
 
-    @State private var showResetBaselineConfirmation = false
+    @State private var showRecalibrateConfirmation = false
     @State private var showClearDataConfirmation = false
+    @State private var showRecalibrateExplanation = false
 
     private var baseline: BaselineEngine.BaselineSnapshot {
         BaselineEngine().computeBaseline(from: assessments)
@@ -27,6 +28,7 @@ struct SettingsTab: View {
                 baselineSection
                 healthKitSection
                 dataSection
+                recalibrateSection
                 aboutSection
             }
             .scrollContentBackground(.hidden)
@@ -135,24 +137,6 @@ struct SettingsTab: View {
                 Label("No data yet", systemImage: "exclamationmark.circle")
                     .foregroundStyle(.secondary)
             }
-
-            Button(role: .destructive) {
-                showResetBaselineConfirmation = true
-            } label: {
-                Label("Reset Baseline", systemImage: "arrow.counterclockwise")
-            }
-            .disabled(assessments.isEmpty)
-            .confirmationDialog(
-                "Reset Baseline",
-                isPresented: $showResetBaselineConfirmation,
-                titleVisibility: .visible
-            ) {
-                Button("Reset Baseline", role: .destructive) {
-                    resetBaseline()
-                }
-            } message: {
-                Text("This will delete assessments older than today. Your baseline will be recalculated from new data.")
-            }
         } header: {
             Text("Baseline")
         } footer: {
@@ -234,6 +218,48 @@ struct SettingsTab: View {
         }
     }
 
+    // MARK: - Recalibrate Section
+
+    private var recalibrateSection: some View {
+        Section {
+            Button {
+                showRecalibrateConfirmation = true
+            } label: {
+                VStack(alignment: .leading, spacing: 4) {
+                    Label("Recalibrate Baseline", systemImage: "arrow.triangle.2.circlepath")
+                    Text("Starts learning your new normal from today's data")
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                }
+            }
+            .disabled(assessments.isEmpty)
+            .alert(
+                "Recalibrate Baseline",
+                isPresented: $showRecalibrateConfirmation
+            ) {
+                Button("Continue") {
+                    recalibrateBaseline()
+                }
+                Button("Cancel", role: .cancel) {}
+            } message: {
+                Text("This will recalculate your baseline using recent data. Your history is preserved. Continue?")
+            }
+
+            DisclosureGroup("Why recalibrate?", isExpanded: $showRecalibrateExplanation) {
+                Text("Your baseline represents your personal \"normal.\" If your lifestyle, fitness level, or health has changed significantly, recalibrating helps the app compare your daily scores against your current state rather than outdated patterns.")
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+                    .padding(.vertical, 4)
+            }
+            .font(.subheadline)
+            .foregroundStyle(.secondary)
+        } header: {
+            Text("Recalibrate")
+        } footer: {
+            Text("Recalibrating clears old assessments so your baseline rebuilds from fresh data. No history is lost from today.")
+        }
+    }
+
     // MARK: - About Section
 
     private var aboutSection: some View {
@@ -266,7 +292,7 @@ struct SettingsTab: View {
 
     // MARK: - Actions
 
-    private func resetBaseline() {
+    private func recalibrateBaseline() {
         let calendar = Calendar.current
         let startOfToday = calendar.startOfDay(for: Date())
         let toDelete = assessments.filter { $0.date < startOfToday }
