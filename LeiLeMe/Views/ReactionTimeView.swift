@@ -88,10 +88,10 @@ struct ReactionTimeView: View {
                     .foregroundStyle(Color.wellnessGreen)
             }
 
-            Text("Reaction Time")
+            Text(String(localized: "reactionTime.title"))
                 .font(.largeTitle.bold())
 
-            Text("When the screen turns **green**, tap as fast as you can.\n\n5 rounds.")
+            Text(String(localized: "reactionTime.instruction"))
                 .font(.title3)
                 .multilineTextAlignment(.center)
                 .foregroundStyle(.secondary)
@@ -102,7 +102,7 @@ struct ReactionTimeView: View {
             Button {
                 engine.start()
             } label: {
-                Text("Start")
+                Text(String(localized: "reactionTime.start"))
             }
             .buttonStyle(PrimaryButtonStyle(color: .wellnessGreen))
             .padding(.horizontal, AppSpacing.xxl)
@@ -116,11 +116,11 @@ struct ReactionTimeView: View {
         VStack(spacing: AppSpacing.md) {
             Spacer()
 
-            Text("Trial \(trial) of \(engine.totalTrials)")
+            Text(String(localized: "reactionTime.trial \(trial) \(engine.totalTrials)"))
                 .font(.headline)
                 .foregroundStyle(.secondary)
 
-            Text("Wait for green...")
+            Text(String(localized: "reactionTime.waitForGreen"))
                 .font(.title.bold())
                 .foregroundStyle(.primary)
 
@@ -136,7 +136,7 @@ struct ReactionTimeView: View {
         VStack(spacing: AppSpacing.md) {
             Spacer()
 
-            Text("TAP NOW!")
+            Text(String(localized: "reactionTime.tapNow"))
                 .font(.system(size: 48, weight: .black))
                 .foregroundStyle(.white)
 
@@ -165,15 +165,15 @@ struct ReactionTimeView: View {
                 .font(.system(size: 60))
                 .foregroundStyle(Color.wellnessRed)
 
-            Text("Too early!")
+            Text(String(localized: "reactionTime.tooEarly"))
                 .font(.title.bold())
                 .foregroundStyle(Color.wellnessRed)
 
-            Text("Wait for the green screen.")
+            Text(String(localized: "reactionTime.waitForGreenScreen"))
                 .font(.title3)
                 .foregroundStyle(.secondary)
 
-            Text("Retrying trial \(trial)...")
+            Text(String(localized: "reactionTime.retrying \(trial)"))
                 .font(.callout)
                 .foregroundStyle(.secondary)
 
@@ -185,7 +185,7 @@ struct ReactionTimeView: View {
         VStack(spacing: AppSpacing.md) {
             Spacer()
 
-            Text("Trial \(trial) of \(engine.totalTrials)")
+            Text(String(localized: "reactionTime.trial \(trial) \(engine.totalTrials)"))
                 .font(.headline)
                 .foregroundStyle(.secondary)
 
@@ -199,7 +199,7 @@ struct ReactionTimeView: View {
 
             Spacer()
 
-            Text("Tap to continue")
+            Text(String(localized: "reactionTime.tapToContinue"))
                 .font(.callout)
                 .foregroundStyle(.tertiary)
 
@@ -216,22 +216,22 @@ struct ReactionTimeView: View {
                     .font(.system(size: 48))
                     .foregroundStyle(Color.wellnessGreen)
 
-                Text("Results")
+                Text(String(localized: "reactionTime.results"))
                     .font(.largeTitle.bold())
 
                 // Summary card
                 VStack(spacing: 12) {
-                    resultRow(label: "Average", value: "\(Int(result.averageMs)) ms")
-                    resultRow(label: "Fastest", value: "\(Int(result.fastestMs)) ms")
-                    resultRow(label: "Slowest", value: "\(Int(result.slowestMs)) ms")
-                    resultRow(label: "Std Dev", value: "\(Int(result.standardDeviationMs)) ms")
+                    resultRow(label: String(localized: "reactionTime.average"), value: "\(Int(result.averageMs)) ms")
+                    resultRow(label: String(localized: "reactionTime.fastest"), value: "\(Int(result.fastestMs)) ms")
+                    resultRow(label: String(localized: "reactionTime.slowest"), value: "\(Int(result.slowestMs)) ms")
+                    resultRow(label: String(localized: "reactionTime.stdDev"), value: "\(Int(result.standardDeviationMs)) ms")
                 }
                 .cardStyle()
                 .padding(.horizontal, AppSpacing.md)
 
                 // Individual trials card
                 VStack(spacing: AppSpacing.sm) {
-                    Text("Individual Trials")
+                    Text(String(localized: "reactionTime.individualTrials"))
                         .font(.headline)
                         .foregroundStyle(.secondary)
 
@@ -260,7 +260,7 @@ struct ReactionTimeView: View {
                 Button {
                     onComplete?(result)
                 } label: {
-                    Text("Done")
+                    Text(String(localized: "reactionTime.done"))
                 }
                 .buttonStyle(PrimaryButtonStyle(color: .wellnessGreen))
                 .padding(.horizontal, AppSpacing.xxl)
@@ -294,10 +294,10 @@ struct ReactionTimeView: View {
 
     private func reactionQuality(ms: Double) -> String {
         switch ms {
-        case ..<200: return "Excellent!"
-        case ..<300: return "Good"
-        case ..<400: return "Average"
-        default: return "Slow"
+        case ..<200: return String(localized: "reactionTime.quality.excellent")
+        case ..<300: return String(localized: "reactionTime.quality.good")
+        case ..<400: return String(localized: "reactionTime.quality.average")
+        default: return String(localized: "reactionTime.quality.slow")
         }
     }
 }

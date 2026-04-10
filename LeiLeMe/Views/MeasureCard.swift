@@ -72,7 +72,7 @@ struct MeasureCard: View {
     /// The text to show when there is no data for this measure.
     private var noDataText: String {
         if measure.type == .healthKit && healthKitAuthRequested && !hasHistory {
-            return "No data available \u{2014} updates automatically with Apple Watch"
+            return String(localized: "measureCard.noData.healthKitAuthorized")
         }
         return measure.promptText
     }
@@ -109,7 +109,7 @@ struct MeasureCard: View {
                         }
 
                         if baselineValue != nil {
-                            Text("vs \(formattedBaseline)")
+                            Text(String(localized: "measureCard.vs \(formattedBaseline)"))
                                 .font(.caption)
                                 .foregroundStyle(.secondary)
                         }
@@ -138,7 +138,7 @@ struct MeasureCard: View {
                                 .foregroundStyle(.tertiary)
                         }
 
-                        Text("Update")
+                        Text(String(localized: "measureCard.update"))
                             .font(.caption.weight(.medium))
                             .foregroundStyle(Color.wellnessTeal)
                     }

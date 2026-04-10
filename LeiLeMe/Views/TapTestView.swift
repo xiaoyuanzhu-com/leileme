@@ -58,15 +58,15 @@ struct TapTestView: View {
                     .foregroundStyle(Color.wellnessTeal)
             }
 
-            Text("Tap Test")
+            Text(String(localized: "tapTest.title"))
                 .font(.largeTitle.bold())
 
             VStack(spacing: 12) {
-                Text("Tap the screen as fast as you can\nfor 10 seconds.")
+                Text(String(localized: "tapTest.instruction"))
                     .multilineTextAlignment(.center)
                     .font(.title3)
 
-                Text("Two rounds with a short rest between.")
+                Text(String(localized: "tapTest.twoRounds"))
                     .foregroundStyle(.secondary)
                     .font(.body)
             }
@@ -74,7 +74,7 @@ struct TapTestView: View {
             Spacer()
 
             Button(action: { engine.start() }) {
-                Text("Start")
+                Text(String(localized: "tapTest.start"))
             }
             .buttonStyle(PrimaryButtonStyle())
             .padding(.horizontal, 40)
@@ -94,7 +94,7 @@ struct TapTestView: View {
                 }
 
             VStack(spacing: AppSpacing.lg) {
-                Text("Round \(round)")
+                Text(String(localized: "tapTest.round \(round)"))
                     .font(.title2.weight(.medium))
                     .foregroundStyle(.secondary)
 
@@ -115,7 +115,7 @@ struct TapTestView: View {
                             .font(.system(size: 56, weight: .bold, design: .rounded))
                             .monospacedDigit()
                             .contentTransition(.numericText())
-                        Text("seconds")
+                        Text(String(localized: "tapTest.seconds"))
                             .font(.caption)
                             .foregroundStyle(.secondary)
                     }
@@ -128,7 +128,7 @@ struct TapTestView: View {
                         .foregroundStyle(Color.wellnessTeal)
                         .scaleEffect(tapScale)
 
-                    Text("taps")
+                    Text(String(localized: "tapTest.taps"))
                         .font(.title3)
                         .foregroundStyle(.secondary)
                 }
@@ -147,10 +147,10 @@ struct TapTestView: View {
                 .font(.system(size: 48))
                 .foregroundStyle(Color.wellnessGreen)
 
-            Text("Round 1 done!")
+            Text(String(localized: "tapTest.round1Done"))
                 .font(.title.bold())
 
-            Text("Get ready for round 2...")
+            Text(String(localized: "tapTest.getReady"))
                 .font(.title3)
                 .foregroundStyle(.secondary)
 
@@ -174,18 +174,18 @@ struct TapTestView: View {
                     .font(.system(size: 56))
                     .foregroundStyle(Color.wellnessGreen)
 
-                Text("Test Complete")
+                Text(String(localized: "tapTest.complete"))
                     .font(.largeTitle.bold())
 
                 // Results card
                 VStack(spacing: AppSpacing.md) {
-                    resultRow(label: "Round 1", value: "\(result.round1Taps) taps", detail: String(format: "%.1f/sec", result.round1Frequency))
-                    resultRow(label: "Round 2", value: "\(result.round2Taps) taps", detail: String(format: "%.1f/sec", result.round2Frequency))
+                    resultRow(label: String(localized: "tapTest.round1Label"), value: String(localized: "tapTest.tapsCount \(result.round1Taps)"), detail: String(format: "%.1f/sec", result.round1Frequency))
+                    resultRow(label: String(localized: "tapTest.round2Label"), value: String(localized: "tapTest.tapsCount \(result.round2Taps)"), detail: String(format: "%.1f/sec", result.round2Frequency))
 
                     Divider()
 
-                    resultRow(label: "Rhythm Stability", value: String(format: "CV %.3f", result.rhythmStability), detail: stabilityLabel(result.rhythmStability))
-                    resultRow(label: "Fatigue Decay", value: String(format: "%.1f%%", result.fatigueDecay * 100), detail: fatigueLabel(result.fatigueDecay))
+                    resultRow(label: String(localized: "tapTest.rhythmStability"), value: String(format: "CV %.3f", result.rhythmStability), detail: stabilityLabel(result.rhythmStability))
+                    resultRow(label: String(localized: "tapTest.fatigueDecay"), value: String(format: "%.1f%%", result.fatigueDecay * 100), detail: fatigueLabel(result.fatigueDecay))
                 }
                 .cardStyle()
                 .padding(.horizontal, AppSpacing.md)
@@ -195,12 +195,12 @@ struct TapTestView: View {
                 Button(action: {
                     onComplete?(result)
                 }) {
-                    Text("Done")
+                    Text(String(localized: "tapTest.done"))
                 }
                 .buttonStyle(PrimaryButtonStyle())
                 .padding(.horizontal, 40)
 
-                Button("Try Again") {
+                Button(String(localized: "tapTest.tryAgain")) {
                     engine.reset()
                 }
                 .buttonStyle(SecondaryButtonStyle())
@@ -227,17 +227,17 @@ struct TapTestView: View {
     }
 
     private func stabilityLabel(_ cv: Double) -> String {
-        if cv < 0.1 { return "Very stable" }
-        if cv < 0.2 { return "Stable" }
-        if cv < 0.3 { return "Moderate" }
-        return "Variable"
+        if cv < 0.1 { return String(localized: "tapTest.stability.veryStable") }
+        if cv < 0.2 { return String(localized: "tapTest.stability.stable") }
+        if cv < 0.3 { return String(localized: "tapTest.stability.moderate") }
+        return String(localized: "tapTest.stability.variable")
     }
 
     private func fatigueLabel(_ decay: Double) -> String {
-        if decay >= 0.95 { return "No fatigue" }
-        if decay >= 0.85 { return "Mild fatigue" }
-        if decay >= 0.75 { return "Moderate fatigue" }
-        return "Significant fatigue"
+        if decay >= 0.95 { return String(localized: "tapTest.fatigue.none") }
+        if decay >= 0.85 { return String(localized: "tapTest.fatigue.mild") }
+        if decay >= 0.75 { return String(localized: "tapTest.fatigue.moderate") }
+        return String(localized: "tapTest.fatigue.significant")
     }
 
     private func handleTap() {

@@ -13,12 +13,12 @@ struct StreakBadge: View {
                     .font(.body.weight(.semibold))
                     .foregroundStyle(flameColor)
 
-                Text("\(streakCount)-day streak")
+                Text(String(localized: "streak.dayCount \(streakCount)"))
                     .font(.subheadline.weight(.semibold))
                     .foregroundStyle(.primary)
 
                 if graceUsed {
-                    Text("(grace used)")
+                    Text(String(localized: "streak.graceUsed"))
                         .font(.caption2)
                         .foregroundStyle(.tertiary)
                 }
@@ -60,7 +60,7 @@ struct StreakBadge: View {
 }
 
 #Preview("Milestone") {
-    StreakBadge(streakCount: 7, milestoneMessage: "Baseline complete!", graceUsed: false)
+    StreakBadge(streakCount: 7, milestoneMessage: String(localized: "streak.milestone.7"), graceUsed: false)
         .padding()
 }
 
@@ -70,6 +70,6 @@ struct StreakBadge: View {
 }
 
 #Preview("30-day") {
-    StreakBadge(streakCount: 30, milestoneMessage: "One month — incredible!", graceUsed: false)
+    StreakBadge(streakCount: 30, milestoneMessage: String(localized: "streak.milestone.30"), graceUsed: false)
         .padding()
 }

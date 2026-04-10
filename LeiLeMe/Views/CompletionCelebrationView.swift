@@ -36,11 +36,11 @@ struct CompletionCelebrationView: View {
                     .scaleEffect(isVisible ? 1.0 : 0.5)
             }
 
-            Text("All measures complete!")
+            Text(String(localized: "celebration.title"))
                 .font(.subheadline.weight(.semibold))
                 .foregroundStyle(.primary)
 
-            Text("Your recovery score is fully informed today.")
+            Text(String(localized: "celebration.subtitle"))
                 .font(.caption)
                 .foregroundStyle(.secondary)
                 .multilineTextAlignment(.center)

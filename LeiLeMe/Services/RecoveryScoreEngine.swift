@@ -38,14 +38,14 @@ struct RecoveryScoreEngine {
             let detail: String
             switch userDay {
             case 1...2:
-                headline = "Getting to know you"
-                detail = "Day \(userDay) of 7 \u{2014} each check-in helps personalize your score"
+                headline = String(localized: "recovery.engine.gettingToKnow.headline")
+                detail = String(localized: "recovery.engine.gettingToKnow.detail \(userDay)")
             case 3:
-                headline = "Day \(userDay) \u{2014} looking good!"
-                detail = "Your baseline is taking shape"
+                headline = String(localized: "recovery.engine.dayN.headline \(userDay)")
+                detail = String(localized: "recovery.engine.dayN.detail")
             default:
-                headline = "Day \(userDay) of 7"
-                detail = "Keep checking in \u{2014} your first recovery score is coming soon"
+                headline = String(localized: "recovery.engine.dayNof7.headline \(userDay)")
+                detail = String(localized: "recovery.engine.dayNof7.detail")
             }
             return Result(
                 score: 0,
@@ -108,8 +108,8 @@ struct RecoveryScoreEngine {
             return Result(
                 score: 0,
                 status: .neutral,
-                headline: "Not enough data",
-                detail: "Complete more assessment sections for a recommendation",
+                headline: String(localized: "recovery.notEnough.headline"),
+                detail: String(localized: "recovery.notEnough.detail"),
                 availableDimensions: 0,
                 totalDimensions: dims.count
             )
@@ -149,16 +149,16 @@ struct RecoveryScoreEngine {
         switch finalScore {
         case 90...:
             status = .good
-            headline = "Ready to train"
-            detail = "Your metrics are at or above baseline — go for it"
+            headline = String(localized: "recovery.good.headline")
+            detail = String(localized: "recovery.good.detail")
         case 70..<90:
             status = .moderate
-            headline = "Light activity today"
-            detail = "Some metrics are below your norm — keep it easy"
+            headline = String(localized: "recovery.moderate.headline")
+            detail = String(localized: "recovery.moderate.detail")
         default:
             status = .needsAttention
-            headline = "Rest and recover"
-            detail = "Multiple metrics suggest fatigue — prioritize recovery"
+            headline = String(localized: "recovery.needsAttention.headline")
+            detail = String(localized: "recovery.needsAttention.detail")
         }
 
         return Result(

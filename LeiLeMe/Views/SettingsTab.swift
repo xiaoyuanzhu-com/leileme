@@ -38,7 +38,7 @@ struct SettingsTab: View {
             }
             .scrollContentBackground(.hidden)
             .background(Color.surfaceBackground)
-            .navigationTitle("Settings")
+            .navigationTitle(String(localized: "settings.title"))
         }
     }
 
@@ -51,7 +51,7 @@ struct SettingsTab: View {
                 @Bindable var nmBindable = nm
 
                 Toggle(isOn: $nmBindable.remindersEnabled) {
-                    Label("Daily Reminder", systemImage: "bell.fill")
+                    Label(String(localized: "settings.dailyReminder"), systemImage: "bell.fill")
                 }
                 .tint(Color.wellnessTeal)
 
@@ -60,27 +60,27 @@ struct SettingsTab: View {
                         selection: $nmBindable.reminderTime,
                         displayedComponents: .hourAndMinute
                     ) {
-                        Label("Reminder Time", systemImage: "clock")
+                        Label(String(localized: "settings.reminderTime"), systemImage: "clock")
                     }
                 }
 
                 // Authorization status
                 HStack {
-                    Label("Notifications", systemImage: "app.badge")
+                    Label(String(localized: "settings.notifications"), systemImage: "app.badge")
                     Spacer()
                     Group {
                         switch nm.authorizationStatus {
                         case .authorized:
-                            Text("Allowed")
+                            Text(String(localized: "settings.notifications.allowed"))
                                 .foregroundStyle(Color.wellnessGreen)
                         case .denied:
-                            Text("Denied")
+                            Text(String(localized: "settings.notifications.denied"))
                                 .foregroundStyle(Color.wellnessRed)
                         case .provisional:
-                            Text("Provisional")
+                            Text(String(localized: "settings.notifications.provisional"))
                                 .foregroundStyle(Color.wellnessAmber)
                         default:
-                            Text("Not Requested")
+                            Text(String(localized: "settings.notifications.notRequested"))
                                 .foregroundStyle(.secondary)
                         }
                     }
@@ -93,7 +93,7 @@ struct SettingsTab: View {
                             UIApplication.shared.open(url)
                         }
                     } label: {
-                        Label("Open System Settings", systemImage: "gear")
+                        Label(String(localized: "settings.openSystemSettings"), systemImage: "gear")
                     }
                 }
 
@@ -103,18 +103,18 @@ struct SettingsTab: View {
                             await nm.requestAuthorization()
                         }
                     } label: {
-                        Label("Enable Notifications", systemImage: "bell.badge")
+                        Label(String(localized: "settings.enableNotifications"), systemImage: "bell.badge")
                     }
                 }
             } header: {
-                Text("Reminders")
+                Text(String(localized: "settings.reminders"))
             } footer: {
                 if nm.remindersEnabled && nm.isAuthorized {
-                    Text("You'll receive a daily reminder at \(nm.formattedReminderTime).")
+                    Text(String(localized: "settings.reminders.footer.enabled \(nm.formattedReminderTime)"))
                 } else if nm.authorizationStatus == .denied {
-                    Text("Notifications are disabled in System Settings. Tap above to change.")
+                    Text(String(localized: "settings.reminders.footer.denied"))
                 } else {
-                    Text("Get a gentle daily nudge to check in on your recovery.")
+                    Text(String(localized: "settings.reminders.footer.default"))
                 }
             }
         }
@@ -125,27 +125,27 @@ struct SettingsTab: View {
     private var baselineSection: some View {
         Section {
             HStack {
-                Label("Data collected", systemImage: "calendar")
+                Label(String(localized: "settings.dataCollected"), systemImage: "calendar")
                     .foregroundStyle(.primary)
                 Spacer()
-                Text("\(baseline.dayCount) day\(baseline.dayCount == 1 ? "" : "s")")
+                Text(String(localized: "settings.days \(baseline.dayCount)"))
                     .foregroundStyle(.secondary)
             }
 
             if baseline.dayCount >= 7 {
-                Label("Baseline ready", systemImage: "checkmark.circle.fill")
+                Label(String(localized: "settings.baselineReady"), systemImage: "checkmark.circle.fill")
                     .foregroundStyle(Color.wellnessGreen)
             } else if baseline.dayCount > 0 {
-                Label("\(7 - baseline.dayCount) more day\(7 - baseline.dayCount == 1 ? "" : "s") needed", systemImage: "clock")
+                Label(String(localized: "settings.daysNeeded \(7 - baseline.dayCount)"), systemImage: "clock")
                     .foregroundStyle(Color.wellnessAmber)
             } else {
-                Label("No data yet", systemImage: "exclamationmark.circle")
+                Label(String(localized: "settings.noDataYet"), systemImage: "exclamationmark.circle")
                     .foregroundStyle(.secondary)
             }
         } header: {
-            Text("Baseline")
+            Text(String(localized: "settings.baseline"))
         } footer: {
-            Text("A 7-day rolling window is used to compute your baseline.")
+            Text(String(localized: "settings.baseline.footer"))
         }
     }
 
@@ -154,30 +154,32 @@ struct SettingsTab: View {
     private var healthKitSection: some View {
         Section {
             HStack {
-                Label("Authorization", systemImage: "lock.shield")
+                Label(String(localized: "settings.authorization"), systemImage: "lock.shield")
                 Spacer()
-                Text(healthKitService.isAuthorized ? "Granted" : "Not Requested")
+                Text(healthKitService.isAuthorized
+                     ? String(localized: "settings.authorization.granted")
+                     : String(localized: "settings.authorization.notRequested"))
                     .foregroundStyle(healthKitService.isAuthorized ? Color.wellnessGreen : .secondary)
             }
 
             if healthKitService.isAvailable {
-                healthKitTypeRow("HRV (SDNN)", systemImage: "waveform.path.ecg")
-                healthKitTypeRow("Resting Heart Rate", systemImage: "heart.fill")
-                healthKitTypeRow("Sleep Analysis", systemImage: "bed.double.fill")
+                healthKitTypeRow(String(localized: "settings.healthKit.hrvSDNN"), systemImage: "waveform.path.ecg")
+                healthKitTypeRow(String(localized: "settings.healthKit.restingHeartRate"), systemImage: "heart.fill")
+                healthKitTypeRow(String(localized: "settings.healthKit.sleepAnalysis"), systemImage: "bed.double.fill")
 
                 Button {
                     openHealthApp()
                 } label: {
-                    Label("Open Health Settings", systemImage: "heart.circle")
+                    Label(String(localized: "settings.openHealthSettings"), systemImage: "heart.circle")
                 }
             } else {
-                Label("HealthKit not available", systemImage: "xmark.circle")
+                Label(String(localized: "settings.healthKit.notAvailable"), systemImage: "xmark.circle")
                     .foregroundStyle(.secondary)
             }
         } header: {
-            Text("HealthKit")
+            Text(String(localized: "settings.healthKit"))
         } footer: {
-            Text("Authorization is managed in the Health app. Tap \"Open Health Settings\" to review permissions.")
+            Text(String(localized: "settings.healthKit.footer"))
         }
     }
 
@@ -195,7 +197,7 @@ struct SettingsTab: View {
     private var dataSection: some View {
         Section {
             HStack {
-                Label("Total assessments", systemImage: "number")
+                Label(String(localized: "settings.totalAssessments"), systemImage: "number")
                 Spacer()
                 Text("\(assessments.count)")
                     .foregroundStyle(.secondary)
@@ -204,22 +206,22 @@ struct SettingsTab: View {
             Button(role: .destructive) {
                 showClearDataConfirmation = true
             } label: {
-                Label("Clear All Data", systemImage: "trash")
+                Label(String(localized: "settings.clearAllData"), systemImage: "trash")
             }
             .disabled(assessments.isEmpty)
             .confirmationDialog(
-                "Clear All Data",
+                String(localized: "settings.clearAllData.title"),
                 isPresented: $showClearDataConfirmation,
                 titleVisibility: .visible
             ) {
-                Button("Delete All Assessments", role: .destructive) {
+                Button(String(localized: "settings.clearAllData.button"), role: .destructive) {
                     clearAllData()
                 }
             } message: {
-                Text("This will permanently delete all \(assessments.count) assessment\(assessments.count == 1 ? "" : "s"). This cannot be undone.")
+                Text(String(localized: "settings.clearAllData.message \(assessments.count)"))
             }
         } header: {
-            Text("Data")
+            Text(String(localized: "settings.data"))
         }
     }
 
@@ -227,7 +229,7 @@ struct SettingsTab: View {
 
     private var exportSection: some View {
         Section {
-            Picker("Format", selection: $exportFormat) {
+            Picker(String(localized: "settings.export.format"), selection: $exportFormat) {
                 ForEach(DataExporter.ExportFormat.allCases) { format in
                     Text(format.rawValue).tag(format)
                 }
@@ -237,20 +239,20 @@ struct SettingsTab: View {
             Button {
                 exportData()
             } label: {
-                Label("Export All Data", systemImage: "square.and.arrow.up")
+                Label(String(localized: "settings.exportAllData"), systemImage: "square.and.arrow.up")
             }
             .disabled(assessments.isEmpty)
         } header: {
-            Text("Export")
+            Text(String(localized: "settings.export"))
         } footer: {
             Text(assessments.isEmpty
-                 ? "No data to export yet."
-                 : "Export \(assessments.count) assessment\(assessments.count == 1 ? "" : "s") as \(exportFormat.rawValue).")
+                 ? String(localized: "settings.export.noData")
+                 : String(localized: "settings.export.footer \(assessments.count) \(exportFormat.rawValue)"))
         }
-        .alert("No Data", isPresented: $showNoDataAlert) {
-            Button("OK", role: .cancel) {}
+        .alert(String(localized: "settings.export.noDataAlert.title"), isPresented: $showNoDataAlert) {
+            Button(String(localized: "settings.export.ok"), role: .cancel) {}
         } message: {
-            Text("No data to export yet. Complete at least one daily assessment first.")
+            Text(String(localized: "settings.export.noDataAlert.message"))
         }
         .sheet(isPresented: $showExportSheet) {
             if let url = exportFileURL {
@@ -267,27 +269,27 @@ struct SettingsTab: View {
                 showRecalibrateConfirmation = true
             } label: {
                 VStack(alignment: .leading, spacing: 4) {
-                    Label("Recalibrate Baseline", systemImage: "arrow.triangle.2.circlepath")
-                    Text("Starts learning your new normal from today's data")
+                    Label(String(localized: "settings.recalibrateBaseline"), systemImage: "arrow.triangle.2.circlepath")
+                    Text(String(localized: "settings.recalibrate.subtitle"))
                         .font(.caption)
                         .foregroundStyle(.secondary)
                 }
             }
             .disabled(assessments.isEmpty)
             .alert(
-                "Recalibrate Baseline",
+                String(localized: "settings.recalibrate.title"),
                 isPresented: $showRecalibrateConfirmation
             ) {
-                Button("Continue") {
+                Button(String(localized: "settings.recalibrate.continue")) {
                     recalibrateBaseline()
                 }
-                Button("Cancel", role: .cancel) {}
+                Button(String(localized: "settings.recalibrate.cancel"), role: .cancel) {}
             } message: {
-                Text("This will recalculate your baseline using recent data. Your history is preserved. Continue?")
+                Text(String(localized: "settings.recalibrate.message"))
             }
 
-            DisclosureGroup("Why recalibrate?", isExpanded: $showRecalibrateExplanation) {
-                Text("Your baseline represents your personal \"normal.\" If your lifestyle, fitness level, or health has changed significantly, recalibrating helps the app compare your daily scores against your current state rather than outdated patterns.")
+            DisclosureGroup(String(localized: "settings.whyRecalibrate"), isExpanded: $showRecalibrateExplanation) {
+                Text(String(localized: "settings.recalibrate.explanation"))
                     .font(.caption)
                     .foregroundStyle(.secondary)
                     .padding(.vertical, 4)
@@ -295,9 +297,9 @@ struct SettingsTab: View {
             .font(.subheadline)
             .foregroundStyle(.secondary)
         } header: {
-            Text("Recalibrate")
+            Text(String(localized: "settings.recalibrate"))
         } footer: {
-            Text("Recalibrating clears old assessments so your baseline rebuilds from fresh data. No history is lost from today.")
+            Text(String(localized: "settings.recalibrate.footer"))
         }
     }
 
@@ -306,28 +308,28 @@ struct SettingsTab: View {
     private var aboutSection: some View {
         Section {
             HStack {
-                Label("App", systemImage: "app.badge")
+                Label(String(localized: "settings.about.app"), systemImage: "app.badge")
                 Spacer()
-                Text("LeiLeMe (\u{7D2F}\u{4E86}\u{4E48})")
+                Text(String(localized: "settings.about.appName"))
                     .foregroundStyle(.secondary)
             }
 
             HStack {
-                Label("Version", systemImage: "info.circle")
+                Label(String(localized: "settings.about.version"), systemImage: "info.circle")
                 Spacer()
                 Text(appVersion)
                     .foregroundStyle(.secondary)
             }
 
-            Text("A daily fatigue check-in combining HealthKit biometrics, motor tests, and subjective ratings to track recovery trends.")
+            Text(String(localized: "app.tagline"))
                 .font(.footnote)
                 .foregroundStyle(.secondary)
 
             Link(destination: URL(string: "https://github.com/iloahz/LeiLeMe")!) {
-                Label("View on GitHub", systemImage: "link")
+                Label(String(localized: "settings.viewOnGitHub"), systemImage: "link")
             }
         } header: {
-            Text("About")
+            Text(String(localized: "settings.about"))
         }
     }
 

@@ -22,15 +22,15 @@ enum Measure: String, CaseIterable, Identifiable {
 
     var name: String {
         switch self {
-        case .hrvSDNN:           return "HRV (SDNN)"
-        case .restingHeartRate:  return "Resting Heart Rate"
-        case .sleepDuration:     return "Sleep Duration"
-        case .tapFrequency:      return "Tap Frequency"
-        case .tapStability:      return "Tap Stability"
-        case .reactionTime:      return "Reaction Time"
-        case .sleepQuality:      return "Sleep Quality"
-        case .muscleSoreness:    return "Muscle Soreness"
-        case .energyLevel:       return "Energy Level"
+        case .hrvSDNN:           return String(localized: "measure.hrvSDNN.name")
+        case .restingHeartRate:  return String(localized: "measure.restingHeartRate.name")
+        case .sleepDuration:     return String(localized: "measure.sleepDuration.name")
+        case .tapFrequency:      return String(localized: "measure.tapFrequency.name")
+        case .tapStability:      return String(localized: "measure.tapStability.name")
+        case .reactionTime:      return String(localized: "measure.reactionTime.name")
+        case .sleepQuality:      return String(localized: "measure.sleepQuality.name")
+        case .muscleSoreness:    return String(localized: "measure.muscleSoreness.name")
+        case .energyLevel:       return String(localized: "measure.energyLevel.name")
         }
     }
 
@@ -50,15 +50,15 @@ enum Measure: String, CaseIterable, Identifiable {
 
     var unit: String {
         switch self {
-        case .hrvSDNN:           return "ms"
-        case .restingHeartRate:  return "bpm"
-        case .sleepDuration:     return "hrs"
-        case .tapFrequency:      return "taps/s"
-        case .tapStability:      return "cv"
-        case .reactionTime:      return "ms"
-        case .sleepQuality:      return "/5"
-        case .muscleSoreness:    return "/5"
-        case .energyLevel:       return "/5"
+        case .hrvSDNN:           return String(localized: "measure.unit.ms")
+        case .restingHeartRate:  return String(localized: "measure.unit.bpm")
+        case .sleepDuration:     return String(localized: "measure.unit.hrs")
+        case .tapFrequency:      return String(localized: "measure.unit.tapsPerSec")
+        case .tapStability:      return String(localized: "measure.unit.cv")
+        case .reactionTime:      return String(localized: "measure.unit.ms")
+        case .sleepQuality:      return String(localized: "measure.unit.outOf5")
+        case .muscleSoreness:    return String(localized: "measure.unit.outOf5")
+        case .energyLevel:       return String(localized: "measure.unit.outOf5")
         }
     }
 
@@ -103,9 +103,9 @@ enum Measure: String, CaseIterable, Identifiable {
 
     var promptText: String {
         switch type {
-        case .healthKit:   return "Tap to sync"
-        case .activeTest:  return "Tap to test"
-        case .subjective:  return "Tap to rate"
+        case .healthKit:   return String(localized: "measure.prompt.sync")
+        case .activeTest:  return String(localized: "measure.prompt.test")
+        case .subjective:  return String(localized: "measure.prompt.rate")
         }
     }
 }
@@ -166,24 +166,15 @@ extension BaselineEngine.BaselineSnapshot {
 extension Measure {
     var description: String {
         switch self {
-        case .hrvSDNN:
-            return "Heart rate variability measures the tiny differences in timing between each heartbeat \u{2014} a sign of how well your body\u{2019}s rest-and-recover system is working. It\u{2019}s considered the gold standard for recovery tracking. A higher value means your nervous system is more resilient and ready to handle stress."
-        case .restingHeartRate:
-            return "Your resting heart rate is how many times your heart beats per minute when you\u{2019}re fully at rest. When it\u{2019}s lower than your usual baseline, your cardiovascular system is well recovered. An elevated reading often signals that stress, illness, or incomplete recovery is putting extra load on your body."
-        case .sleepDuration:
-            return "This is the total hours of sleep recorded from your phone or watch. Sleep is when your body does most of its repair work \u{2014} muscles rebuild, hormones rebalance, and memories consolidate. Most adults need 7\u{2013}9 hours, and more sleep generally means better recovery."
-        case .tapFrequency:
-            return "This measures how fast you can tap in a quick 10-second test, which reveals how efficiently your brain is sending signals to your muscles. Think of it as a readiness check for your motor system. If you\u{2019}re tapping slower than your baseline, your nervous system may be fatigued."
-        case .tapStability:
-            return "While tap frequency checks speed, stability checks rhythm \u{2014} how evenly spaced your taps are. A steady, consistent rhythm means your nervous system has good fine motor control. When you\u{2019}re fatigued, your tapping becomes more erratic even if you don\u{2019}t feel tired."
-        case .reactionTime:
-            return "This measures how quickly you respond to something appearing on screen \u{2014} a direct window into your alertness and cognitive sharpness. Slower reactions than your baseline usually point to sleep debt, mental fatigue, or incomplete recovery."
-        case .sleepQuality:
-            return "Your own rating of how well you slept, from restless to deeply refreshing. This captures things that hours alone can\u{2019}t \u{2014} like whether you woke up multiple times, had vivid dreams, or simply feel unrested despite a full night."
-        case .muscleSoreness:
-            return "A quick self-check on how your muscles feel right now. Higher ratings mean less soreness. Persistent or unusual soreness is your body\u{2019}s way of saying your muscles have not fully repaired yet and could benefit from lighter activity or rest."
-        case .energyLevel:
-            return "A simple rating of how much energy you feel you have right now. This intuitive gut check often picks up on things the objective tests miss \u{2014} like emotional stress, motivation, or coming down with something. Higher means you feel more ready to go."
+        case .hrvSDNN:          return String(localized: "measure.hrvSDNN.description")
+        case .restingHeartRate: return String(localized: "measure.restingHeartRate.description")
+        case .sleepDuration:    return String(localized: "measure.sleepDuration.description")
+        case .tapFrequency:     return String(localized: "measure.tapFrequency.description")
+        case .tapStability:     return String(localized: "measure.tapStability.description")
+        case .reactionTime:     return String(localized: "measure.reactionTime.description")
+        case .sleepQuality:     return String(localized: "measure.sleepQuality.description")
+        case .muscleSoreness:   return String(localized: "measure.muscleSoreness.description")
+        case .energyLevel:      return String(localized: "measure.energyLevel.description")
         }
     }
 }

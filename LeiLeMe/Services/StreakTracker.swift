@@ -99,10 +99,10 @@ final class StreakTracker {
     /// Returns a milestone message if the current streak matches a milestone, else nil.
     var milestoneMessage: String? {
         switch currentStreak {
-        case 3:  return "Getting started!"
-        case 7:  return "Baseline complete!"
-        case 14: return "Two weeks strong!"
-        case 30: return "One month — incredible!"
+        case 3:  return String(localized: "streak.milestone.3")
+        case 7:  return String(localized: "streak.milestone.7")
+        case 14: return String(localized: "streak.milestone.14")
+        case 30: return String(localized: "streak.milestone.30")
         default: return nil
         }
     }

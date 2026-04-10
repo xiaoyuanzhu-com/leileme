@@ -1,0 +1,378 @@
+/* Localizable.strings (English) — LeiLeMe */
+
+// MARK: - App
+
+"app.name" = "累了么";
+"app.tagline" = "A daily fatigue check-in combining HealthKit biometrics, motor tests, and subjective ratings to track recovery trends.";
+
+// MARK: - Measure Names
+
+"measure.hrvSDNN.name" = "HRV (SDNN)";
+"measure.restingHeartRate.name" = "Resting Heart Rate";
+"measure.sleepDuration.name" = "Sleep Duration";
+"measure.tapFrequency.name" = "Tap Frequency";
+"measure.tapStability.name" = "Tap Stability";
+"measure.reactionTime.name" = "Reaction Time";
+"measure.sleepQuality.name" = "Sleep Quality";
+"measure.muscleSoreness.name" = "Muscle Soreness";
+"measure.energyLevel.name" = "Energy Level";
+
+// MARK: - Measure Units
+
+"measure.unit.ms" = "ms";
+"measure.unit.bpm" = "bpm";
+"measure.unit.hrs" = "hrs";
+"measure.unit.tapsPerSec" = "taps/s";
+"measure.unit.cv" = "cv";
+"measure.unit.outOf5" = "/5";
+
+// MARK: - Measure Descriptions
+
+"measure.hrvSDNN.description" = "Heart rate variability measures the tiny differences in timing between each heartbeat — a sign of how well your body's rest-and-recover system is working. It's considered the gold standard for recovery tracking. A higher value means your nervous system is more resilient and ready to handle stress.";
+"measure.restingHeartRate.description" = "Your resting heart rate is how many times your heart beats per minute when you're fully at rest. When it's lower than your usual baseline, your cardiovascular system is well recovered. An elevated reading often signals that stress, illness, or incomplete recovery is putting extra load on your body.";
+"measure.sleepDuration.description" = "This is the total hours of sleep recorded from your phone or watch. Sleep is when your body does most of its repair work — muscles rebuild, hormones rebalance, and memories consolidate. Most adults need 7–9 hours, and more sleep generally means better recovery.";
+"measure.tapFrequency.description" = "This measures how fast you can tap in a quick 10-second test, which reveals how efficiently your brain is sending signals to your muscles. Think of it as a readiness check for your motor system. If you're tapping slower than your baseline, your nervous system may be fatigued.";
+"measure.tapStability.description" = "While tap frequency checks speed, stability checks rhythm — how evenly spaced your taps are. A steady, consistent rhythm means your nervous system has good fine motor control. When you're fatigued, your tapping becomes more erratic even if you don't feel tired.";
+"measure.reactionTime.description" = "This measures how quickly you respond to something appearing on screen — a direct window into your alertness and cognitive sharpness. Slower reactions than your baseline usually point to sleep debt, mental fatigue, or incomplete recovery.";
+"measure.sleepQuality.description" = "Your own rating of how well you slept, from restless to deeply refreshing. This captures things that hours alone can't — like whether you woke up multiple times, had vivid dreams, or simply feel unrested despite a full night.";
+"measure.muscleSoreness.description" = "A quick self-check on how your muscles feel right now. Higher ratings mean less soreness. Persistent or unusual soreness is your body's way of saying your muscles have not fully repaired yet and could benefit from lighter activity or rest.";
+"measure.energyLevel.description" = "A simple rating of how much energy you feel you have right now. This intuitive gut check often picks up on things the objective tests miss — like emotional stress, motivation, or coming down with something. Higher means you feel more ready to go.";
+
+// MARK: - Measure Direction Hints
+
+"measure.higherIsBetter" = "Higher values indicate better recovery";
+"measure.lowerIsBetter" = "Lower values indicate better recovery";
+
+// MARK: - Measure Prompts
+
+"measure.prompt.sync" = "Tap to sync";
+"measure.prompt.test" = "Tap to test";
+"measure.prompt.rate" = "Tap to rate";
+
+// MARK: - Measure Shared Test Notes
+
+"measure.tapFrequency.sharedNote" = "This is measured together with Tap Stability during the same tap test.";
+"measure.tapStability.sharedNote" = "This is measured together with Tap Frequency during the same tap test.";
+
+// MARK: - MeasureCard
+
+"measureCard.noData.healthKitAuthorized" = "No data available — updates automatically with Apple Watch";
+"measureCard.vs" = "vs %@";
+"measureCard.update" = "Update";
+
+// MARK: - MeasureDetail
+
+"measureDetail.about %@" = "About %@";
+"measureDetail.action" = "Action";
+"measureDetail.history" = "History";
+"measureDetail.startTest" = "Start Test";
+"measureDetail.redoTest" = "Redo Test";
+"measureDetail.syncFromHealth" = "Sync from Apple Health";
+"measureDetail.firstMeasurement" = "Complete your first measurement to start tracking";
+"measureDetail.noDataForPeriod" = "No data for this period";
+"measureDetail.latest" = "Latest";
+"measureDetail.dataPoints %lld" = "%lld data point(s) so far";
+
+// MARK: - Subjective Prompts
+
+"subjective.sleepQuality.prompt" = "How well did you sleep?";
+"subjective.muscleSoreness.prompt" = "How sore are your muscles?";
+"subjective.energyLevel.prompt" = "How's your energy?";
+"subjective.default.prompt" = "Rate this measure";
+
+// MARK: - Subjective Labels — Sleep Quality
+
+"subjective.sleepQuality.1" = "Terrible";
+"subjective.sleepQuality.2" = "Poor";
+"subjective.sleepQuality.3" = "Okay";
+"subjective.sleepQuality.4" = "Good";
+"subjective.sleepQuality.5" = "Great";
+
+// MARK: - Subjective Labels — Muscle Soreness
+
+"subjective.muscleSoreness.1" = "Very sore";
+"subjective.muscleSoreness.2" = "Sore";
+"subjective.muscleSoreness.3" = "Moderate";
+"subjective.muscleSoreness.4" = "Mild";
+"subjective.muscleSoreness.5" = "None";
+
+// MARK: - Subjective Labels — Energy Level
+
+"subjective.energyLevel.1" = "Exhausted";
+"subjective.energyLevel.2" = "Low";
+"subjective.energyLevel.3" = "Moderate";
+"subjective.energyLevel.4" = "Good";
+"subjective.energyLevel.5" = "Energized";
+
+// MARK: - Recovery Score Headlines & Details
+
+"recovery.baseline.welcome.headline" = "Welcome to LeiLeMe";
+"recovery.baseline.welcome.detail" = "Complete your first check-in to get started";
+"recovery.baseline.day2.headline" = "Day 2 — you're building momentum";
+"recovery.baseline.day2.detail" = "Each day teaches us more about your body";
+"recovery.baseline.dayN.headline %lld" = "Day %lld — looking good!";
+"recovery.baseline.dayN.detail" = "Your baseline is taking shape";
+"recovery.noDataToday.headline" = "No data today";
+"recovery.noDataToday.detail" = "Tap a measure below to start today's check-in";
+"recovery.good.headline" = "Ready to train";
+"recovery.good.detail" = "Your metrics are at or above baseline — go for it";
+"recovery.moderate.headline" = "Light activity today";
+"recovery.moderate.detail" = "Some metrics are below your norm — keep it easy";
+"recovery.needsAttention.headline" = "Rest and recover";
+"recovery.needsAttention.detail" = "Multiple metrics suggest fatigue — prioritize recovery";
+"recovery.notEnough.headline" = "Not enough data";
+"recovery.notEnough.detail" = "Complete more assessment sections for a recommendation";
+"recovery.engine.gettingToKnow.headline" = "Getting to know you";
+"recovery.engine.gettingToKnow.detail %lld" = "Day %lld of 7 — each check-in helps personalize your score";
+"recovery.engine.dayN.headline %lld" = "Day %lld — looking good!";
+"recovery.engine.dayN.detail" = "Your baseline is taking shape";
+"recovery.engine.dayNof7.headline %lld" = "Day %lld of 7";
+"recovery.engine.dayNof7.detail" = "Keep checking in — your first recovery score is coming soon";
+
+// MARK: - Recovery Card
+
+"recoveryCard.allComplete %lld" = "All measures complete! Come back tomorrow to continue building your baseline (day %lld of 7)";
+"recoveryCard.progress %lld %lld" = "%lld of %lld measures completed today";
+"recoveryCard.dimensions %lld %lld" = "Based on %lld of %lld dimensions";
+
+// MARK: - Baseline Warmth Messages
+
+"baseline.warm.day1_2" = "Welcome! Each day helps us learn your body's patterns";
+"baseline.warm.day3_4" = "Getting to know you — your baseline is taking shape";
+"baseline.warm.day5_6" = "Almost there! One more day until your first recovery score";
+"baseline.warm.day7" = "Your baseline is ready! Here's your first recovery score 🎉";
+
+// MARK: - Completion Celebration
+
+"celebration.title" = "All measures complete!";
+"celebration.subtitle" = "Your recovery score is fully informed today.";
+
+// MARK: - Streak Badge
+
+"streak.dayCount %lld" = "%lld-day streak";
+"streak.graceUsed" = "(grace used)";
+"streak.milestone.3" = "Getting started!";
+"streak.milestone.7" = "Baseline complete!";
+"streak.milestone.14" = "Two weeks strong!";
+"streak.milestone.30" = "One month — incredible!";
+
+// MARK: - Weekly Insights
+
+"weeklyInsights.title" = "Weekly Insights";
+"weeklyInsights.avg" = "Avg";
+"weeklyInsights.best" = "Best";
+"weeklyInsights.worst" = "Worst";
+"weeklyInsights.perDimension" = "Per-Dimension Trends";
+"weeklyInsights.partialWeek %lld" = "Partial week: %lld of 7 days";
+"weeklyInsights.summary.avgUp %lld %lld" = "Your recovery averaged %lld this week, up %lld%% from last week";
+"weeklyInsights.summary.avgDown %lld %lld" = "Your recovery averaged %lld this week, down %lld%% from last week";
+"weeklyInsights.summary.avgOnly %lld" = "Your recovery averaged %lld this week";
+"weeklyInsights.summary.improved %@" = "%@ improved the most";
+"weeklyInsights.summary.partialData %lld" = "Based on %lld day(s) of data";
+
+// MARK: - Tap Test
+
+"tapTest.title" = "Tap Test";
+"tapTest.instruction" = "Tap the screen as fast as you can\nfor 10 seconds.";
+"tapTest.twoRounds" = "Two rounds with a short rest between.";
+"tapTest.start" = "Start";
+"tapTest.round %lld" = "Round %lld";
+"tapTest.seconds" = "seconds";
+"tapTest.taps" = "taps";
+"tapTest.round1Done" = "Round 1 done!";
+"tapTest.getReady" = "Get ready for round 2...";
+"tapTest.complete" = "Test Complete";
+"tapTest.round1Label" = "Round 1";
+"tapTest.round2Label" = "Round 2";
+"tapTest.tapsCount %lld" = "%lld taps";
+"tapTest.rhythmStability" = "Rhythm Stability";
+"tapTest.fatigueDecay" = "Fatigue Decay";
+"tapTest.done" = "Done";
+"tapTest.tryAgain" = "Try Again";
+"tapTest.stability.veryStable" = "Very stable";
+"tapTest.stability.stable" = "Stable";
+"tapTest.stability.moderate" = "Moderate";
+"tapTest.stability.variable" = "Variable";
+"tapTest.fatigue.none" = "No fatigue";
+"tapTest.fatigue.mild" = "Mild fatigue";
+"tapTest.fatigue.moderate" = "Moderate fatigue";
+"tapTest.fatigue.significant" = "Significant fatigue";
+
+// MARK: - Reaction Time
+
+"reactionTime.title" = "Reaction Time";
+"reactionTime.instruction" = "When the screen turns **green**, tap as fast as you can.\n\n5 rounds.";
+"reactionTime.start" = "Start";
+"reactionTime.trial %lld %lld" = "Trial %lld of %lld";
+"reactionTime.waitForGreen" = "Wait for green...";
+"reactionTime.tapNow" = "TAP NOW!";
+"reactionTime.tooEarly" = "Too early!";
+"reactionTime.waitForGreenScreen" = "Wait for the green screen.";
+"reactionTime.retrying %lld" = "Retrying trial %lld...";
+"reactionTime.tapToContinue" = "Tap to continue";
+"reactionTime.results" = "Results";
+"reactionTime.average" = "Average";
+"reactionTime.fastest" = "Fastest";
+"reactionTime.slowest" = "Slowest";
+"reactionTime.stdDev" = "Std Dev";
+"reactionTime.individualTrials" = "Individual Trials";
+"reactionTime.done" = "Done";
+"reactionTime.quality.excellent" = "Excellent!";
+"reactionTime.quality.good" = "Good";
+"reactionTime.quality.average" = "Average";
+"reactionTime.quality.slow" = "Slow";
+
+// MARK: - Settings
+
+"settings.title" = "Settings";
+
+// MARK: - Settings: Reminders
+
+"settings.reminders" = "Reminders";
+"settings.dailyReminder" = "Daily Reminder";
+"settings.reminderTime" = "Reminder Time";
+"settings.notifications" = "Notifications";
+"settings.notifications.allowed" = "Allowed";
+"settings.notifications.denied" = "Denied";
+"settings.notifications.provisional" = "Provisional";
+"settings.notifications.notRequested" = "Not Requested";
+"settings.openSystemSettings" = "Open System Settings";
+"settings.enableNotifications" = "Enable Notifications";
+"settings.reminders.footer.enabled %@" = "You'll receive a daily reminder at %@.";
+"settings.reminders.footer.denied" = "Notifications are disabled in System Settings. Tap above to change.";
+"settings.reminders.footer.default" = "Get a gentle daily nudge to check in on your recovery.";
+
+// MARK: - Settings: Baseline
+
+"settings.baseline" = "Baseline";
+"settings.dataCollected" = "Data collected";
+"settings.days %lld" = "%lld day(s)";
+"settings.baselineReady" = "Baseline ready";
+"settings.daysNeeded %lld" = "%lld more day(s) needed";
+"settings.noDataYet" = "No data yet";
+"settings.baseline.footer" = "A 7-day rolling window is used to compute your baseline.";
+
+// MARK: - Settings: HealthKit
+
+"settings.healthKit" = "HealthKit";
+"settings.authorization" = "Authorization";
+"settings.authorization.granted" = "Granted";
+"settings.authorization.notRequested" = "Not Requested";
+"settings.healthKit.hrvSDNN" = "HRV (SDNN)";
+"settings.healthKit.restingHeartRate" = "Resting Heart Rate";
+"settings.healthKit.sleepAnalysis" = "Sleep Analysis";
+"settings.openHealthSettings" = "Open Health Settings";
+"settings.healthKit.notAvailable" = "HealthKit not available";
+"settings.healthKit.footer" = "Authorization is managed in the Health app. Tap \"Open Health Settings\" to review permissions.";
+
+// MARK: - Settings: Data
+
+"settings.data" = "Data";
+"settings.totalAssessments" = "Total assessments";
+"settings.clearAllData" = "Clear All Data";
+"settings.clearAllData.title" = "Clear All Data";
+"settings.clearAllData.button" = "Delete All Assessments";
+"settings.clearAllData.message %lld" = "This will permanently delete all %lld assessment(s). This cannot be undone.";
+
+// MARK: - Settings: Export
+
+"settings.export" = "Export";
+"settings.export.format" = "Format";
+"settings.exportAllData" = "Export All Data";
+"settings.export.footer %lld %@" = "Export %lld assessment(s) as %@.";
+"settings.export.noData" = "No data to export yet.";
+"settings.export.noDataAlert.title" = "No Data";
+"settings.export.noDataAlert.message" = "No data to export yet. Complete at least one daily assessment first.";
+"settings.export.ok" = "OK";
+
+// MARK: - Settings: Recalibrate
+
+"settings.recalibrate" = "Recalibrate";
+"settings.recalibrateBaseline" = "Recalibrate Baseline";
+"settings.recalibrate.subtitle" = "Starts learning your new normal from today's data";
+"settings.recalibrate.title" = "Recalibrate Baseline";
+"settings.recalibrate.continue" = "Continue";
+"settings.recalibrate.cancel" = "Cancel";
+"settings.recalibrate.message" = "This will recalculate your baseline using recent data. Your history is preserved. Continue?";
+"settings.whyRecalibrate" = "Why recalibrate?";
+"settings.recalibrate.explanation" = "Your baseline represents your personal \"normal.\" If your lifestyle, fitness level, or health has changed significantly, recalibrating helps the app compare your daily scores against your current state rather than outdated patterns.";
+"settings.recalibrate.footer" = "Recalibrating clears old assessments so your baseline rebuilds from fresh data. No history is lost from today.";
+
+// MARK: - Settings: About
+
+"settings.about" = "About";
+"settings.about.app" = "App";
+"settings.about.appName" = "LeiLeMe (累了么)";
+"settings.about.version" = "Version";
+"settings.viewOnGitHub" = "View on GitHub";
+
+// MARK: - Onboarding: Notifications
+
+"onboarding.notifications.title" = "Stay on Track";
+"onboarding.notifications.body" = "A gentle morning reminder helps you build a daily check-in habit. Your baseline gets more accurate with each day of data.";
+"onboarding.notifications.dailyAt" = "Daily reminder at 7:30 AM";
+"onboarding.notifications.changeAnytime" = "Change time or disable anytime in Settings";
+"onboarding.notifications.dnd" = "Respects Do Not Disturb";
+"onboarding.notifications.enable" = "Enable Reminders";
+"onboarding.notifications.notNow" = "Not Now";
+
+// MARK: - Onboarding: HealthKit
+
+"onboarding.healthKit.title" = "Connect Apple Health";
+"onboarding.healthKit.body" = "We read heart rate, HRV, and sleep data from Apple Health to assess your recovery.";
+"onboarding.healthKit.hrv" = "Heart rate variability (HRV)";
+"onboarding.healthKit.rhr" = "Resting heart rate";
+"onboarding.healthKit.sleep" = "Sleep duration & stages";
+"onboarding.healthKit.readOnly" = "Read-only — we never write to Health";
+"onboarding.healthKit.notAvailable" = "Apple Health is not available on this device.";
+"onboarding.healthKit.allow" = "Allow Health Access";
+"onboarding.healthKit.notNow" = "Not Now";
+
+// MARK: - Notification Copy (Rotating)
+
+"notification.copy.1.title" = "How's your body today?";
+"notification.copy.1.body" = "A quick check-in helps you understand your recovery.";
+"notification.copy.2.title" = "90 seconds to check your recovery";
+"notification.copy.2.body" = "Your daily assessment is waiting.";
+"notification.copy.3.title" = "Your baseline gets smarter each day";
+"notification.copy.3.body" = "Keep the streak going with today's check-in.";
+"notification.copy.4.title" = "Good morning! Time for a body check";
+"notification.copy.4.body" = "See how your recovery is trending.";
+"notification.copy.5.title" = "Ready for today's check-in?";
+"notification.copy.5.body" = "Track your recovery in under 2 minutes.";
+"notification.copy.6.title" = "Your body has a story today";
+"notification.copy.6.body" = "Open LeiLeMe to see how you're doing.";
+
+// MARK: - Recovery Status Labels
+
+"status.good" = "Good";
+"status.fair" = "Fair";
+"status.low" = "Low";
+
+// MARK: - Time Range
+
+"timeRange.7d" = "7d";
+"timeRange.30d" = "30d";
+
+// MARK: - Chart
+
+"chart.timeRange" = "Time Range";
+
+// MARK: - Info.plist Strings
+
+"NSHealthShareUsageDescription" = "LeiLeMe needs access to your health data to provide fatigue assessments.";
+"NSHealthUpdateUsageDescription" = "LeiLeMe needs to save assessment results to your health data.";
+
+// MARK: - Data Export Headers
+
+"export.header.date" = "Date";
+"export.header.hrv" = "HRV (SDNN) [ms]";
+"export.header.rhr" = "Resting Heart Rate [bpm]";
+"export.header.sleepDuration" = "Sleep Duration [hrs]";
+"export.header.tapFrequency" = "Tap Frequency [taps/s]";
+"export.header.tapStability" = "Tap Stability [cv]";
+"export.header.reactionTime" = "Reaction Time [ms]";
+"export.header.sleepQuality" = "Sleep Quality [1-5]";
+"export.header.muscleSoreness" = "Muscle Soreness [1-5]";
+"export.header.energyLevel" = "Energy Level [1-5]";
+"export.header.recoveryScore" = "Recovery Score [0-120]";

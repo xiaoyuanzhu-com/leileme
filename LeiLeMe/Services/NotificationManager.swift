@@ -13,21 +13,18 @@ class NotificationManager {
         static let permissionRequested = "notification_permission_requested"
     }
 
-    // MARK: - Notification copy (rotating)
+    // MARK: - Notification copy (rotating, localized)
 
-    static let motivationalCopy: [(title: String, body: String)] = [
-        ("How's your body today?", "A quick check-in helps you understand your recovery."),
-        ("90 seconds to check your recovery", "Your daily assessment is waiting."),
-        ("Your baseline gets smarter each day", "Keep the streak going with today's check-in."),
-        ("Good morning! Time for a body check", "See how your recovery is trending."),
-        ("Ready for today's check-in?", "Track your recovery in under 2 minutes."),
-        ("Your body has a story today", "Open LeiLeMe to see how you're doing."),
-        // Chinese-ready copies
-        ("今天身体感觉怎么样？", "快速打卡，了解你的恢复状态。"),
-        ("90秒，检查你的恢复状况", "今天的评估正在等你。"),
-        ("每天打卡，基线越来越准", "保持连续打卡吧！"),
-        ("早上好！该检查身体了", "看看你的恢复趋势如何。"),
-    ]
+    static var motivationalCopy: [(title: String, body: String)] {
+        [
+            (String(localized: "notification.copy.1.title"), String(localized: "notification.copy.1.body")),
+            (String(localized: "notification.copy.2.title"), String(localized: "notification.copy.2.body")),
+            (String(localized: "notification.copy.3.title"), String(localized: "notification.copy.3.body")),
+            (String(localized: "notification.copy.4.title"), String(localized: "notification.copy.4.body")),
+            (String(localized: "notification.copy.5.title"), String(localized: "notification.copy.5.body")),
+            (String(localized: "notification.copy.6.title"), String(localized: "notification.copy.6.body")),
+        ]
+    }
 
     // MARK: - Published state
 

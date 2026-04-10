@@ -18,6 +18,13 @@ struct SingleMeasureTrendChart: View {
             case .thirtyDays: return 30
             }
         }
+
+        var localizedLabel: String {
+            switch self {
+            case .sevenDays: return String(localized: "timeRange.7d")
+            case .thirtyDays: return String(localized: "timeRange.30d")
+            }
+        }
     }
 
     private var filteredPoints: [MeasureDataPoint] {
@@ -38,15 +45,15 @@ struct SingleMeasureTrendChart: View {
 
     var body: some View {
         VStack(spacing: AppSpacing.md) {
-            Picker("Time Range", selection: $selectedRange) {
+            Picker(String(localized: "chart.timeRange"), selection: $selectedRange) {
                 ForEach(TimeRange.allCases, id: \.self) { range in
-                    Text(range.rawValue).tag(range)
+                    Text(range.localizedLabel).tag(range)
                 }
             }
             .pickerStyle(.segmented)
 
             if filteredPoints.isEmpty {
-                Text("No data for this period")
+                Text(String(localized: "measureDetail.noDataForPeriod"))
                     .font(.subheadline)
                     .foregroundStyle(.secondary)
                     .frame(height: 140)
@@ -102,7 +109,7 @@ struct SingleMeasureTrendChart: View {
                 // Latest value summary
                 if let latest = filteredPoints.last {
                     HStack {
-                        Text("Latest")
+                        Text(String(localized: "measureDetail.latest"))
                             .font(.caption)
                             .foregroundStyle(.secondary)
                         Spacer()
@@ -117,7 +124,7 @@ struct SingleMeasureTrendChart: View {
                 }
 
                 if filteredPoints.count < 3 {
-                    Text("\(filteredPoints.count) data point\(filteredPoints.count == 1 ? "" : "s") so far")
+                    Text(String(localized: "measureDetail.dataPoints \(filteredPoints.count)"))
                         .font(.caption2)
                         .foregroundStyle(.tertiary)
                 }

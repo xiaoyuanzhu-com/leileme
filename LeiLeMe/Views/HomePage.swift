@@ -36,14 +36,14 @@ struct HomePage: View {
                 let detail: String
                 switch userDay {
                 case 1:
-                    headline = "Welcome to LeiLeMe"
-                    detail = "Complete your first check-in to get started"
+                    headline = String(localized: "recovery.baseline.welcome.headline")
+                    detail = String(localized: "recovery.baseline.welcome.detail")
                 case 2:
-                    headline = "Day 2 \u{2014} you\u{2019}re building momentum"
-                    detail = "Each day teaches us more about your body"
+                    headline = String(localized: "recovery.baseline.day2.headline")
+                    detail = String(localized: "recovery.baseline.day2.detail")
                 default:
-                    headline = "Day \(userDay) \u{2014} looking good!"
-                    detail = "Your baseline is taking shape"
+                    headline = String(localized: "recovery.baseline.dayN.headline \(userDay)")
+                    detail = String(localized: "recovery.baseline.dayN.detail")
                 }
                 return RecoveryScoreEngine.Result(
                     score: 0,
@@ -57,8 +57,8 @@ struct HomePage: View {
             return RecoveryScoreEngine.Result(
                 score: 0,
                 status: .neutral,
-                headline: "No data today",
-                detail: "Tap a measure below to start today\u{2019}s check-in",
+                headline: String(localized: "recovery.noDataToday.headline"),
+                detail: String(localized: "recovery.noDataToday.detail"),
                 availableDimensions: 0,
                 totalDimensions: RecoveryScoreEngine.dimensionCount
             )

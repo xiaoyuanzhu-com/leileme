@@ -30,13 +30,13 @@ struct RecoveryRecommendationCard: View {
         let userDay = baselineDayCount + 1 // Convert from 0-indexed past days to 1-indexed user day
         switch userDay {
         case 1...2:
-            return "Welcome! Each day helps us learn your body's patterns"
+            return String(localized: "baseline.warm.day1_2")
         case 3...4:
-            return "Getting to know you \u{2014} your baseline is taking shape"
+            return String(localized: "baseline.warm.day3_4")
         case 5...6:
-            return "Almost there! One more day until your first recovery score"
+            return String(localized: "baseline.warm.day5_6")
         case 7:
-            return "Your baseline is ready! Here's your first recovery score \u{1F389}"
+            return String(localized: "baseline.warm.day7")
         default:
             return nil
         }
@@ -66,12 +66,12 @@ struct RecoveryRecommendationCard: View {
 
                     if isBaseline {
                         if todayCompletedCount >= Measure.allCases.count {
-                            Text("All measures complete! Come back tomorrow to continue building your baseline (day \(baselineDayCount + 1) of 7)")
+                            Text(String(localized: "recoveryCard.allComplete \(baselineDayCount + 1)"))
                                 .font(.caption)
                                 .foregroundStyle(Color.wellnessTeal)
                                 .fixedSize(horizontal: false, vertical: true)
                         } else {
-                            Text("\(todayCompletedCount) of \(Measure.allCases.count) measures completed today")
+                            Text(String(localized: "recoveryCard.progress \(todayCompletedCount) \(Measure.allCases.count)"))
                                 .font(.caption)
                                 .foregroundStyle(.tertiary)
                         }
@@ -100,7 +100,7 @@ struct RecoveryRecommendationCard: View {
 
             if !isBaseline {
                 // Dimension count footnote
-                Text("Based on \(result.availableDimensions) of \(result.totalDimensions) dimensions")
+                Text(String(localized: "recoveryCard.dimensions \(result.availableDimensions) \(result.totalDimensions)"))
                     .font(.caption2)
                     .foregroundStyle(.tertiary)
                     .frame(maxWidth: .infinity, alignment: .leading)
@@ -167,33 +167,9 @@ struct RecoveryRecommendationCard: View {
 #Preview("Good") {
     RecoveryRecommendationCard(
         result: .init(score: 95, status: .good,
-                      headline: "Ready to train",
-                      detail: "Your metrics are at or above baseline — go for it",
+                      headline: String(localized: "recovery.good.headline"),
+                      detail: String(localized: "recovery.good.detail"),
                       availableDimensions: 7, totalDimensions: 9),
-        baselineDayCount: 7,
-        todayCompletedCount: 9
-    )
-    .padding()
-}
-
-#Preview("Moderate") {
-    RecoveryRecommendationCard(
-        result: .init(score: 78, status: .moderate,
-                      headline: "Light activity today",
-                      detail: "Some metrics are below your norm — keep it easy",
-                      availableDimensions: 5, totalDimensions: 9),
-        baselineDayCount: 7,
-        todayCompletedCount: 5
-    )
-    .padding()
-}
-
-#Preview("Needs Attention") {
-    RecoveryRecommendationCard(
-        result: .init(score: 55, status: .needsAttention,
-                      headline: "Rest and recover",
-                      detail: "Multiple metrics suggest fatigue — prioritize recovery",
-                      availableDimensions: 9, totalDimensions: 9),
         baselineDayCount: 7,
         todayCompletedCount: 9
     )

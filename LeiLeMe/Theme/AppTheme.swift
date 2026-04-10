@@ -180,9 +180,9 @@ enum RecoveryStatus {
 
     var label: String {
         switch self {
-        case .good: return "Good"
-        case .moderate: return "Fair"
-        case .needsAttention: return "Low"
+        case .good: return String(localized: "status.good")
+        case .moderate: return String(localized: "status.fair")
+        case .needsAttention: return String(localized: "status.low")
         case .neutral: return "\u{2014}"
         }
     }

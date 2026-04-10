@@ -1,0 +1,3 @@
+/* InfoPlist.strings (简体中文) */
+"NSHealthShareUsageDescription" = "累了么需要访问你的健康数据以提供疲劳评估。";
+"NSHealthUpdateUsageDescription" = "累了么需要将评估结果保存到你的健康数据中。";

@@ -26,7 +26,7 @@ struct ContentView: View {
 
 // MARK: - Onboarding Flow View
 
-/// Multi-step onboarding: notifications → HealthKit authorization.
+/// Multi-step onboarding: notifications -> HealthKit authorization.
 struct OnboardingFlowView: View {
     @Environment(NotificationManager.self) private var notificationManager: NotificationManager?
     @Environment(HealthKitService.self) private var healthKitService: HealthKitService?
@@ -78,19 +78,19 @@ struct NotificationOnboardingView: View {
                 .foregroundStyle(Color.wellnessTeal)
                 .symbolRenderingMode(.hierarchical)
 
-            Text("Stay on Track")
+            Text(String(localized: "onboarding.notifications.title"))
                 .font(.title.bold())
 
-            Text("A gentle morning reminder helps you build a daily check-in habit. Your baseline gets more accurate with each day of data.")
+            Text(String(localized: "onboarding.notifications.body"))
                 .font(.body)
                 .foregroundStyle(.secondary)
                 .multilineTextAlignment(.center)
                 .padding(.horizontal, AppSpacing.lg)
 
             VStack(spacing: AppSpacing.sm) {
-                featureRow(icon: "clock.fill", text: "Daily reminder at 7:30 AM")
-                featureRow(icon: "gearshape.fill", text: "Change time or disable anytime in Settings")
-                featureRow(icon: "moon.fill", text: "Respects Do Not Disturb")
+                featureRow(icon: "clock.fill", text: String(localized: "onboarding.notifications.dailyAt"))
+                featureRow(icon: "gearshape.fill", text: String(localized: "onboarding.notifications.changeAnytime"))
+                featureRow(icon: "moon.fill", text: String(localized: "onboarding.notifications.dnd"))
             }
             .padding(.horizontal, AppSpacing.lg)
 
@@ -103,7 +103,7 @@ struct NotificationOnboardingView: View {
                         onComplete()
                     }
                 } label: {
-                    Text("Enable Reminders")
+                    Text(String(localized: "onboarding.notifications.enable"))
                         .frame(maxWidth: .infinity)
                 }
                 .buttonStyle(PrimaryButtonStyle())
@@ -111,7 +111,7 @@ struct NotificationOnboardingView: View {
                 Button {
                     onComplete()
                 } label: {
-                    Text("Not Now")
+                    Text(String(localized: "onboarding.notifications.notNow"))
                         .font(.body)
                         .foregroundStyle(.secondary)
                 }
@@ -154,25 +154,25 @@ struct HealthKitOnboardingView: View {
                 .foregroundStyle(Color.wellnessTeal)
                 .symbolRenderingMode(.hierarchical)
 
-            Text("Connect Apple Health")
+            Text(String(localized: "onboarding.healthKit.title"))
                 .font(.title.bold())
 
-            Text("We read heart rate, HRV, and sleep data from Apple Health to assess your recovery.")
+            Text(String(localized: "onboarding.healthKit.body"))
                 .font(.body)
                 .foregroundStyle(.secondary)
                 .multilineTextAlignment(.center)
                 .padding(.horizontal, AppSpacing.lg)
 
             VStack(spacing: AppSpacing.sm) {
-                featureRow(icon: "waveform.path.ecg", text: "Heart rate variability (HRV)")
-                featureRow(icon: "heart.fill", text: "Resting heart rate")
-                featureRow(icon: "bed.double.fill", text: "Sleep duration & stages")
-                featureRow(icon: "lock.shield.fill", text: "Read-only — we never write to Health")
+                featureRow(icon: "waveform.path.ecg", text: String(localized: "onboarding.healthKit.hrv"))
+                featureRow(icon: "heart.fill", text: String(localized: "onboarding.healthKit.rhr"))
+                featureRow(icon: "bed.double.fill", text: String(localized: "onboarding.healthKit.sleep"))
+                featureRow(icon: "lock.shield.fill", text: String(localized: "onboarding.healthKit.readOnly"))
             }
             .padding(.horizontal, AppSpacing.lg)
 
             if let healthKitService, !healthKitService.isAvailable {
-                Text("Apple Health is not available on this device.")
+                Text(String(localized: "onboarding.healthKit.notAvailable"))
                     .font(.caption)
                     .foregroundStyle(.secondary)
                     .multilineTextAlignment(.center)
@@ -188,7 +188,7 @@ struct HealthKitOnboardingView: View {
                         onComplete()
                     }
                 } label: {
-                    Text("Allow Health Access")
+                    Text(String(localized: "onboarding.healthKit.allow"))
                         .frame(maxWidth: .infinity)
                 }
                 .buttonStyle(PrimaryButtonStyle())
@@ -198,7 +198,7 @@ struct HealthKitOnboardingView: View {
                     healthKitService?.markAuthorizationRequested()
                     onComplete()
                 } label: {
-                    Text("Not Now")
+                    Text(String(localized: "onboarding.healthKit.notNow"))
                         .font(.body)
                         .foregroundStyle(.secondary)
                 }

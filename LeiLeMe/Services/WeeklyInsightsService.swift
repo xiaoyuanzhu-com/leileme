@@ -228,21 +228,25 @@ struct WeeklyInsightsService {
 
         // Main score summary
         if let delta = delta {
-            let direction = delta >= 0 ? "up" : "down"
-            let absD = abs(delta)
-            parts.append("Your recovery averaged \(Int(thisAvg)) this week, \(direction) \(Int(absD))% from last week")
+            let avgInt = Int(thisAvg)
+            let absD = Int(abs(delta))
+            if delta >= 0 {
+                parts.append(String(localized: "weeklyInsights.summary.avgUp \(avgInt) \(absD)"))
+            } else {
+                parts.append(String(localized: "weeklyInsights.summary.avgDown \(avgInt) \(absD)"))
+            }
         } else {
-            parts.append("Your recovery averaged \(Int(thisAvg)) this week")
+            parts.append(String(localized: "weeklyInsights.summary.avgOnly \(Int(thisAvg))"))
         }
 
         // Top improving dimension
         if let improving = topImproving {
-            parts.append("\(improving.measure.name) improved the most")
+            parts.append(String(localized: "weeklyInsights.summary.improved \(improving.measure.name)"))
         }
 
         // Partial week note
         if thisWeekCount < 7 {
-            parts.append("Based on \(thisWeekCount) day\(thisWeekCount == 1 ? "" : "s") of data")
+            parts.append(String(localized: "weeklyInsights.summary.partialData \(thisWeekCount)"))
         }
 
         return parts.joined(separator: ". ") + "."

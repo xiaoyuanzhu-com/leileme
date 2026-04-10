@@ -1,0 +1,378 @@
+/* Localizable.strings (简体中文) — 累了么 */
+
+// MARK: - App
+
+"app.name" = "累了么";
+"app.tagline" = "结合 HealthKit 生理数据、运动神经测试和主观评分的每日疲劳自检，追踪恢复趋势。";
+
+// MARK: - Measure Names
+
+"measure.hrvSDNN.name" = "心率变异性 (HRV)";
+"measure.restingHeartRate.name" = "静息心率 (RHR)";
+"measure.sleepDuration.name" = "睡眠时长";
+"measure.tapFrequency.name" = "神经反应速度（点击测试）";
+"measure.tapStability.name" = "点击稳定性";
+"measure.reactionTime.name" = "反应时间";
+"measure.sleepQuality.name" = "睡眠质量";
+"measure.muscleSoreness.name" = "肌肉酸痛感";
+"measure.energyLevel.name" = "精力状态";
+
+// MARK: - Measure Units
+
+"measure.unit.ms" = "毫秒";
+"measure.unit.bpm" = "次/分";
+"measure.unit.hrs" = "小时";
+"measure.unit.tapsPerSec" = "次/秒";
+"measure.unit.cv" = "cv";
+"measure.unit.outOf5" = "/5";
+
+// MARK: - Measure Descriptions
+
+"measure.hrvSDNN.description" = "心率变异性（HRV）衡量的是每次心跳之间微小的时间差异，反映你身体「休息与恢复」系统的工作状态。它被认为是恢复追踪的黄金标准——数值越高，说明你的神经系统韧性越强，越能应对压力。";
+"measure.restingHeartRate.description" = "静息心率是你完全放松时每分钟的心跳次数。当它低于你的日常基线时，说明心血管系统恢复良好。如果偏高，往往意味着压力、疾病或恢复不完全正在给身体带来额外负担。";
+"measure.sleepDuration.description" = "这是你的手机或手表记录的总睡眠时长。睡眠是身体进行修复的主要时间——肌肉重建、激素重新平衡、记忆巩固。大多数成年人需要 7-9 小时的睡眠，睡得越充足，恢复通常越好。";
+"measure.tapFrequency.description" = "这项测试衡量你在 10 秒内能点击多快，揭示大脑向肌肉发送信号的效率。可以把它理解为运动系统的就绪检查——如果你的点击速度低于基线，说明神经系统可能有些疲劳。";
+"measure.tapStability.description" = "点击频率检测速度，而稳定性检测节奏——你的点击间隔是否均匀。稳定的节奏说明神经系统有良好的精细运动控制。当你疲劳时，即使你没有感觉到累，点击也会变得更加不规律。";
+"measure.reactionTime.description" = "这项测试衡量你对屏幕上出现的信号做出反应的速度，直接反映你的警觉性和认知敏锐度。反应比基线慢通常意味着睡眠不足、精神疲劳或恢复不充分。";
+"measure.sleepQuality.description" = "你对自己睡眠质量的主观评分，从辗转难眠到沉睡舒适。这能捕捉到单纯时长无法反映的信息——比如是否多次醒来、是否做了大量梦境，或者虽然睡够了时间却依然感觉没休息好。";
+"measure.muscleSoreness.description" = "快速自检一下你现在的肌肉感觉。评分越高表示越不酸痛。持续或异常的酸痛是身体在告诉你：肌肉还没有完全修复，可以考虑做些轻松的活动或休息。";
+"measure.energyLevel.description" = "简单评估你现在感觉有多少精力。这种直觉判断往往能捕捉到客观测试遗漏的信号——比如情绪压力、动力不足，或者快要生病的前兆。评分越高，说明你越觉得状态在线。";
+
+// MARK: - Measure Direction Hints
+
+"measure.higherIsBetter" = "数值越高，恢复状态越好";
+"measure.lowerIsBetter" = "数值越低，恢复状态越好";
+
+// MARK: - Measure Prompts
+
+"measure.prompt.sync" = "点击同步";
+"measure.prompt.test" = "点击测试";
+"measure.prompt.rate" = "点击评分";
+
+// MARK: - Measure Shared Test Notes
+
+"measure.tapFrequency.sharedNote" = "此项与点击稳定性在同一个点击测试中一起测量。";
+"measure.tapStability.sharedNote" = "此项与神经反应速度在同一个点击测试中一起测量。";
+
+// MARK: - MeasureCard
+
+"measureCard.noData.healthKitAuthorized" = "暂无数据——佩戴 Apple Watch 后自动更新";
+"measureCard.vs" = "vs %@";
+"measureCard.update" = "更新";
+
+// MARK: - MeasureDetail
+
+"measureDetail.about %@" = "关于%@";
+"measureDetail.action" = "操作";
+"measureDetail.history" = "历史记录";
+"measureDetail.startTest" = "开始测试";
+"measureDetail.redoTest" = "重新测试";
+"measureDetail.syncFromHealth" = "从 Apple 健康同步";
+"measureDetail.firstMeasurement" = "完成第一次测量，开始追踪";
+"measureDetail.noDataForPeriod" = "该时间段暂无数据";
+"measureDetail.latest" = "最新";
+"measureDetail.dataPoints %lld" = "目前 %lld 个数据点";
+
+// MARK: - Subjective Prompts
+
+"subjective.sleepQuality.prompt" = "昨晚睡得怎么样？";
+"subjective.muscleSoreness.prompt" = "肌肉酸痛吗？";
+"subjective.energyLevel.prompt" = "精力状态如何？";
+"subjective.default.prompt" = "为这项指标评分";
+
+// MARK: - Subjective Labels — Sleep Quality
+
+"subjective.sleepQuality.1" = "很差";
+"subjective.sleepQuality.2" = "较差";
+"subjective.sleepQuality.3" = "一般";
+"subjective.sleepQuality.4" = "不错";
+"subjective.sleepQuality.5" = "很好";
+
+// MARK: - Subjective Labels — Muscle Soreness
+
+"subjective.muscleSoreness.1" = "非常酸";
+"subjective.muscleSoreness.2" = "比较酸";
+"subjective.muscleSoreness.3" = "有点酸";
+"subjective.muscleSoreness.4" = "轻微";
+"subjective.muscleSoreness.5" = "不酸";
+
+// MARK: - Subjective Labels — Energy Level
+
+"subjective.energyLevel.1" = "筋疲力尽";
+"subjective.energyLevel.2" = "偏低";
+"subjective.energyLevel.3" = "一般";
+"subjective.energyLevel.4" = "不错";
+"subjective.energyLevel.5" = "精力充沛";
+
+// MARK: - Recovery Score Headlines & Details
+
+"recovery.baseline.welcome.headline" = "欢迎使用累了么";
+"recovery.baseline.welcome.detail" = "完成第一次打卡，开始了解你的身体";
+"recovery.baseline.day2.headline" = "第 2 天——势头正好";
+"recovery.baseline.day2.detail" = "每一天都在帮助我们更了解你的身体";
+"recovery.baseline.dayN.headline %lld" = "第 %lld 天——状态不错！";
+"recovery.baseline.dayN.detail" = "你的基线正在成形";
+"recovery.noDataToday.headline" = "今天还没有数据";
+"recovery.noDataToday.detail" = "点击下方任意指标，开始今天的打卡";
+"recovery.good.headline" = "状态很好，可以训练";
+"recovery.good.detail" = "各项指标达到或超过基线——放手去练吧";
+"recovery.moderate.headline" = "今天适合轻度活动";
+"recovery.moderate.detail" = "部分指标低于你的常态——别太勉强";
+"recovery.needsAttention.headline" = "好好休息吧";
+"recovery.needsAttention.detail" = "多项指标显示疲劳——优先恢复";
+"recovery.notEnough.headline" = "数据不足";
+"recovery.notEnough.detail" = "完成更多测评项目以获得恢复建议";
+"recovery.engine.gettingToKnow.headline" = "正在了解你";
+"recovery.engine.gettingToKnow.detail %lld" = "第 %lld 天（共 7 天）——每次打卡都在帮助你的评分更精准";
+"recovery.engine.dayN.headline %lld" = "第 %lld 天——状态不错！";
+"recovery.engine.dayN.detail" = "你的基线正在成形";
+"recovery.engine.dayNof7.headline %lld" = "第 %lld 天（共 7 天）";
+"recovery.engine.dayNof7.detail" = "继续打卡——你的第一个恢复评分即将到来";
+
+// MARK: - Recovery Card
+
+"recoveryCard.allComplete %lld" = "所有指标已完成！明天继续打卡，建立你的基线（第 %lld 天，共 7 天）";
+"recoveryCard.progress %lld %lld" = "今天已完成 %lld / %lld 项指标";
+"recoveryCard.dimensions %lld %lld" = "基于 %lld / %lld 个维度";
+
+// MARK: - Baseline Warmth Messages
+
+"baseline.warm.day1_2" = "欢迎！每天的数据都在帮助我们了解你的身体节律";
+"baseline.warm.day3_4" = "正在了解你——你的基线正在逐步成形";
+"baseline.warm.day5_6" = "快了！再坚持一天就能看到你的第一个恢复评分";
+"baseline.warm.day7" = "基线建立完成！来看看你的第一个恢复评分吧 🎉";
+
+// MARK: - Completion Celebration
+
+"celebration.title" = "所有指标已完成！";
+"celebration.subtitle" = "今天你的恢复评分有了最完整的数据支撑。";
+
+// MARK: - Streak Badge
+
+"streak.dayCount %lld" = "连续 %lld 天";
+"streak.graceUsed" = "（使用了宽限期）";
+"streak.milestone.3" = "起步了！";
+"streak.milestone.7" = "基线完成！";
+"streak.milestone.14" = "两周坚持，真棒！";
+"streak.milestone.30" = "一个月——了不起！";
+
+// MARK: - Weekly Insights
+
+"weeklyInsights.title" = "本周洞察";
+"weeklyInsights.avg" = "均值";
+"weeklyInsights.best" = "最佳";
+"weeklyInsights.worst" = "最差";
+"weeklyInsights.perDimension" = "各维度趋势";
+"weeklyInsights.partialWeek %lld" = "不完整周：%lld / 7 天";
+"weeklyInsights.summary.avgUp %lld %lld" = "本周恢复均分 %lld，比上周上升 %lld%%";
+"weeklyInsights.summary.avgDown %lld %lld" = "本周恢复均分 %lld，比上周下降 %lld%%";
+"weeklyInsights.summary.avgOnly %lld" = "本周恢复均分 %lld";
+"weeklyInsights.summary.improved %@" = "%@提升最为明显";
+"weeklyInsights.summary.partialData %lld" = "基于 %lld 天的数据";
+
+// MARK: - Tap Test
+
+"tapTest.title" = "点击测试";
+"tapTest.instruction" = "在 10 秒内尽可能快地\n点击屏幕。";
+"tapTest.twoRounds" = "共两轮，中间有短暂休息。";
+"tapTest.start" = "开始";
+"tapTest.round %lld" = "第 %lld 轮";
+"tapTest.seconds" = "秒";
+"tapTest.taps" = "次";
+"tapTest.round1Done" = "第一轮完成！";
+"tapTest.getReady" = "准备第二轮...";
+"tapTest.complete" = "测试完成";
+"tapTest.round1Label" = "第一轮";
+"tapTest.round2Label" = "第二轮";
+"tapTest.tapsCount %lld" = "%lld 次点击";
+"tapTest.rhythmStability" = "节奏稳定性";
+"tapTest.fatigueDecay" = "疲劳衰减";
+"tapTest.done" = "完成";
+"tapTest.tryAgain" = "再试一次";
+"tapTest.stability.veryStable" = "非常稳定";
+"tapTest.stability.stable" = "稳定";
+"tapTest.stability.moderate" = "一般";
+"tapTest.stability.variable" = "不稳定";
+"tapTest.fatigue.none" = "无疲劳";
+"tapTest.fatigue.mild" = "轻度疲劳";
+"tapTest.fatigue.moderate" = "中度疲劳";
+"tapTest.fatigue.significant" = "明显疲劳";
+
+// MARK: - Reaction Time
+
+"reactionTime.title" = "反应时间";
+"reactionTime.instruction" = "当屏幕变**绿**时，\n尽快点击屏幕。\n\n共 5 轮。";
+"reactionTime.start" = "开始";
+"reactionTime.trial %lld %lld" = "第 %lld 轮（共 %lld 轮）";
+"reactionTime.waitForGreen" = "等待变绿...";
+"reactionTime.tapNow" = "快点！";
+"reactionTime.tooEarly" = "太快了！";
+"reactionTime.waitForGreenScreen" = "请等屏幕变绿再点击。";
+"reactionTime.retrying %lld" = "重试第 %lld 轮...";
+"reactionTime.tapToContinue" = "点击继续";
+"reactionTime.results" = "测试结果";
+"reactionTime.average" = "平均";
+"reactionTime.fastest" = "最快";
+"reactionTime.slowest" = "最慢";
+"reactionTime.stdDev" = "标准差";
+"reactionTime.individualTrials" = "各轮详情";
+"reactionTime.done" = "完成";
+"reactionTime.quality.excellent" = "优秀！";
+"reactionTime.quality.good" = "不错";
+"reactionTime.quality.average" = "一般";
+"reactionTime.quality.slow" = "偏慢";
+
+// MARK: - Settings
+
+"settings.title" = "设置";
+
+// MARK: - Settings: Reminders
+
+"settings.reminders" = "提醒";
+"settings.dailyReminder" = "每日提醒";
+"settings.reminderTime" = "提醒时间";
+"settings.notifications" = "通知";
+"settings.notifications.allowed" = "已允许";
+"settings.notifications.denied" = "已拒绝";
+"settings.notifications.provisional" = "临时";
+"settings.notifications.notRequested" = "未请求";
+"settings.openSystemSettings" = "打开系统设置";
+"settings.enableNotifications" = "开启通知";
+"settings.reminders.footer.enabled %@" = "你将在每天 %@ 收到提醒。";
+"settings.reminders.footer.denied" = "通知已在系统设置中关闭，点击上方更改。";
+"settings.reminders.footer.default" = "每天一个温柔的提醒，帮你养成打卡习惯。";
+
+// MARK: - Settings: Baseline
+
+"settings.baseline" = "基线";
+"settings.dataCollected" = "已采集数据";
+"settings.days %lld" = "%lld 天";
+"settings.baselineReady" = "基线已就绪";
+"settings.daysNeeded %lld" = "还需 %lld 天";
+"settings.noDataYet" = "暂无数据";
+"settings.baseline.footer" = "使用 7 天滚动窗口计算你的个人基线。";
+
+// MARK: - Settings: HealthKit
+
+"settings.healthKit" = "HealthKit 健康数据";
+"settings.authorization" = "授权状态";
+"settings.authorization.granted" = "已授权";
+"settings.authorization.notRequested" = "未请求";
+"settings.healthKit.hrvSDNN" = "心率变异性 (HRV)";
+"settings.healthKit.restingHeartRate" = "静息心率 (RHR)";
+"settings.healthKit.sleepAnalysis" = "睡眠分析";
+"settings.openHealthSettings" = "打开「健康」设置";
+"settings.healthKit.notAvailable" = "HealthKit 不可用";
+"settings.healthKit.footer" = "授权在「健康」App 中管理。点击「打开健康设置」查看权限。";
+
+// MARK: - Settings: Data
+
+"settings.data" = "数据";
+"settings.totalAssessments" = "总评估次数";
+"settings.clearAllData" = "清除所有数据";
+"settings.clearAllData.title" = "清除所有数据";
+"settings.clearAllData.button" = "删除全部评估";
+"settings.clearAllData.message %lld" = "这将永久删除全部 %lld 条评估记录，此操作不可撤销。";
+
+// MARK: - Settings: Export
+
+"settings.export" = "导出";
+"settings.export.format" = "格式";
+"settings.exportAllData" = "导出所有数据";
+"settings.export.footer %lld %@" = "导出 %lld 条评估记录，格式为 %@。";
+"settings.export.noData" = "暂无数据可导出。";
+"settings.export.noDataAlert.title" = "无数据";
+"settings.export.noDataAlert.message" = "暂无数据可导出。请先完成至少一次每日评估。";
+"settings.export.ok" = "好";
+
+// MARK: - Settings: Recalibrate
+
+"settings.recalibrate" = "重新校准";
+"settings.recalibrateBaseline" = "重新校准基线";
+"settings.recalibrate.subtitle" = "从今天的数据开始学习你的新常态";
+"settings.recalibrate.title" = "重新校准基线";
+"settings.recalibrate.continue" = "继续";
+"settings.recalibrate.cancel" = "取消";
+"settings.recalibrate.message" = "这将使用近期数据重新计算你的基线。历史记录会保留。确定继续吗？";
+"settings.whyRecalibrate" = "为什么要重新校准？";
+"settings.recalibrate.explanation" = "基线代表你个人的「正常状态」。如果你的生活方式、健身水平或健康状况发生了显著变化，重新校准可以让应用基于你当前的状态进行评分，而不是过时的旧数据。";
+"settings.recalibrate.footer" = "重新校准会清除旧的评估数据，让基线从新数据开始重建。今天的记录不会丢失。";
+
+// MARK: - Settings: About
+
+"settings.about" = "关于";
+"settings.about.app" = "应用";
+"settings.about.appName" = "累了么 (LeiLeMe)";
+"settings.about.version" = "版本";
+"settings.viewOnGitHub" = "在 GitHub 上查看";
+
+// MARK: - Onboarding: Notifications
+
+"onboarding.notifications.title" = "保持节奏";
+"onboarding.notifications.body" = "每天早晨一个温柔的提醒，帮你养成每日打卡的习惯。你的基线会随着每天的数据变得越来越准确。";
+"onboarding.notifications.dailyAt" = "每天 7:30 AM 提醒";
+"onboarding.notifications.changeAnytime" = "可随时在设置中更改时间或关闭";
+"onboarding.notifications.dnd" = "遵守勿扰模式";
+"onboarding.notifications.enable" = "开启提醒";
+"onboarding.notifications.notNow" = "暂不开启";
+
+// MARK: - Onboarding: HealthKit
+
+"onboarding.healthKit.title" = "连接 Apple 健康";
+"onboarding.healthKit.body" = "我们读取 Apple 健康中的心率、心率变异性和睡眠数据，帮助评估你的恢复状态。";
+"onboarding.healthKit.hrv" = "心率变异性 (HRV)";
+"onboarding.healthKit.rhr" = "静息心率";
+"onboarding.healthKit.sleep" = "睡眠时长与阶段";
+"onboarding.healthKit.readOnly" = "仅读取——我们不会写入健康数据";
+"onboarding.healthKit.notAvailable" = "此设备不支持 Apple 健康。";
+"onboarding.healthKit.allow" = "允许访问健康数据";
+"onboarding.healthKit.notNow" = "暂不开启";
+
+// MARK: - Notification Copy (Rotating)
+
+"notification.copy.1.title" = "今天身体感觉怎么样？";
+"notification.copy.1.body" = "快速打卡，了解你的恢复状态。";
+"notification.copy.2.title" = "90 秒，检查你的恢复状况";
+"notification.copy.2.body" = "今天的评估正在等你。";
+"notification.copy.3.title" = "每天打卡，基线越来越准";
+"notification.copy.3.body" = "保持连续打卡吧！";
+"notification.copy.4.title" = "早上好！该检查身体了";
+"notification.copy.4.body" = "看看你的恢复趋势如何。";
+"notification.copy.5.title" = "准备好今天的打卡了吗？";
+"notification.copy.5.body" = "不到 2 分钟，追踪你的恢复状态。";
+"notification.copy.6.title" = "你的身体今天有话说";
+"notification.copy.6.body" = "打开累了么，看看状态如何。";
+
+// MARK: - Recovery Status Labels
+
+"status.good" = "良好";
+"status.fair" = "一般";
+"status.low" = "偏低";
+
+// MARK: - Time Range
+
+"timeRange.7d" = "7天";
+"timeRange.30d" = "30天";
+
+// MARK: - Chart
+
+"chart.timeRange" = "时间范围";
+
+// MARK: - Info.plist Strings
+
+"NSHealthShareUsageDescription" = "累了么需要访问你的健康数据以提供疲劳评估。";
+"NSHealthUpdateUsageDescription" = "累了么需要将评估结果保存到你的健康数据中。";
+
+// MARK: - Data Export Headers
+
+"export.header.date" = "日期";
+"export.header.hrv" = "心率变异性 (HRV) [毫秒]";
+"export.header.rhr" = "静息心率 (RHR) [次/分]";
+"export.header.sleepDuration" = "睡眠时长 [小时]";
+"export.header.tapFrequency" = "点击频率 [次/秒]";
+"export.header.tapStability" = "点击稳定性 [cv]";
+"export.header.reactionTime" = "反应时间 [毫秒]";
+"export.header.sleepQuality" = "睡眠质量 [1-5]";
+"export.header.muscleSoreness" = "肌肉酸痛感 [1-5]";
+"export.header.energyLevel" = "精力状态 [1-5]";
+"export.header.recoveryScore" = "恢复评分 [0-120]";

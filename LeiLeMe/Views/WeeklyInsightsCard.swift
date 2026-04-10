@@ -45,7 +45,7 @@ struct WeeklyInsightsCard: View {
                     .font(.subheadline.weight(.semibold))
                     .foregroundStyle(Color.wellnessBlue)
 
-                Text("Weekly Insights")
+                Text(String(localized: "weeklyInsights.title"))
                     .font(.subheadline.weight(.semibold))
                     .foregroundStyle(.secondary)
 
@@ -66,7 +66,7 @@ struct WeeklyInsightsCard: View {
             HStack(spacing: AppSpacing.md) {
                 // Average score
                 statBadge(
-                    label: "Avg",
+                    label: String(localized: "weeklyInsights.avg"),
                     value: "\(Int(insight.thisWeekAverage))",
                     delta: insight.deltaPercent
                 )
@@ -74,7 +74,7 @@ struct WeeklyInsightsCard: View {
                 // Best day
                 if let best = insight.bestDay {
                     statBadge(
-                        label: "Best",
+                        label: String(localized: "weeklyInsights.best"),
                         value: "\(Int(best.score))",
                         subtitle: shortDay(best.date)
                     )
@@ -83,7 +83,7 @@ struct WeeklyInsightsCard: View {
                 // Worst day
                 if let worst = insight.worstDay {
                     statBadge(
-                        label: "Worst",
+                        label: String(localized: "weeklyInsights.worst"),
                         value: "\(Int(worst.score))",
                         subtitle: shortDay(worst.date)
                     )
@@ -118,7 +118,7 @@ struct WeeklyInsightsCard: View {
 
     private var expandedContent: some View {
         VStack(alignment: .leading, spacing: AppSpacing.md) {
-            Text("Per-Dimension Trends")
+            Text(String(localized: "weeklyInsights.perDimension"))
                 .font(.subheadline.weight(.semibold))
                 .foregroundStyle(.secondary)
 
@@ -130,7 +130,7 @@ struct WeeklyInsightsCard: View {
                 HStack(spacing: AppSpacing.xs) {
                     Image(systemName: "info.circle")
                         .font(.caption2)
-                    Text("Partial week: \(insight.thisWeekDayCount) of 7 days")
+                    Text(String(localized: "weeklyInsights.partialWeek \(insight.thisWeekDayCount)"))
                         .font(.caption2)
                 }
                 .foregroundStyle(.tertiary)

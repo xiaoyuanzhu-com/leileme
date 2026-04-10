@@ -40,6 +40,8 @@
 		AA000091 /* WeeklyInsightsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA100091 /* WeeklyInsightsService.swift */; };
 		AA000100 /* DataExporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA100100 /* DataExporter.swift */; };
 		AA000092 /* WeeklyInsightsCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA100092 /* WeeklyInsightsCard.swift */; };
+		AA000200 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = AA100210 /* Localizable.strings */; };
+		AA000201 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = AA100211 /* InfoPlist.strings */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -79,6 +81,10 @@
 		AA100091 /* WeeklyInsightsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyInsightsService.swift; sourceTree = "<group>"; };
 		AA100100 /* DataExporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataExporter.swift; sourceTree = "<group>"; };
 		AA100092 /* WeeklyInsightsCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyInsightsCard.swift; sourceTree = "<group>"; };
+		AA100200 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		AA100201 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		AA100202 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		AA100203 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -113,6 +119,8 @@
 				AA100028 /* LaunchScreen.storyboard */,
 				AA100007 /* LeiLeMe.entitlements */,
 				AA100008 /* Info.plist */,
+				AA100210 /* Localizable.strings */,
+				AA100211 /* InfoPlist.strings */,
 			);
 			path = LeiLeMe;
 			sourceTree = "<group>";
@@ -224,6 +232,7 @@
 			knownRegions = (
 				en,
 				Base,
+				"zh-Hans",
 			);
 			mainGroup = AA300001 /* root */;
 			productRefGroup = AA300006 /* Products */;
@@ -242,6 +251,8 @@
 			files = (
 				AA000006 /* Assets.xcassets in Resources */,
 				AA000028 /* LaunchScreen.storyboard in Resources */,
+				AA000200 /* Localizable.strings in Resources */,
+				AA000201 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -287,6 +298,27 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		AA100210 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				AA100200 /* en */,
+				AA100201 /* zh-Hans */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+		AA100211 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				AA100202 /* en */,
+				AA100203 /* zh-Hans */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		AA700001 /* Debug */ = {

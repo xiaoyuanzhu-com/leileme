@@ -74,7 +74,7 @@ struct MeasureDetailView: View {
                 }
             } label: {
                 HStack {
-                    Label("About \(measure.name)", systemImage: "info.circle")
+                    Label(String(localized: "measureDetail.about \(measure.name)"), systemImage: "info.circle")
                         .font(.subheadline.weight(.semibold))
                         .foregroundStyle(Color.wellnessTeal)
                     Spacer()
@@ -98,7 +98,9 @@ struct MeasureDetailView: View {
                         Image(systemName: measure.higherIsBetter ? "arrow.up.right" : "arrow.down.right")
                             .font(.caption.weight(.semibold))
                             .foregroundStyle(Color.statusGood)
-                        Text(measure.higherIsBetter ? "Higher values indicate better recovery" : "Lower values indicate better recovery")
+                        Text(measure.higherIsBetter
+                             ? String(localized: "measure.higherIsBetter")
+                             : String(localized: "measure.lowerIsBetter"))
                             .font(.caption)
                             .foregroundStyle(.secondary)
                     }
@@ -108,7 +110,7 @@ struct MeasureDetailView: View {
                             Image(systemName: "info.circle")
                                 .font(.caption)
                                 .foregroundStyle(.tertiary)
-                            Text("This is measured together with Tap Stability during the same tap test.")
+                            Text(String(localized: "measure.tapFrequency.sharedNote"))
                                 .font(.caption)
                                 .foregroundStyle(.tertiary)
                         }
@@ -117,7 +119,7 @@ struct MeasureDetailView: View {
                             Image(systemName: "info.circle")
                                 .font(.caption)
                                 .foregroundStyle(.tertiary)
-                            Text("This is measured together with Tap Frequency during the same tap test.")
+                            Text(String(localized: "measure.tapStability.sharedNote"))
                                 .font(.caption)
                                 .foregroundStyle(.tertiary)
                         }
@@ -138,7 +140,7 @@ struct MeasureDetailView: View {
     @ViewBuilder
     private var actionSection: some View {
         VStack(alignment: .leading, spacing: AppSpacing.md) {
-            ThemedSectionHeader(title: "Action", icon: "bolt.circle")
+            ThemedSectionHeader(title: String(localized: "measureDetail.action"), icon: "bolt.circle")
                 .padding(.horizontal, AppSpacing.xs)
 
             switch measure.type {
@@ -160,7 +162,9 @@ struct MeasureDetailView: View {
             Button {
                 showingTest = true
             } label: {
-                Text(todayValue != nil ? "Redo Test" : "Start Test")
+                Text(todayValue != nil
+                     ? String(localized: "measureDetail.redoTest")
+                     : String(localized: "measureDetail.startTest"))
             }
             .buttonStyle(PrimaryButtonStyle())
             .fullScreenCover(isPresented: $showingTest) {
@@ -206,7 +210,7 @@ struct MeasureDetailView: View {
                     ProgressView()
                         .tint(.white)
                 } else {
-                    Label("Sync from Apple Health", systemImage: "heart.text.square")
+                    Label(String(localized: "measureDetail.syncFromHealth"), systemImage: "heart.text.square")
                 }
             }
             .buttonStyle(PrimaryButtonStyle())
@@ -257,7 +261,7 @@ struct MeasureDetailView: View {
     @ViewBuilder
     private var historySection: some View {
         VStack(alignment: .leading, spacing: AppSpacing.md) {
-            ThemedSectionHeader(title: "History", icon: "chart.xyaxis.line")
+            ThemedSectionHeader(title: String(localized: "measureDetail.history"), icon: "chart.xyaxis.line")
                 .padding(.horizontal, AppSpacing.xs)
 
             let dataPoints = extractHistory()
@@ -267,7 +271,7 @@ struct MeasureDetailView: View {
                     Image(systemName: "chart.line.uptrend.xyaxis")
                         .font(.largeTitle)
                         .foregroundStyle(.tertiary)
-                    Text("Complete your first measurement to start tracking")
+                    Text(String(localized: "measureDetail.firstMeasurement"))
                         .font(.subheadline)
                         .foregroundStyle(.secondary)
                         .multilineTextAlignment(.center)
@@ -346,27 +350,27 @@ struct MeasureDetailView: View {
 
     private var subjectivePrompt: String {
         switch measure {
-        case .sleepQuality: return "How well did you sleep?"
-        case .muscleSoreness: return "How sore are your muscles?"
-        case .energyLevel: return "How\u{2019}s your energy?"
-        default: return "Rate this measure"
+        case .sleepQuality: return String(localized: "subjective.sleepQuality.prompt")
+        case .muscleSoreness: return String(localized: "subjective.muscleSoreness.prompt")
+        case .energyLevel: return String(localized: "subjective.energyLevel.prompt")
+        default: return String(localized: "subjective.default.prompt")
         }
     }
 
     private func subjectiveLabel(for value: Int) -> String {
-        let labels: [String]
+        let key: String
         switch measure {
         case .sleepQuality:
-            labels = ["Terrible", "Poor", "Okay", "Good", "Great"]
+            key = "subjective.sleepQuality.\(value)"
         case .muscleSoreness:
-            labels = ["Very sore", "Sore", "Moderate", "Mild", "None"]
+            key = "subjective.muscleSoreness.\(value)"
         case .energyLevel:
-            labels = ["Exhausted", "Low", "Moderate", "Good", "Energized"]
+            key = "subjective.energyLevel.\(value)"
         default:
-            labels = ["1", "2", "3", "4", "5"]
+            return "\(value)"
         }
         guard value >= 1, value <= 5 else { return "" }
-        return labels[value - 1]
+        return String(localized: String.LocalizationValue(key))
     }
 }
 
