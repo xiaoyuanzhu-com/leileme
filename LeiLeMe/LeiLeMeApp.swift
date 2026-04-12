@@ -16,6 +16,7 @@ struct LeiLeMeApp: App {
             ReactionTimeResult.self,
             SubjectiveAssessment.self,
             StreakRecord.self,
+            GripStrengthReading.self,
         ])
         let modelConfiguration = ModelConfiguration(
             schema: schema,

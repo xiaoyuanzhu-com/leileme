@@ -41,6 +41,7 @@
 		AA000092 /* WeeklyInsightsCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA100092 /* WeeklyInsightsCard.swift */; };
 		AA000100 /* DataExporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA100100 /* DataExporter.swift */; };
 		AA000110 /* UserSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA100110 /* UserSettings.swift */; };
+		AA000120 /* GripStrengthReading.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA100120 /* GripStrengthReading.swift */; };
 		AA000200 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = AA100210 /* Localizable.strings */; };
 		AA000201 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = AA100211 /* InfoPlist.strings */; };
 		BB000001 /* TestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB100001 /* TestHelpers.swift */; };
@@ -53,6 +54,7 @@
 		BB000008 /* DataExporterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB100008 /* DataExporterTests.swift */; };
 		BB000009 /* MeasureTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB100009 /* MeasureTests.swift */; };
 		BB000010 /* UserSettingsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB100010 /* UserSettingsTests.swift */; };
+		BB000011 /* GripStrengthReadingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB100011 /* GripStrengthReadingTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -103,6 +105,7 @@
 		AA100092 /* WeeklyInsightsCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyInsightsCard.swift; sourceTree = "<group>"; };
 		AA100100 /* DataExporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataExporter.swift; sourceTree = "<group>"; };
 		AA100110 /* UserSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettings.swift; sourceTree = "<group>"; };
+		AA100120 /* GripStrengthReading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GripStrengthReading.swift; sourceTree = "<group>"; };
 		AA100200 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		AA100201 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		AA100202 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -117,6 +120,7 @@
 		BB100008 /* DataExporterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataExporterTests.swift; sourceTree = "<group>"; };
 		BB100009 /* MeasureTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeasureTests.swift; sourceTree = "<group>"; };
 		BB100010 /* UserSettingsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettingsTests.swift; sourceTree = "<group>"; };
+		BB100011 /* GripStrengthReadingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GripStrengthReadingTests.swift; sourceTree = "<group>"; };
 		BB100099 /* LeiLeMeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LeiLeMeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -194,6 +198,7 @@
 				AA100014 /* SubjectiveAssessment.swift */,
 				AA100040 /* Measure.swift */,
 				AA100080 /* StreakRecord.swift */,
+				AA100120 /* GripStrengthReading.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -246,6 +251,7 @@
 				BB100008 /* DataExporterTests.swift */,
 				BB100009 /* MeasureTests.swift */,
 				BB100010 /* UserSettingsTests.swift */,
+				BB100011 /* GripStrengthReadingTests.swift */,
 			);
 			path = LeiLeMeTests;
 			sourceTree = "<group>";
@@ -385,6 +391,7 @@
 				AA000100 /* DataExporter.swift in Sources */,
 				AA000092 /* WeeklyInsightsCard.swift in Sources */,
 				AA000110 /* UserSettings.swift in Sources */,
+				AA000120 /* GripStrengthReading.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -402,6 +409,7 @@
 				BB000008 /* DataExporterTests.swift in Sources */,
 				BB000009 /* MeasureTests.swift in Sources */,
 				BB000010 /* UserSettingsTests.swift in Sources */,
+				BB000011 /* GripStrengthReadingTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
