@@ -8,6 +8,8 @@ final class DailyAssessment {
     @Relationship(deleteRule: .cascade) var tapTestResult: TapTestResult?
     @Relationship(deleteRule: .cascade) var reactionTimeResult: ReactionTimeResult?
     @Relationship(deleteRule: .cascade) var subjectiveAssessment: SubjectiveAssessment?
+    @Relationship(deleteRule: .cascade, inverse: \GripStrengthReading.assessment)
+    var gripStrengthReadings: [GripStrengthReading] = []
     var createdAt: Date
 
     init(
@@ -16,6 +18,7 @@ final class DailyAssessment {
         tapTestResult: TapTestResult? = nil,
         reactionTimeResult: ReactionTimeResult? = nil,
         subjectiveAssessment: SubjectiveAssessment? = nil,
+        gripStrengthReadings: [GripStrengthReading] = [],
         createdAt: Date = Date()
     ) {
         self.date = date
@@ -23,6 +26,7 @@ final class DailyAssessment {
         self.tapTestResult = tapTestResult
         self.reactionTimeResult = reactionTimeResult
         self.subjectiveAssessment = subjectiveAssessment
+        self.gripStrengthReadings = gripStrengthReadings
         self.createdAt = createdAt
     }
 }

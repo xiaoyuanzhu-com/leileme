@@ -39,4 +39,63 @@ final class GripStrengthReadingTests: XCTestCase {
         XCTAssertEqual(fetched.count, 1)
         XCTAssertEqual(fetched.first?.valueKg, 45)
     }
+
+    @MainActor
+    func test_dailyAssessment_startsWithEmptyGripReadings() throws {
+        let container = try ModelContainer(
+            for: DailyAssessment.self, GripStrengthReading.self,
+            configurations: ModelConfiguration(isStoredInMemoryOnly: true)
+        )
+        let context = container.mainContext
+
+        let assessment = DailyAssessment(date: Date())
+        context.insert(assessment)
+        try context.save()
+
+        XCTAssertEqual(assessment.gripStrengthReadings.count, 0)
+    }
+
+    @MainActor
+    func test_dailyAssessment_appendingGripReadingPersists() throws {
+        let container = try ModelContainer(
+            for: DailyAssessment.self, GripStrengthReading.self,
+            configurations: ModelConfiguration(isStoredInMemoryOnly: true)
+        )
+        let context = container.mainContext
+
+        let assessment = DailyAssessment(date: Date())
+        context.insert(assessment)
+
+        let reading = GripStrengthReading(valueKg: 40, hand: .right)
+        context.insert(reading)
+        assessment.gripStrengthReadings.append(reading)
+        try context.save()
+
+        let descriptor = FetchDescriptor<DailyAssessment>()
+        let fetched = try context.fetch(descriptor)
+        XCTAssertEqual(fetched.first?.gripStrengthReadings.count, 1)
+        XCTAssertEqual(fetched.first?.gripStrengthReadings.first?.valueKg, 40)
+    }
+
+    @MainActor
+    func test_dailyAssessment_deletingAssessmentCascadesReadings() throws {
+        let container = try ModelContainer(
+            for: DailyAssessment.self, GripStrengthReading.self,
+            configurations: ModelConfiguration(isStoredInMemoryOnly: true)
+        )
+        let context = container.mainContext
+
+        let assessment = DailyAssessment(date: Date())
+        context.insert(assessment)
+        let reading = GripStrengthReading(valueKg: 40, hand: .right)
+        context.insert(reading)
+        assessment.gripStrengthReadings.append(reading)
+        try context.save()
+
+        context.delete(assessment)
+        try context.save()
+
+        let readings = try context.fetch(FetchDescriptor<GripStrengthReading>())
+        XCTAssertEqual(readings.count, 0, "cascade delete should remove child readings")
+    }
 }
