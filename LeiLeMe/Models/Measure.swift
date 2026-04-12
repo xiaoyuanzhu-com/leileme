@@ -127,7 +127,12 @@ extension DailyAssessment {
     func value(for measure: Measure) -> Double? {
         switch measure {
         case .gripStrength:
-            return nil  // Stub — real aggregation in Task 5
+            let dominant = UserSettings.dominantHand
+            let onDominant = gripStrengthReadings.filter { $0.hand == dominant.rawValue }
+            guard let latest = onDominant.max(by: { $0.timestamp < $1.timestamp }) else {
+                return nil
+            }
+            return latest.valueKg
         case .hrvSDNN:
             return healthKitData?.hrvSDNN
         case .restingHeartRate:
