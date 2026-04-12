@@ -21,7 +21,7 @@ final class MeasureTests: XCTestCase {
     // MARK: - Measure enum coverage
 
     func testAllMeasuresCount() {
-        XCTAssertEqual(Measure.allCases.count, 9)
+        XCTAssertEqual(Measure.allCases.count, 10)
     }
 
     func testMeasureTypes() {
@@ -127,6 +127,7 @@ final class MeasureTests: XCTestCase {
 
     func testBaselineSnapshotValueExtraction() {
         let snapshot = BaselineEngine.BaselineSnapshot(
+            gripStrengthBaseline: 38.5,
             hrvBaseline: 45, rhrBaseline: 60, sleepDurationBaseline: 7.5,
             tapFrequencyBaseline: 4.9, rhythmStabilityBaseline: 0.12,
             reactionTimeBaseline: 300, reactionConsistencyBaseline: 20,
@@ -134,6 +135,7 @@ final class MeasureTests: XCTestCase {
             dayCount: 7
         )
 
+        XCTAssertEqual(snapshot.value(for: .gripStrength), 38.5)
         XCTAssertEqual(snapshot.value(for: .hrvSDNN), 45)
         XCTAssertEqual(snapshot.value(for: .restingHeartRate), 60)
         XCTAssertEqual(snapshot.value(for: .sleepDuration), 7.5)
@@ -172,5 +174,31 @@ final class MeasureTests: XCTestCase {
         XCTAssertEqual(sub.sleepQuality, 3)
         XCTAssertEqual(sub.muscleSoreness, 3)
         XCTAssertEqual(sub.energyLevel, 3)
+    }
+
+    // MARK: - Grip Strength enum invariants
+
+    func test_allCases_hasTenMeasures() {
+        XCTAssertEqual(Measure.allCases.count, 10)
+    }
+
+    func test_allCases_firstIsGripStrength() {
+        XCTAssertEqual(Measure.allCases.first, .gripStrength)
+    }
+
+    func test_gripStrength_hasManualLogType() {
+        XCTAssertEqual(Measure.gripStrength.type, .manualLog)
+    }
+
+    func test_gripStrength_higherIsBetterIsTrue() {
+        XCTAssertTrue(Measure.gripStrength.higherIsBetter)
+    }
+
+    func test_gripStrength_unitIsKg() {
+        XCTAssertEqual(Measure.gripStrength.unit, "kg")
+    }
+
+    func test_manualLogPromptText_isLogMessage() {
+        XCTAssertFalse(Measure.gripStrength.promptText.isEmpty)
     }
 }

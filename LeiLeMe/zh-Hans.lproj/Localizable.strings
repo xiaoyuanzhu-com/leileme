@@ -7,6 +7,7 @@
 
 // MARK: - Measure Names
 
+"measure.gripStrength.name" = "握力";
 "measure.hrvSDNN.name" = "心率变异性 (HRV)";
 "measure.restingHeartRate.name" = "静息心率 (RHR)";
 "measure.sleepDuration.name" = "睡眠时长";
@@ -19,6 +20,7 @@
 
 // MARK: - Measure Units
 
+"measure.unit.kg" = "kg";
 "measure.unit.ms" = "毫秒";
 "measure.unit.bpm" = "次/分";
 "measure.unit.hrs" = "小时";
@@ -28,6 +30,7 @@
 
 // MARK: - Measure Descriptions
 
+"measure.gripStrength.description" = "握力是整体体能储备与恢复状况的有力指标。用握力计测量,记录你的最佳表现。";
 "measure.hrvSDNN.description" = "心率变异性（HRV）衡量的是每次心跳之间微小的时间差异，反映你身体「休息与恢复」系统的工作状态。它被认为是恢复追踪的黄金标准——数值越高，说明你的神经系统韧性越强，越能应对压力。";
 "measure.restingHeartRate.description" = "静息心率是你完全放松时每分钟的心跳次数。当它低于你的日常基线时，说明心血管系统恢复良好。如果偏高，往往意味着压力、疾病或恢复不完全正在给身体带来额外负担。";
 "measure.sleepDuration.description" = "这是你的手机或手表记录的总睡眠时长。睡眠是身体进行修复的主要时间——肌肉重建、激素重新平衡、记忆巩固。大多数成年人需要 7-9 小时的睡眠，睡得越充足，恢复通常越好。";
@@ -48,6 +51,7 @@
 "measure.prompt.sync" = "点击同步";
 "measure.prompt.test" = "点击测试";
 "measure.prompt.rate" = "点击评分";
+"measure.prompt.log" = "记录一次";
 
 // MARK: - Measure Shared Test Notes
 

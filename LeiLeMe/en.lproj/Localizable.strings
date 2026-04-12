@@ -7,6 +7,7 @@
 
 // MARK: - Measure Names
 
+"measure.gripStrength.name" = "Grip Strength";
 "measure.hrvSDNN.name" = "HRV (SDNN)";
 "measure.restingHeartRate.name" = "Resting Heart Rate";
 "measure.sleepDuration.name" = "Sleep Duration";
@@ -19,6 +20,7 @@
 
 // MARK: - Measure Units
 
+"measure.unit.kg" = "kg";
 "measure.unit.ms" = "ms";
 "measure.unit.bpm" = "bpm";
 "measure.unit.hrs" = "hrs";
@@ -28,6 +30,7 @@
 
 // MARK: - Measure Descriptions
 
+"measure.gripStrength.description" = "Grip strength is a strong indicator of overall physical reserve and recovery. Measure with a dynamometer and log your best effort.";
 "measure.hrvSDNN.description" = "Heart rate variability measures the tiny differences in timing between each heartbeat — a sign of how well your body's rest-and-recover system is working. It's considered the gold standard for recovery tracking. A higher value means your nervous system is more resilient and ready to handle stress.";
 "measure.restingHeartRate.description" = "Your resting heart rate is how many times your heart beats per minute when you're fully at rest. When it's lower than your usual baseline, your cardiovascular system is well recovered. An elevated reading often signals that stress, illness, or incomplete recovery is putting extra load on your body.";
 "measure.sleepDuration.description" = "This is the total hours of sleep recorded from your phone or watch. Sleep is when your body does most of its repair work — muscles rebuild, hormones rebalance, and memories consolidate. Most adults need 7–9 hours, and more sleep generally means better recovery.";
@@ -48,6 +51,7 @@
 "measure.prompt.sync" = "Tap to sync";
 "measure.prompt.test" = "Tap to test";
 "measure.prompt.rate" = "Tap to rate";
+"measure.prompt.log" = "Log a reading";
 
 // MARK: - Measure Shared Test Notes
 

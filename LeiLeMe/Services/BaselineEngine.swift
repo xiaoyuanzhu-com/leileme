@@ -5,6 +5,7 @@ import SwiftData
 final class BaselineEngine {
 
     struct BaselineSnapshot {
+        var gripStrengthBaseline: Double?
         var hrvBaseline: Double?
         var rhrBaseline: Double?
         var sleepDurationBaseline: Double?
@@ -79,6 +80,7 @@ final class BaselineEngine {
         }
 
         return BaselineSnapshot(
+            gripStrengthBaseline: nil,  // Stub — real computation in Task 6
             hrvBaseline: Self.average(of: hrvValues),
             rhrBaseline: Self.average(of: rhrValues),
             sleepDurationBaseline: Self.average(of: sleepDurationValues),
@@ -97,6 +99,7 @@ final class BaselineEngine {
 
     private func emptySnapshot() -> BaselineSnapshot {
         BaselineSnapshot(
+            gripStrengthBaseline: nil,
             hrvBaseline: nil,
             rhrBaseline: nil,
             sleepDurationBaseline: nil,

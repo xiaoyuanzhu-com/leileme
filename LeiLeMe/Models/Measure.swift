@@ -1,13 +1,15 @@
 import Foundation
 
-/// Defines all 9 tracked measures with their metadata.
+/// Defines all 10 tracked measures with their metadata.
 enum MeasureType: String, Codable {
     case healthKit
     case activeTest
     case subjective
+    case manualLog
 }
 
 enum Measure: String, CaseIterable, Identifiable {
+    case gripStrength
     case hrvSDNN
     case restingHeartRate
     case sleepDuration
@@ -22,6 +24,7 @@ enum Measure: String, CaseIterable, Identifiable {
 
     var name: String {
         switch self {
+        case .gripStrength:      return String(localized: "measure.gripStrength.name")
         case .hrvSDNN:           return String(localized: "measure.hrvSDNN.name")
         case .restingHeartRate:  return String(localized: "measure.restingHeartRate.name")
         case .sleepDuration:     return String(localized: "measure.sleepDuration.name")
@@ -36,6 +39,7 @@ enum Measure: String, CaseIterable, Identifiable {
 
     var icon: String {
         switch self {
+        case .gripStrength:      return "hand.raised.fill"
         case .hrvSDNN:           return "waveform.path.ecg"
         case .restingHeartRate:  return "heart.fill"
         case .sleepDuration:     return "bed.double.fill"
@@ -50,6 +54,7 @@ enum Measure: String, CaseIterable, Identifiable {
 
     var unit: String {
         switch self {
+        case .gripStrength:      return String(localized: "measure.unit.kg")
         case .hrvSDNN:           return String(localized: "measure.unit.ms")
         case .restingHeartRate:  return String(localized: "measure.unit.bpm")
         case .sleepDuration:     return String(localized: "measure.unit.hrs")
@@ -64,6 +69,7 @@ enum Measure: String, CaseIterable, Identifiable {
 
     var higherIsBetter: Bool {
         switch self {
+        case .gripStrength:      return true
         case .hrvSDNN:           return true
         case .restingHeartRate:  return false
         case .sleepDuration:     return true
@@ -78,6 +84,8 @@ enum Measure: String, CaseIterable, Identifiable {
 
     var type: MeasureType {
         switch self {
+        case .gripStrength:
+            return .manualLog
         case .hrvSDNN, .restingHeartRate, .sleepDuration:
             return .healthKit
         case .tapFrequency, .tapStability, .reactionTime:
@@ -89,6 +97,7 @@ enum Measure: String, CaseIterable, Identifiable {
 
     var formatString: String {
         switch self {
+        case .gripStrength:      return "%.1f"
         case .hrvSDNN:           return "%.0f"
         case .restingHeartRate:  return "%.0f"
         case .sleepDuration:     return "%.1f"
@@ -106,6 +115,7 @@ enum Measure: String, CaseIterable, Identifiable {
         case .healthKit:   return String(localized: "measure.prompt.sync")
         case .activeTest:  return String(localized: "measure.prompt.test")
         case .subjective:  return String(localized: "measure.prompt.rate")
+        case .manualLog:   return String(localized: "measure.prompt.log")
         }
     }
 }
@@ -116,6 +126,8 @@ extension DailyAssessment {
     /// Extract today's value for a given measure.
     func value(for measure: Measure) -> Double? {
         switch measure {
+        case .gripStrength:
+            return nil  // Stub — real aggregation in Task 5
         case .hrvSDNN:
             return healthKitData?.hrvSDNN
         case .restingHeartRate:
@@ -148,6 +160,7 @@ extension BaselineEngine.BaselineSnapshot {
     /// Extract the baseline value for a given measure.
     func value(for measure: Measure) -> Double? {
         switch measure {
+        case .gripStrength:      return gripStrengthBaseline
         case .hrvSDNN:           return hrvBaseline
         case .restingHeartRate:  return rhrBaseline
         case .sleepDuration:     return sleepDurationBaseline
@@ -166,6 +179,7 @@ extension BaselineEngine.BaselineSnapshot {
 extension Measure {
     var description: String {
         switch self {
+        case .gripStrength:     return String(localized: "measure.gripStrength.description")
         case .hrvSDNN:          return String(localized: "measure.hrvSDNN.description")
         case .restingHeartRate: return String(localized: "measure.restingHeartRate.description")
         case .sleepDuration:    return String(localized: "measure.sleepDuration.description")

@@ -150,6 +150,8 @@ struct MeasureDetailView: View {
                 healthKitAction
             case .subjective:
                 subjectiveAction
+            case .manualLog:
+                manualLogAction
             }
         }
     }
@@ -190,6 +192,13 @@ struct MeasureDetailView: View {
         default:
             EmptyView()
         }
+    }
+
+    // MARK: Manual Log Action
+
+    @ViewBuilder
+    private var manualLogAction: some View {
+        EmptyView()
     }
 
     // MARK: HealthKit Action

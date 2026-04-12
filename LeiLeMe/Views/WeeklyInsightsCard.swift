@@ -247,6 +247,7 @@ struct WeeklyInsightsCard: View {
         case .healthKit: return .wellnessGreen
         case .activeTest: return .wellnessTeal
         case .subjective: return .wellnessAmber
+        case .manualLog: return .wellnessBlue
         }
     }
 }

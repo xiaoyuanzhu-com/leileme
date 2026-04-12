@@ -56,6 +56,7 @@ struct DataExporter {
     ) -> String {
         let headers = [
             "Date",
+            "Grip Strength [kg]",
             "HRV (SDNN) [ms]",
             "Resting Heart Rate [bpm]",
             "Sleep Duration [hrs]",
