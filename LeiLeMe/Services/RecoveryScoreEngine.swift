@@ -22,7 +22,7 @@ struct RecoveryScoreEngine {
     }
 
     /// Total number of scored dimensions.
-    static let dimensionCount = 9
+    static let dimensionCount = 10
 
     // MARK: - Public
 
@@ -63,6 +63,10 @@ struct RecoveryScoreEngine {
         }()
 
         let dims: [Dimension] = [
+            Dimension(name: "Grip Strength",
+                      todayValue: assessment.value(for: .gripStrength),
+                      baselineValue: baseline.gripStrengthBaseline,
+                      weight: 20, higherIsBetter: true),
             Dimension(name: "HRV",
                       todayValue: assessment.healthKitData?.hrvSDNN,
                       baselineValue: baseline.hrvBaseline,

@@ -9,6 +9,7 @@ final class RecoveryScoreEngineTests: XCTestCase {
 
     @MainActor
     override func setUp() async throws {
+        UserDefaults.standard.removeObject(forKey: "dominantHand")
         container = try TestHelpers.makeContainer()
         context = container.mainContext
     }
@@ -16,6 +17,7 @@ final class RecoveryScoreEngineTests: XCTestCase {
     override func tearDown() {
         container = nil
         context = nil
+        UserDefaults.standard.removeObject(forKey: "dominantHand")
     }
 
     // MARK: - Baseline building period (< 3 days)
@@ -61,7 +63,7 @@ final class RecoveryScoreEngineTests: XCTestCase {
         let result = RecoveryScoreEngine.evaluate(assessment: assessment, baseline: baseline)
         XCTAssertEqual(result.score, 100, accuracy: 2.0, "Score should be ~100 when today matches baseline")
         XCTAssertEqual(result.availableDimensions, 9)
-        XCTAssertEqual(result.totalDimensions, 9)
+        XCTAssertEqual(result.totalDimensions, 10)
     }
 
     // MARK: - Better than baseline (score > 100)
@@ -264,8 +266,41 @@ final class RecoveryScoreEngineTests: XCTestCase {
 
     // MARK: - Dimension count
 
+    func test_dimensionCount_isTen() {
+        XCTAssertEqual(RecoveryScoreEngine.dimensionCount, 10)
+    }
+
+    // MARK: - Grip strength dimension
+
     @MainActor
-    func testDimensionCountIs9() {
-        XCTAssertEqual(RecoveryScoreEngine.dimensionCount, 9)
+    func test_evaluate_includesGripStrengthDimension() throws {
+        UserSettings.dominantHand = .right
+
+        let assessment = DailyAssessment(date: Date())
+        context.insert(assessment)
+        let reading = GripStrengthReading(valueKg: 50, hand: .right)
+        context.insert(reading)
+        assessment.gripStrengthReadings.append(reading)
+        try context.save()
+
+        let baseline = BaselineEngine.BaselineSnapshot(
+            gripStrengthBaseline: 45,
+            hrvBaseline: nil,
+            rhrBaseline: nil,
+            sleepDurationBaseline: nil,
+            tapFrequencyBaseline: nil,
+            rhythmStabilityBaseline: nil,
+            reactionTimeBaseline: nil,
+            reactionConsistencyBaseline: nil,
+            sleepQualityBaseline: nil,
+            sorenessBaseline: nil,
+            energyBaseline: nil,
+            dayCount: 5
+        )
+
+        let result = RecoveryScoreEngine.evaluate(assessment: assessment, baseline: baseline)
+
+        XCTAssertEqual(result.availableDimensions, 1)
+        XCTAssertEqual(result.score, (50.0 / 45.0) * 100.0, accuracy: 0.5)
     }
 }
