@@ -16,6 +16,7 @@ enum TestHelpers {
                  TapTestResult.self,
                  ReactionTimeResult.self,
                  SubjectiveAssessment.self,
+                 GripStrengthReading.self,
                  StreakRecord.self,
             configurations: config
         )

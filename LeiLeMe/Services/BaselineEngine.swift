@@ -49,6 +49,7 @@ final class BaselineEngine {
         var sleepQualityValues: [Double] = []
         var sorenessValues: [Double] = []
         var energyValues: [Double] = []
+        var gripStrengthValues: [Double] = []
 
         for assessment in recent {
             // HealthKit
@@ -77,10 +78,15 @@ final class BaselineEngine {
                 sorenessValues.append(Double(sub.muscleSoreness))
                 energyValues.append(Double(sub.energyLevel))
             }
+
+            // Grip strength
+            if let grip = assessment.value(for: .gripStrength) {
+                gripStrengthValues.append(grip)
+            }
         }
 
         return BaselineSnapshot(
-            gripStrengthBaseline: nil,  // Stub — real computation in Task 6
+            gripStrengthBaseline: Self.average(of: gripStrengthValues),
             hrvBaseline: Self.average(of: hrvValues),
             rhrBaseline: Self.average(of: rhrValues),
             sleepDurationBaseline: Self.average(of: sleepDurationValues),

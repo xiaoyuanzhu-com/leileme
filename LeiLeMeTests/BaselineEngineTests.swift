@@ -165,4 +165,63 @@ final class BaselineEngineTests: XCTestCase {
         XCTAssertEqual(snapshot.dayCount, 7)
         XCTAssertEqual(snapshot.hrvBaseline!, 44.0, accuracy: 0.01)
     }
+
+    // MARK: - Grip strength baseline
+
+    @MainActor
+    func test_baseline_includesGripStrengthRollingMean() throws {
+        let savedHand = UserSettings.dominantHand
+        UserSettings.dominantHand = .right
+        defer { UserSettings.dominantHand = savedHand }
+
+        let calendar = Calendar.current
+        let today = calendar.startOfDay(for: Date())
+
+        func assessment(daysAgo: Int, gripKg: Double) -> DailyAssessment {
+            let date = calendar.date(byAdding: .day, value: -daysAgo, to: today)!
+            let a = DailyAssessment(date: date)
+            let reading = GripStrengthReading(
+                valueKg: gripKg,
+                hand: .right,
+                timestamp: date.addingTimeInterval(3600)
+            )
+            context.insert(a)
+            context.insert(reading)
+            a.gripStrengthReadings.append(reading)
+            return a
+        }
+
+        let assessments = [
+            assessment(daysAgo: 1, gripKg: 40),
+            assessment(daysAgo: 2, gripKg: 42),
+            assessment(daysAgo: 3, gripKg: 44),
+        ]
+        try context.save()
+
+        let snapshot = BaselineEngine().computeBaseline(from: assessments)
+        let grip = try XCTUnwrap(snapshot.gripStrengthBaseline)
+        XCTAssertEqual(grip, 42, accuracy: 0.01)
+    }
+
+    @MainActor
+    func test_baseline_gripStrengthIsNil_whenNoDominantReadings() throws {
+        let savedHand = UserSettings.dominantHand
+        UserSettings.dominantHand = .right
+        defer { UserSettings.dominantHand = savedHand }
+
+        let calendar = Calendar.current
+        let today = calendar.startOfDay(for: Date())
+        let yesterday = calendar.date(byAdding: .day, value: -1, to: today)!
+        let a = DailyAssessment(date: yesterday)
+        let leftReading = GripStrengthReading(
+            valueKg: 40, hand: .left, timestamp: yesterday.addingTimeInterval(3600)
+        )
+        context.insert(a)
+        context.insert(leftReading)
+        a.gripStrengthReadings.append(leftReading)
+        try context.save()
+
+        let snapshot = BaselineEngine().computeBaseline(from: [a])
+        XCTAssertNil(snapshot.gripStrengthBaseline)
+    }
 }
