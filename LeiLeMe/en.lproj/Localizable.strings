@@ -380,3 +380,24 @@
 "export.header.muscleSoreness" = "Muscle Soreness [1-5]";
 "export.header.energyLevel" = "Energy Level [1-5]";
 "export.header.recoveryScore" = "Recovery Score [0-120]";
+
+// MARK: - Grip Strength Settings
+
+"settings.gripStrength.section" = "Grip Strength";
+"settings.gripStrength.dominantHand.title" = "Dominant hand";
+"settings.gripStrength.dominantHand.left" = "Left";
+"settings.gripStrength.dominantHand.right" = "Right";
+
+// MARK: - Grip Strength Logging UI
+
+"gripStrength.add.title" = "Log grip strength";
+"gripStrength.add.valueLabel" = "Value";
+"gripStrength.add.handLabel" = "Hand";
+"gripStrength.add.timeLabel" = "Time";
+"gripStrength.add.save" = "Save";
+"gripStrength.add.cancel" = "Cancel";
+"gripStrength.add.button" = "+ Log a reading";
+"gripStrength.today.title" = "Today's readings";
+"gripStrength.today.empty" = "No readings logged today";
+"gripStrength.hand.left.short" = "L";
+"gripStrength.hand.right.short" = "R";

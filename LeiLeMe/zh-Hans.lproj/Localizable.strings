@@ -380,3 +380,24 @@
 "export.header.muscleSoreness" = "肌肉酸痛感 [1-5]";
 "export.header.energyLevel" = "精力状态 [1-5]";
 "export.header.recoveryScore" = "恢复评分 [0-120]";
+
+// MARK: - 握力设置
+
+"settings.gripStrength.section" = "握力";
+"settings.gripStrength.dominantHand.title" = "惯用手";
+"settings.gripStrength.dominantHand.left" = "左手";
+"settings.gripStrength.dominantHand.right" = "右手";
+
+// MARK: - 握力记录界面
+
+"gripStrength.add.title" = "记录握力";
+"gripStrength.add.valueLabel" = "数值";
+"gripStrength.add.handLabel" = "哪只手";
+"gripStrength.add.timeLabel" = "时间";
+"gripStrength.add.save" = "保存";
+"gripStrength.add.cancel" = "取消";
+"gripStrength.add.button" = "+ 记录一次";
+"gripStrength.today.title" = "今日读数";
+"gripStrength.today.empty" = "今天还没记录";
+"gripStrength.hand.left.short" = "左";
+"gripStrength.hand.right.short" = "右";
