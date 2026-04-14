@@ -42,6 +42,7 @@
 		AA000100 /* DataExporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA100100 /* DataExporter.swift */; };
 		AA000110 /* UserSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA100110 /* UserSettings.swift */; };
 		AA000120 /* GripStrengthReading.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA100120 /* GripStrengthReading.swift */; };
+		AA000130 /* GripStrengthLogSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA100130 /* GripStrengthLogSheet.swift */; };
 		AA000200 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = AA100210 /* Localizable.strings */; };
 		AA000201 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = AA100211 /* InfoPlist.strings */; };
 		BB000001 /* TestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB100001 /* TestHelpers.swift */; };
@@ -106,6 +107,7 @@
 		AA100100 /* DataExporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataExporter.swift; sourceTree = "<group>"; };
 		AA100110 /* UserSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettings.swift; sourceTree = "<group>"; };
 		AA100120 /* GripStrengthReading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GripStrengthReading.swift; sourceTree = "<group>"; };
+		AA100130 /* GripStrengthLogSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GripStrengthLogSheet.swift; sourceTree = "<group>"; };
 		AA100200 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		AA100201 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		AA100202 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -184,6 +186,7 @@
 				AA100082 /* StreakBadge.swift */,
 				AA100090 /* CompletionCelebrationView.swift */,
 				AA100092 /* WeeklyInsightsCard.swift */,
+				AA100130 /* GripStrengthLogSheet.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -392,6 +395,7 @@
 				AA000092 /* WeeklyInsightsCard.swift in Sources */,
 				AA000110 /* UserSettings.swift in Sources */,
 				AA000120 /* GripStrengthReading.swift in Sources */,
+				AA000130 /* GripStrengthLogSheet.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
