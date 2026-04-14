@@ -10,6 +10,7 @@ struct SettingsTab: View {
     @State private var showRecalibrateConfirmation = false
     @State private var showClearDataConfirmation = false
     @State private var showRecalibrateExplanation = false
+    @State private var dominantHand: Hand = UserSettings.dominantHand
     @State private var exportFormat: DataExporter.ExportFormat = .csv
     @State private var showExportSheet = false
     @State private var exportFileURL: URL?
@@ -32,6 +33,7 @@ struct SettingsTab: View {
                 baselineSection
                 healthKitSection
                 dataSection
+                gripStrengthSection
                 exportSection
                 recalibrateSection
                 aboutSection
@@ -222,6 +224,23 @@ struct SettingsTab: View {
             }
         } header: {
             Text(String(localized: "settings.data"))
+        }
+    }
+
+    // MARK: - Grip Strength Section
+
+    private var gripStrengthSection: some View {
+        Section {
+            Picker(String(localized: "settings.gripStrength.dominantHand.title"), selection: $dominantHand) {
+                Text(String(localized: "settings.gripStrength.dominantHand.left")).tag(Hand.left)
+                Text(String(localized: "settings.gripStrength.dominantHand.right")).tag(Hand.right)
+            }
+            .pickerStyle(.segmented)
+            .onChange(of: dominantHand) { _, newValue in
+                UserSettings.dominantHand = newValue
+            }
+        } header: {
+            Text(String(localized: "settings.gripStrength.section"))
         }
     }
 
