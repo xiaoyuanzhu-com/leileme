@@ -132,6 +132,17 @@ struct DataExporter {
             }
             record["measures"] = measures
 
+            let readings: [[String: Any]] = assessment.gripStrengthReadings.map { reading in
+                return [
+                    "valueKg": reading.valueKg,
+                    "hand": reading.hand,
+                    "timestamp": ISO8601DateFormatter().string(from: reading.timestamp)
+                ]
+            }
+            if !readings.isEmpty {
+                record["gripStrengthReadings"] = readings
+            }
+
             if recovery.availableDimensions > 0 {
                 record["recoveryScore"] = Double(String(format: "%.1f", recovery.score))
             }

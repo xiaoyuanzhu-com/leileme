@@ -121,6 +121,76 @@ final class DataExporterTests: XCTestCase {
         XCTAssertEqual(DataExporter.ExportFormat.json.mimeType, "application/json")
     }
 
+    // MARK: - Grip Strength in CSV
+
+    @MainActor
+    func test_csv_includesGripStrengthColumn() throws {
+        UserSettings.dominantHand = .right
+
+        let assessment = DailyAssessment(date: Date())
+        context.insert(assessment)
+        let reading = GripStrengthReading(valueKg: 42, hand: .right)
+        context.insert(reading)
+        assessment.gripStrengthReadings.append(reading)
+        try context.save()
+
+        let baseline = BaselineEngine.BaselineSnapshot(
+            gripStrengthBaseline: nil, hrvBaseline: nil, rhrBaseline: nil,
+            sleepDurationBaseline: nil, tapFrequencyBaseline: nil,
+            rhythmStabilityBaseline: nil, reactionTimeBaseline: nil,
+            reactionConsistencyBaseline: nil, sleepQualityBaseline: nil,
+            sorenessBaseline: nil, energyBaseline: nil, dayCount: 0
+        )
+
+        let url = DataExporter.export(
+            assessments: [assessment], format: .csv, baseline: baseline
+        )
+        XCTAssertNotNil(url)
+        let content = try String(contentsOf: url!)
+        XCTAssertTrue(content.contains("Grip Strength [kg]"), "CSV header missing grip strength column")
+        XCTAssertTrue(content.contains("42.0"), "CSV row missing grip strength value")
+
+        try? FileManager.default.removeItem(at: url!)
+    }
+
+    // MARK: - Grip Strength in JSON
+
+    @MainActor
+    func test_json_includesRawGripStrengthReadings() throws {
+        UserSettings.dominantHand = .right
+
+        let assessment = DailyAssessment(date: Date())
+        context.insert(assessment)
+        let r1 = GripStrengthReading(valueKg: 40, hand: .right,
+                                     timestamp: Date(timeIntervalSince1970: 1_700_000_000))
+        let r2 = GripStrengthReading(valueKg: 35, hand: .left,
+                                     timestamp: Date(timeIntervalSince1970: 1_700_000_100))
+        context.insert(r1)
+        context.insert(r2)
+        assessment.gripStrengthReadings.append(r1)
+        assessment.gripStrengthReadings.append(r2)
+        try context.save()
+
+        let baseline = BaselineEngine.BaselineSnapshot(
+            gripStrengthBaseline: nil, hrvBaseline: nil, rhrBaseline: nil,
+            sleepDurationBaseline: nil, tapFrequencyBaseline: nil,
+            rhythmStabilityBaseline: nil, reactionTimeBaseline: nil,
+            reactionConsistencyBaseline: nil, sleepQualityBaseline: nil,
+            sorenessBaseline: nil, energyBaseline: nil, dayCount: 0
+        )
+
+        let url = DataExporter.export(
+            assessments: [assessment], format: .json, baseline: baseline
+        )
+        XCTAssertNotNil(url)
+        let content = try String(contentsOf: url!)
+        XCTAssertTrue(content.contains("gripStrengthReadings"), "JSON missing raw readings key")
+        XCTAssertTrue(content.contains("\"left\""), "JSON missing non-dominant reading")
+        XCTAssertTrue(content.contains("\"right\""), "JSON missing dominant reading")
+
+        try? FileManager.default.removeItem(at: url!)
+    }
+
     // MARK: - Helper
 
     private func makeBaseline() -> BaselineEngine.BaselineSnapshot {
