@@ -88,6 +88,19 @@ class AssessmentStore {
         try? modelContext.save()
     }
 
+    func addGripStrengthReading(valueKg: Double, hand: Hand, timestamp: Date = Date()) {
+        let assessment = todayAssessment()
+        let reading = GripStrengthReading(valueKg: valueKg, hand: hand, timestamp: timestamp)
+        modelContext.insert(reading)
+        assessment.gripStrengthReadings.append(reading)
+        try? modelContext.save()
+    }
+
+    func deleteGripStrengthReading(_ reading: GripStrengthReading) {
+        modelContext.delete(reading)
+        try? modelContext.save()
+    }
+
     // MARK: - Query helpers
 
     func hasDataToday(for measure: Measure) -> Bool {
