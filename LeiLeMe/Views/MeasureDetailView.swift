@@ -15,6 +15,7 @@ struct MeasureDetailView: View {
     @AppStorage private var aboutExpanded: Bool
 
     @State private var showingTest = false
+    @State private var showingLogSheet = false
     @State private var isSyncing = false
     @State private var syncError: String?
 
@@ -198,7 +199,88 @@ struct MeasureDetailView: View {
 
     @ViewBuilder
     private var manualLogAction: some View {
-        EmptyView()
+        VStack(spacing: AppSpacing.md) {
+            Button {
+                showingLogSheet = true
+            } label: {
+                Label(
+                    String(localized: "gripStrength.add.button"),
+                    systemImage: "plus.circle.fill"
+                )
+            }
+            .buttonStyle(PrimaryButtonStyle())
+            .sheet(isPresented: $showingLogSheet) {
+                GripStrengthLogSheet()
+            }
+
+            todayReadingsList
+        }
+    }
+
+    @ViewBuilder
+    private var todayReadingsList: some View {
+        let readings = (todayAssessment?.gripStrengthReadings ?? [])
+            .sorted { $0.timestamp > $1.timestamp }
+
+        VStack(alignment: .leading, spacing: AppSpacing.sm) {
+            Text(String(localized: "gripStrength.today.title"))
+                .font(.subheadline.weight(.semibold))
+                .foregroundStyle(.secondary)
+                .padding(.horizontal, AppSpacing.xs)
+
+            if readings.isEmpty {
+                Text(String(localized: "gripStrength.today.empty"))
+                    .font(.caption)
+                    .foregroundStyle(.tertiary)
+                    .padding(.horizontal, AppSpacing.xs)
+            } else {
+                VStack(spacing: 0) {
+                    ForEach(readings) { reading in
+                        gripReadingRow(reading)
+                        if reading.id != readings.last?.id {
+                            Divider().padding(.leading, AppSpacing.md)
+                        }
+                    }
+                }
+                .background(Color.cardBackground)
+                .clipShape(RoundedRectangle(cornerRadius: 14, style: .continuous))
+            }
+        }
+    }
+
+    @ViewBuilder
+    private func gripReadingRow(_ reading: GripStrengthReading) -> some View {
+        HStack(spacing: AppSpacing.md) {
+            Text(String(format: "%.1f", reading.valueKg))
+                .font(.body.weight(.medium).monospacedDigit())
+            Text(String(localized: "measure.unit.kg"))
+                .font(.caption)
+                .foregroundStyle(.secondary)
+
+            Text(reading.hand == "left"
+                 ? String(localized: "gripStrength.hand.left.short")
+                 : String(localized: "gripStrength.hand.right.short"))
+                .font(.caption.weight(.semibold))
+                .padding(.horizontal, 6)
+                .padding(.vertical, 2)
+                .background(Color.wellnessTeal.opacity(0.15))
+                .clipShape(Capsule())
+
+            Spacer()
+
+            Text(reading.timestamp.formatted(date: .omitted, time: .shortened))
+                .font(.caption)
+                .foregroundStyle(.tertiary)
+
+            Button {
+                assessmentStore?.deleteGripStrengthReading(reading)
+            } label: {
+                Image(systemName: "trash")
+                    .foregroundStyle(.red.opacity(0.7))
+            }
+            .buttonStyle(.plain)
+        }
+        .padding(AppSpacing.md)
     }
 
     // MARK: HealthKit Action
